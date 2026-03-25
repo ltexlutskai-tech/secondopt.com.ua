@@ -227,7 +227,7 @@ ul { list-style: none; }
   content: '';
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  height: 120px;
+  height: 40px;
   background: linear-gradient(to top, var(--light-bg), transparent);
   z-index: 1;
 }
@@ -1072,16 +1072,60 @@ select:invalid.touched {
         <label for="popup-phone">Телефон</label>
         <input type="tel" id="popup-phone" name="phone" placeholder="+380 XX XXX XX XX" required>
       </div>
+      <div class="form-group">
+        <label for="popup-region">Регіон (Місто, Область)</label>
+        <input type="text" id="popup-region" name="region" placeholder="Луцьк, Волинська обл.">
+      </div>
       <button type="submit" class="form-submit-btn">Передзвоніть мені <i class="fas fa-phone"></i></button>
       <div class="form-success" id="popupSuccess">&#10003; Чудово! Очікуйте дзвінка.</div>
     </form>
     <div class="popup-alt">
       або напишіть одразу &rarr;
       <div>
-        <a href="https://t.me/LTEX_Second" target="_blank" rel="noopener" class="tg-link" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
-        <a href="https://invite.viber.com/?g2=AQA%2Fxgye6%2BDx3El3Qybx4jkoK8aeVPb7x8On05U2OUZu92jUbrIS16QpCXAnJXHq" target="_blank" rel="noopener" class="vb-link" aria-label="Viber"><i class="fab fa-viber"></i></a>
+        <a href="https://t.me/TarasKuzenko" target="_blank" rel="noopener" class="tg-link" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+        <a href="viber://chat?number=%2B380676710515" target="_blank" rel="noopener" class="vb-link" aria-label="Viber"><i class="fab fa-viber"></i></a>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- CATALOG REQUEST MODAL -->
+<div class="popup-overlay" id="catalogModalOverlay">
+  <div class="popup">
+    <button class="popup-close" id="catalogModalClose" aria-label="Закрити">&times;</button>
+    <h2>Отримайте доступ до каталогу</h2>
+    <p class="popup-sub">Залиште контакти — ми відкриємо онлайн-каталог із 600+ позицій</p>
+    <form id="catalogModalForm">
+      <input type="hidden" name="_subject" value="Запит на каталог з secondopt.com.ua">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+      <div class="form-group">
+        <label for="cm-name">Ваше ім'я *</label>
+        <input type="text" id="cm-name" name="name" placeholder="Олена" required>
+      </div>
+      <div class="form-group">
+        <label for="cm-phone">Телефон *</label>
+        <input type="tel" id="cm-phone" name="phone" placeholder="+380 XX XXX XX XX" required>
+      </div>
+      <div class="form-group">
+        <label for="cm-region">Регіон (Місто, Область)</label>
+        <input type="text" id="cm-region" name="region" placeholder="Луцьк, Волинська обл.">
+      </div>
+      <div class="form-group">
+        <label for="cm-category">Яка категорія цікавить? *</label>
+        <select id="cm-category" name="category" required>
+          <option value="">Оберіть категорію</option>
+          <option>Одяг</option>
+          <option>Взуття</option>
+          <option>Сумки та аксесуари</option>
+          <option>Дім та побут</option>
+          <option>Іграшки</option>
+          <option>Bric-a-Brac</option>
+          <option>Косметика</option>
+        </select>
+      </div>
+      <button type="submit" class="form-submit-btn">Відкрити каталог <i class="fas fa-box-open"></i></button>
+      <div class="form-success" id="catalogModalSuccess">&#10003; Дякуємо! Перенаправляємо на каталог...</div>
+    </form>
   </div>
 </div>
 
@@ -1091,11 +1135,11 @@ select:invalid.touched {
     <i class="fas fa-phone"></i>
     <span class="float-tooltip">Зателефонувати</span>
   </a>
-  <a href="https://t.me/LTEX_Second" target="_blank" rel="noopener" class="float-btn tg" aria-label="Telegram">
+  <a href="https://t.me/TarasKuzenko" target="_blank" rel="noopener" class="float-btn tg" aria-label="Telegram">
     <i class="fab fa-telegram-plane"></i>
     <span class="float-tooltip">Telegram</span>
   </a>
-  <a href="https://invite.viber.com/?g2=AQA%2Fxgye6%2BDx3El3Qybx4jkoK8aeVPb7x8On05U2OUZu92jUbrIS16QpCXAnJXHq" target="_blank" rel="noopener" class="float-btn vb" aria-label="Viber">
+  <a href="viber://chat?number=%2B380676710515" target="_blank" rel="noopener" class="float-btn vb" aria-label="Viber">
     <i class="fab fa-viber"></i>
     <span class="float-tooltip">Viber</span>
   </a>
@@ -1111,7 +1155,7 @@ select:invalid.touched {
       <p class="hero-sub">Якісний одяг, взуття та аксесуари для вашого бізнесу. Від 10 кг.</p>
       <div class="hero-buttons">
         <button class="btn btn-gold" id="heroCatalogBtn"><i class="fas fa-box-open"></i> Отримати каталог</button>
-        <a href="https://t.me/LTEX_Second" target="_blank" rel="noopener" class="btn btn-outline"><i class="fab fa-telegram-plane"></i> Написати в Telegram &rarr;</a>
+        <a href="https://t.me/TarasKuzenko" target="_blank" rel="noopener" class="btn btn-outline"><i class="fab fa-telegram-plane"></i> Написати в Telegram &rarr;</a>
       </div>
       <div class="counters">
         <div class="counter">
@@ -1192,7 +1236,7 @@ select:invalid.touched {
       </div>
       <div class="cat-card has-photos"
            data-cat="Взуття"
-           data-photos="images/(1386).jpg|images/0028.jpg|images/0032.jpg|images/0036.jpg|images/0038.jpg|images/0048.jpg|images/0710.jpg|images/1378.jpg"
+           data-photos="images/%281386%29.jpg|images/0028.jpg|images/0032.jpg|images/0036.jpg|images/0038.jpg|images/0048.jpg|images/0710.jpg|images/1378.jpg"
            data-labels="Кросівки HOKA|Тапочки та капці|Сандалі та шльопанці|Зимові чоботи|Кеди та кросівки|Гумові дитячі|Кросівки різні|Сандалі та crocs">
         <span class="photo-badge">&#128247; 8 фото</span>
         <div class="cat-emoji">&#128095;</div>
@@ -1242,7 +1286,7 @@ select:invalid.touched {
       </div>
     </div>
     <div class="catalog-cta reveal">
-      <a href="https://ltexlutskai-tech.github.io/catalog-full/index.html" target="_blank" rel="noopener" class="btn btn-gold"><i class="fas fa-external-link-alt"></i> Переглянути онлайн-каталог &rarr;</a>
+      <button class="btn btn-gold" id="catalogViewBtn"><i class="fas fa-external-link-alt"></i> Переглянути онлайн-каталог &rarr;</button>
     </div>
   </div>
 </section>
@@ -1505,7 +1549,7 @@ select:invalid.touched {
           <a href="https://invite.viber.com/?g2=AQA%2Fxgye6%2BDx3El3Qybx4jkoK8aeVPb7x8On05U2OUZu92jUbrIS16QpCXAnJXHq" target="_blank" rel="noopener" class="social-btn viber">
             <i class="fab fa-viber"></i> Viber-група
           </a>
-          <a href="https://t.me/LTEX_Second" target="_blank" rel="noopener" class="social-btn telegram">
+          <a href="https://t.me/TarasKuzenko" target="_blank" rel="noopener" class="social-btn telegram">
             <i class="fab fa-telegram-plane"></i> Telegram
           </a>
           <a href="https://www.facebook.com/LTEXsecond" target="_blank" rel="noopener" class="social-btn facebook">
@@ -1534,7 +1578,7 @@ select:invalid.touched {
     <p class="footer-tagline">Секонд-хенд та сток гуртом — якість з Європи</p>
     <div class="footer-links">
       <a href="https://ltexlutskai-tech.github.io/catalog-full/index.html" target="_blank" rel="noopener">Каталог</a>
-      <a href="https://t.me/LTEX_Second" target="_blank" rel="noopener">Telegram</a>
+      <a href="https://t.me/TarasKuzenko" target="_blank" rel="noopener">Telegram</a>
       <a href="https://instagram.com/ltex_secondopt" target="_blank" rel="noopener">Instagram</a>
       <a href="https://www.youtube.com/channel/UCbBvZnTCTQ2zTpU1z1DSErQ" target="_blank" rel="noopener">YouTube</a>
     </div>
@@ -1600,8 +1644,7 @@ select:invalid.touched {
     }, 15000);
   }
 
-  // CTA buttons open popup
-  document.getElementById('heroCatalogBtn').addEventListener('click', openPopup);
+  // CTA buttons — heroCatalogBtn handled by catalog modal JS below
 
   // === FORM SUBMISSION ===
   function submitForm(form, successEl, subject) {
@@ -1705,6 +1748,96 @@ select:invalid.touched {
 
 })();
 
+// === CATALOG MODAL ===
+(function() {
+  var cmOverlay = document.getElementById('catalogModalOverlay');
+  var cmClose = document.getElementById('catalogModalClose');
+  var cmForm = document.getElementById('catalogModalForm');
+  var cmSuccess = document.getElementById('catalogModalSuccess');
+  var catalogURL = 'https://ltexlutskai-tech.github.io/catalog-full/index.html';
+
+  function openCatalogModal() {
+    cmOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCatalogModal() {
+    cmOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  cmClose.addEventListener('click', closeCatalogModal);
+  cmOverlay.addEventListener('click', function(e) {
+    if (e.target === cmOverlay) closeCatalogModal();
+  });
+
+  // Hero "Отримати каталог" button
+  document.getElementById('heroCatalogBtn').addEventListener('click', openCatalogModal);
+
+  // "Переглянути онлайн-каталог" button
+  var catalogViewBtn = document.getElementById('catalogViewBtn');
+  if (catalogViewBtn) catalogViewBtn.addEventListener('click', openCatalogModal);
+
+  // Form submit
+  cmForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    cmForm.querySelectorAll('input, select').forEach(function(el) { el.classList.add('touched'); });
+    if (!cmForm.checkValidity()) return;
+
+    var data = new FormData(cmForm);
+    data.set('_subject', 'Запит на каталог з secondopt.com.ua');
+
+    fetch('https://formsubmit.co/ajax/ltex.lutsk.ai@gmail.com', {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(function(res) { return res.json(); })
+    .then(function() {
+      cmForm.style.display = 'none';
+      cmSuccess.classList.add('show');
+      setTimeout(function() {
+        window.open(catalogURL, '_blank');
+        closeCatalogModal();
+        cmForm.style.display = '';
+        cmSuccess.classList.remove('show');
+        cmForm.reset();
+      }, 1500);
+    })
+    .catch(function() {
+      alert('Виникла помилка. Спробуйте ще раз.');
+    });
+  });
+
+  // Phone mask for new fields
+  cmForm.querySelectorAll('input[type="tel"]').forEach(function(input) {
+    input.addEventListener('input', function() {
+      var val = input.value.replace(/[^\d+]/g, '');
+      if (val.length > 0 && val[0] !== '+') val = '+' + val;
+      input.value = val;
+    });
+  });
+  cmForm.querySelectorAll('input, select').forEach(function(el) {
+    el.addEventListener('blur', function() { el.classList.add('touched'); });
+  });
+})();
+</script>
+
+<!-- LIGHTBOX -->
+<div id="lightboxOverlay" role="dialog" aria-modal="true" aria-label="Перегляд фото">
+  <button class="lb-close" id="lbClose" aria-label="Закрити">&times;</button>
+  <div class="lb-title" id="lbTitle"></div>
+  <div class="lb-stage">
+    <button class="lb-btn lb-prev" id="lbPrev" aria-label="Попереднє">&#8249;</button>
+    <div class="lb-img-wrap">
+      <img id="lbImage" src="" alt="">
+    </div>
+    <button class="lb-btn lb-next" id="lbNext" aria-label="Наступне">&#8250;</button>
+  </div>
+  <div class="lb-dots" id="lbDots"></div>
+  <div class="lb-counter" id="lbCounter"></div>
+</div>
+
+<script>
 // === LIGHTBOX ===
 (function() {
   var overlay = document.getElementById('lightboxOverlay');
@@ -1787,19 +1920,5 @@ select:invalid.touched {
   });
 })();
 </script>
-<!-- LIGHTBOX -->
-<div id="lightboxOverlay" role="dialog" aria-modal="true" aria-label="Перегляд фото">
-  <button class="lb-close" id="lbClose" aria-label="Закрити">&times;</button>
-  <div class="lb-title" id="lbTitle"></div>
-  <div class="lb-stage">
-    <button class="lb-btn lb-prev" id="lbPrev" aria-label="Попереднє">&#8249;</button>
-    <div class="lb-img-wrap">
-      <img id="lbImage" src="" alt="">
-    </div>
-    <button class="lb-btn lb-next" id="lbNext" aria-label="Наступне">&#8250;</button>
-  </div>
-  <div class="lb-dots" id="lbDots"></div>
-  <div class="lb-counter" id="lbCounter"></div>
-</div>
 </body>
 </html>
