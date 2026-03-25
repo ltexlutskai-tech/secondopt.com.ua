@@ -27,11 +27,29 @@
 <meta name="author" content="L-TEX">
 <meta name="geo.region" content="UA-43">
 <meta name="geo.placename" content="Луцьк, Волинська область">
-<link rel="canonical" href="https://secondopt.com.ua">
+<link rel="canonical" href="https://secondopt.com.ua/">
+<link rel="alternate" hreflang="uk" href="https://secondopt.com.ua/">
+<link rel="alternate" hreflang="x-default" href="https://secondopt.com.ua/">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&family=Nunito+Sans:wght@400;600&display=swap">
+<meta name="format-detection" content="telephone=no">
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#1a7a3c">
+<meta name="msapplication-TileColor" content="#1a7a3c">
+<!-- DNS Prefetch -->
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://formsubmit.co">
+<!-- Preconnect & Preload -->
+<link rel="preload" as="style" fetchpriority="high" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&family=Nunito+Sans:wght@400;600&display=swap">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800;900&family=Nunito+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
@@ -1690,10 +1708,15 @@ select:invalid.touched {
           <i class="fas fa-envelope"></i>
           <div><a href="mailto:ltex.lutsk.ai@gmail.com">ltex.lutsk.ai@gmail.com</a></div>
         </div>
-        <div class="contact-item">
-          <i class="fas fa-location-dot"></i>
-          <div>с. Піддубці, вул. Київська 7,<br>Луцький р-н, Волинська обл.</div>
-        </div>
+        <address class="contact-item" itemscope itemtype="https://schema.org/PostalAddress" style="font-style:normal">
+          <i class="fas fa-location-dot" aria-hidden="true"></i>
+          <div>
+            <span itemprop="streetAddress">вул. Київська 7</span>,
+            <span itemprop="addressLocality">с. Піддубці</span>,<br>
+            <span itemprop="addressRegion">Волинська обл.</span>,
+            <span itemprop="addressCountry" content="UA">Україна</span>
+          </div>
+        </address>
         <div class="contact-item">
           <i class="fas fa-clock"></i>
           <div>Пн-Пт 9:00–18:00, Сб 9:00–14:00</div>
@@ -1721,6 +1744,16 @@ select:invalid.touched {
           </a>
         </div>
       </div>
+    </div>
+    <div class="map-wrap reveal" style="margin-top:40px;border-radius:16px;overflow:hidden;height:280px">
+      <iframe
+        src="https://maps.google.com/maps?q=%D1%81.+%D0%9F%D1%96%D0%B4%D0%B4%D1%83%D0%B1%D1%86%D1%96,+%D0%B2%D1%83%D0%BB.+%D0%9A%D0%B8%D1%97%D0%B2%D1%81%D1%8C%D0%BA%D0%B0+7,+%D0%9B%D1%83%D1%86%D1%8C%D0%BA%D0%B8%D0%B9+%D1%80%D0%B0%D0%B9%D0%BE%D0%BD,+%D0%92%D0%BE%D0%BB%D0%B8%D0%BD%D1%81%D1%8C%D0%BA%D0%B0+%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C&output=embed&hl=uk&z=14"
+        width="100%" height="280" style="border:0;display:block"
+        allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Місцезнаходження складу L-TEX — с. Піддубці, Волинська область"
+        aria-label="Карта розташування складу L-TEX">
+      </iframe>
     </div>
   </div>
 </section>
@@ -2037,7 +2070,10 @@ select:invalid.touched {
 
   function setSlide(idx) {
     current = (idx + photos.length) % photos.length;
-    lbImg.src = photos[current];
+    var src = photos[current];
+    var webpSrc = src.replace(/\.(jpg|jpeg|png)$/i, '.webp');
+    lbImg.src = webpSrc;
+    lbImg.onerror = function() { lbImg.src = src; lbImg.onerror = null; };
     lbImg.alt = labels[current] || catName;
     lbTitle.textContent = catName + (labels[current] ? ' \u2014 ' + labels[current] : '');
     lbCnt.textContent   = (current + 1) + ' / ' + photos.length;

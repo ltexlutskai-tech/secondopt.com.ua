@@ -1,0 +1,14 @@
+{
+  "name": "L-TEX — Секонд-хенд гуртом",
+  "short_name": "L-TEX",
+  "description": "Секонд-хенд та сток гуртом з Європи",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#0f1f14",
+  "theme_color": "#1a7a3c",
+  "lang": "uk",
+  "icons": [
+    { "src": "/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
