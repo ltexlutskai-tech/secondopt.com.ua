@@ -45,13 +45,23 @@
 <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 <link rel="dns-prefetch" href="https://formsubmit.co">
-<!-- Preconnect & Preload -->
-<link rel="preload" as="style" fetchpriority="high" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&family=Nunito+Sans:wght@400;600&display=swap">
+<!-- Preconnect -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800;900&family=Nunito+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- Google Fonts — non-blocking -->
+<link rel="preload" as="style" fetchpriority="high"
+      href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&family=Nunito+Sans:wght@400;600&family=JetBrains+Mono:wght@700&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&family=Nunito+Sans:wght@400;600&family=JetBrains+Mono:wght@700&display=swap">
+</noscript>
+<!-- Font Awesome — non-blocking -->
+<link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</noscript>
 <style>
 :root {
   --primary: #1a7a3c;
@@ -1046,6 +1056,7 @@ select:invalid.touched {
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
   .form-wrapper { grid-template-columns: 1fr; gap: 32px; }
   .contacts-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-facts > .container > div { grid-template-columns: 1fr !important; }
   .social-grid { grid-template-columns: 1fr; }
   .floating-btns { bottom: 16px; right: 16px; }
   .float-btn { width: 46px; height: 46px; font-size: 1.1rem; }
@@ -1183,6 +1194,19 @@ select:invalid.touched {
   }
 }
 </script>
+<!-- Google Analytics 4 — замінити G-XXXXXXXXXX на реальний Measurement ID -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX', {
+    'page_title': 'L-TEX — Секонд-хенд та сток гуртом',
+    'page_location': 'https://secondopt.com.ua/'
+  });
+</script>
+<!-- Google Search Console — замінити content на реальний код верифікації -->
+<!--<meta name="google-site-verification" content="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX">-->
 </head>
 <body>
 
@@ -1191,13 +1215,13 @@ select:invalid.touched {
   <div class="container">
     <a href="#hero" class="logo">L-TEX<span>секонд-хенд гуртом</span></a>
     <nav class="nav">
-      <a href="#advantages">Про нас</a>
+      <a href="#about">Про нас</a>
       <a href="#catalog">Товари</a>
       <a href="#how-work">Як працюємо</a>
       <a href="#reviews">Відгуки</a>
       <a href="#contacts">Контакти</a>
     </nav>
-    <a href="tel:+380676710515" class="header-cta"><i class="fas fa-phone"></i> Зателефонувати</a>
+    <a href="tel:+380676710515" class="header-cta"><i class="fas fa-phone" aria-hidden="true"></i> Зателефонувати</a>
     <button class="burger" id="burger" aria-label="Меню">
       <span></span><span></span><span></span>
     </button>
@@ -1211,7 +1235,7 @@ select:invalid.touched {
   <a href="#how-work" class="mobile-link">Як працюємо</a>
   <a href="#reviews" class="mobile-link">Відгуки</a>
   <a href="#contacts" class="mobile-link">Контакти</a>
-  <a href="tel:+380676710515" class="btn btn-gold" style="margin-top:16px"><i class="fas fa-phone"></i> Зателефонувати</a>
+  <a href="tel:+380676710515" class="btn btn-gold" style="margin-top:16px"><i class="fas fa-phone" aria-hidden="true"></i> Зателефонувати</a>
 </div>
 
 <!-- POPUP MODAL -->
@@ -1235,14 +1259,14 @@ select:invalid.touched {
         <label for="popup-region">Регіон (Місто, Область)</label>
         <input type="text" id="popup-region" name="region" placeholder="Луцьк, Волинська обл.">
       </div>
-      <button type="submit" class="form-submit-btn">Передзвоніть мені <i class="fas fa-phone"></i></button>
+      <button type="submit" class="form-submit-btn">Передзвоніть мені <i class="fas fa-phone" aria-hidden="true"></i></button>
       <div class="form-success" id="popupSuccess">&#10003; Чудово! Очікуйте дзвінка.</div>
     </form>
     <div class="popup-alt">
       або напишіть одразу &rarr;
       <div>
-        <a href="https://t.me/TarasKuzenko" target="_blank" rel="noopener" class="tg-link" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
-        <a href="viber://chat?number=%2B380676710515" target="_blank" rel="noopener" class="vb-link" aria-label="Viber"><i class="fab fa-viber"></i></a>
+        <a href="https://t.me/TarasKuzenko" target="_blank" rel="noopener" class="tg-link" aria-label="Telegram"><i class="fab fa-telegram-plane" aria-hidden="true"></i></a>
+        <a href="viber://chat?number=%2B380676710515" target="_blank" rel="noopener" class="vb-link" aria-label="Viber"><i class="fab fa-viber" aria-hidden="true"></i></a>
       </div>
     </div>
   </div>
@@ -1282,7 +1306,7 @@ select:invalid.touched {
           <option>Косметика</option>
         </select>
       </div>
-      <button type="submit" class="form-submit-btn">Відкрити каталог <i class="fas fa-box-open"></i></button>
+      <button type="submit" class="form-submit-btn">Відкрити каталог <i class="fas fa-box-open" aria-hidden="true"></i></button>
       <div class="form-success" id="catalogModalSuccess">&#10003; Дякуємо! Перенаправляємо на каталог...</div>
     </form>
   </div>
@@ -1291,15 +1315,15 @@ select:invalid.touched {
 <!-- FLOATING BUTTONS -->
 <div class="floating-btns">
   <a href="tel:+380676710515" class="float-btn phone" aria-label="Зателефонувати">
-    <i class="fas fa-phone"></i>
+    <i class="fas fa-phone" aria-hidden="true"></i>
     <span class="float-tooltip">Зателефонувати</span>
   </a>
   <a href="https://t.me/TarasKuzenko" target="_blank" rel="noopener" class="float-btn tg" aria-label="Telegram">
-    <i class="fab fa-telegram-plane"></i>
+    <i class="fab fa-telegram-plane" aria-hidden="true"></i>
     <span class="float-tooltip">Telegram</span>
   </a>
   <a href="viber://chat?number=%2B380676710515" target="_blank" rel="noopener" class="float-btn vb" aria-label="Viber">
-    <i class="fab fa-viber"></i>
+    <i class="fab fa-viber" aria-hidden="true"></i>
     <span class="float-tooltip">Viber</span>
   </a>
 </div>
@@ -1313,8 +1337,8 @@ select:invalid.touched {
       <h1>Секонд-хенд та сток <em>гуртом</em> — прямі поставки з Європи для вашого бізнесу</h1>
       <p class="hero-sub">Якісний одяг, взуття та аксесуари для вашого бізнесу. Від 10 кг.</p>
       <div class="hero-buttons">
-        <button class="btn btn-gold" id="heroCatalogBtn"><i class="fas fa-box-open"></i> Отримати каталог</button>
-        <a href="https://t.me/TarasKuzenko" target="_blank" rel="noopener" class="btn btn-outline"><i class="fab fa-telegram-plane"></i> Написати в Telegram &rarr;</a>
+        <button class="btn btn-gold" id="heroCatalogBtn"><i class="fas fa-box-open" aria-hidden="true"></i> Отримати каталог</button>
+        <a href="https://t.me/TarasKuzenko" target="_blank" rel="noopener" class="btn btn-outline"><i class="fab fa-telegram-plane" aria-hidden="true"></i> Написати в Telegram &rarr;</a>
       </div>
       <div class="counters">
         <div class="counter">
@@ -1345,34 +1369,80 @@ select:invalid.touched {
     <p class="section-subtitle reveal">Ми робимо оптову торгівлю секонд-хендом зручною та прозорою</p>
     <div class="advantages-grid">
       <div class="adv-card reveal">
-        <div class="adv-icon"><i class="fas fa-ship"></i></div>
+        <div class="adv-icon"><i class="fas fa-ship" aria-hidden="true"></i></div>
         <h3>Прямий імпорт</h3>
         <p>Постачаємо безпосередньо з Англії, Польщі, Канади, Німеччини, Італії, Шотландії</p>
       </div>
       <div class="adv-card reveal">
-        <div class="adv-icon"><i class="fas fa-boxes-stacked"></i></div>
+        <div class="adv-icon"><i class="fas fa-boxes-stacked" aria-hidden="true"></i></div>
         <h3>600+ найменувань</h3>
         <p>Одяг, взуття, аксесуари, іграшки, декор — повна номенклатура в одному місці</p>
       </div>
       <div class="adv-card reveal">
-        <div class="adv-icon"><i class="fas fa-certificate"></i></div>
+        <div class="adv-icon"><i class="fas fa-certificate" aria-hidden="true"></i></div>
         <h3>Гарантія якості</h3>
         <p>Кожна партія проходить сортування: Екстра, Крем, 1-й сорт, 2-й сорт, Сток</p>
       </div>
       <div class="adv-card reveal">
-        <div class="adv-icon"><i class="fas fa-user-tie"></i></div>
+        <div class="adv-icon"><i class="fas fa-user-tie" aria-hidden="true"></i></div>
         <h3>Персональний менеджер</h3>
         <p>Допоможемо підібрати товар під ваш регіон та формат бізнесу</p>
       </div>
       <div class="adv-card reveal">
-        <div class="adv-icon"><i class="fas fa-truck-fast"></i></div>
+        <div class="adv-icon"><i class="fas fa-truck-fast" aria-hidden="true"></i></div>
         <h3>Власна доставка</h3>
         <p>Доставляємо по всій Україні, швидко та без зайвих посередників</p>
       </div>
       <div class="adv-card reveal">
-        <div class="adv-icon"><i class="fas fa-tags"></i></div>
+        <div class="adv-icon"><i class="fas fa-tags" aria-hidden="true"></i></div>
         <h3>Гнучкі ціни</h3>
         <p>Оптові ціни в EUR. Акційні пропозиції на партії. Мін. замовлення — від 10 кг</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ПРО КОМПАНІЮ -->
+<section class="about-facts" id="about" aria-label="Про компанію L-TEX"
+         style="padding:60px 0;background:#fff;border-top:1px solid rgba(26,122,60,.08)">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center">
+      <div class="reveal">
+        <h2 class="section-title" style="font-size:clamp(1.5rem,3vw,2.2rem);text-align:left">
+          10 років на ринку секонд-хенду
+        </h2>
+        <p style="color:#555;line-height:1.7;margin-bottom:16px">
+          Компанія L-TEX заснована у Луцьку та спеціалізується на прямому імпорті
+          секонд-хенд та сток одягу з Великобританії, Польщі, Канади, Німеччини,
+          Італії та Шотландії.
+        </p>
+        <p style="color:#555;line-height:1.7;margin-bottom:24px">
+          Щотижня на склад у с. Піддубці надходять нові партії. Кожна партія
+          сортується за категоріями та сортами: Екстра, Крем, 1-й сорт, 2-й сорт, Сток —
+          так ви точно знаєте що отримуєте.
+        </p>
+        <a href="https://www.youtube.com/channel/UCbBvZnTCTQ2zTpU1z1DSErQ"
+           target="_blank" rel="noopener" class="btn btn-green" style="display:inline-flex">
+          <i class="fab fa-youtube" aria-hidden="true"></i> Подивитись склад на YouTube
+        </a>
+      </div>
+      <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div style="background:var(--light-bg);border-radius:14px;padding:24px;text-align:center">
+          <div style="font-family:var(--font-mono);font-size:2rem;font-weight:700;color:var(--primary)">10+</div>
+          <div style="font-size:.82rem;color:#666;margin-top:6px">років досвіду</div>
+        </div>
+        <div style="background:var(--light-bg);border-radius:14px;padding:24px;text-align:center">
+          <div style="font-family:var(--font-mono);font-size:2rem;font-weight:700;color:var(--primary)">600+</div>
+          <div style="font-size:.82rem;color:#666;margin-top:6px">найменувань</div>
+        </div>
+        <div style="background:var(--light-bg);border-radius:14px;padding:24px;text-align:center">
+          <div style="font-family:var(--font-mono);font-size:2rem;font-weight:700;color:var(--primary)">6</div>
+          <div style="font-size:.82rem;color:#666;margin-top:6px">країн-постачальників</div>
+        </div>
+        <div style="background:var(--light-bg);border-radius:14px;padding:24px;text-align:center">
+          <div style="font-family:var(--font-mono);font-size:2rem;font-weight:700;color:var(--primary)">від 10</div>
+          <div style="font-size:.82rem;color:#666;margin-top:6px">кг мін. замовлення</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1441,7 +1511,7 @@ select:invalid.touched {
       </div>
     </div>
     <div class="catalog-cta reveal">
-      <button class="btn btn-gold" id="catalogViewBtn"><i class="fas fa-external-link-alt"></i> Переглянути онлайн-каталог &rarr;</button>
+      <button class="btn btn-gold" id="catalogViewBtn"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Переглянути онлайн-каталог &rarr;</button>
     </div>
     <div class="seo-text" style="max-width:800px;margin:40px auto 0;color:rgba(255,255,255,.55);font-size:.85rem;line-height:1.7">
       <p><strong>Одяг секонд-хенд гуртом</strong> — светри, куртки, джинси, сукні, спортивний одяг від 10 кг. Сорти: Екстра, Крем, 1-й, 2-й. Ціни в EUR.</p>
@@ -1460,7 +1530,7 @@ select:invalid.touched {
     <div class="videos-grid reveal">
       <a href="https://www.youtube.com/channel/UCbBvZnTCTQ2zTpU1z1DSErQ" target="_blank" rel="noopener" class="video-card">
         <div class="video-thumb">
-          <div class="play-icon"><i class="fas fa-play"></i></div>
+          <div class="play-icon"><i class="fas fa-play" aria-hidden="true"></i></div>
         </div>
         <div class="video-info">
           <h4>Огляд одягу</h4>
@@ -1469,7 +1539,7 @@ select:invalid.touched {
       </a>
       <a href="https://www.youtube.com/channel/UCbBvZnTCTQ2zTpU1z1DSErQ" target="_blank" rel="noopener" class="video-card">
         <div class="video-thumb">
-          <div class="play-icon"><i class="fas fa-play"></i></div>
+          <div class="play-icon"><i class="fas fa-play" aria-hidden="true"></i></div>
         </div>
         <div class="video-info">
           <h4>Огляд взуття</h4>
@@ -1478,7 +1548,7 @@ select:invalid.touched {
       </a>
       <a href="https://www.youtube.com/channel/UCbBvZnTCTQ2zTpU1z1DSErQ" target="_blank" rel="noopener" class="video-card">
         <div class="video-thumb">
-          <div class="play-icon"><i class="fas fa-play"></i></div>
+          <div class="play-icon"><i class="fas fa-play" aria-hidden="true"></i></div>
         </div>
         <div class="video-info">
           <h4>Наш склад</h4>
@@ -1487,7 +1557,7 @@ select:invalid.touched {
       </a>
     </div>
     <div class="videos-cta reveal">
-      <a href="https://www.youtube.com/channel/UCbBvZnTCTQ2zTpU1z1DSErQ" target="_blank" rel="noopener" class="btn btn-green"><i class="fab fa-youtube"></i> Підписатись на YouTube &rarr;</a>
+      <a href="https://www.youtube.com/channel/UCbBvZnTCTQ2zTpU1z1DSErQ" target="_blank" rel="noopener" class="btn btn-green"><i class="fab fa-youtube" aria-hidden="true"></i> Підписатись на YouTube &rarr;</a>
     </div>
   </div>
 </section>
@@ -1543,33 +1613,33 @@ select:invalid.touched {
     <h2 class="section-title reveal">Наш склад та товар</h2>
     <div class="gallery-grid reveal">
       <div class="gallery-item">
-        <div class="gallery-placeholder"><i class="fas fa-tshirt"></i><span>Одяг</span></div>
+        <div class="gallery-placeholder"><i class="fas fa-tshirt" aria-hidden="true"></i><span>Одяг</span></div>
         <div class="gallery-overlay">Одяг</div>
       </div>
       <div class="gallery-item">
-        <div class="gallery-placeholder"><i class="fas fa-shoe-prints"></i><span>Взуття</span></div>
+        <div class="gallery-placeholder"><i class="fas fa-shoe-prints" aria-hidden="true"></i><span>Взуття</span></div>
         <div class="gallery-overlay">Взуття</div>
       </div>
       <div class="gallery-item">
-        <div class="gallery-placeholder"><i class="fas fa-bag-shopping"></i><span>Сумки</span></div>
+        <div class="gallery-placeholder"><i class="fas fa-bag-shopping" aria-hidden="true"></i><span>Сумки</span></div>
         <div class="gallery-overlay">Сумки та аксесуари</div>
       </div>
       <div class="gallery-item">
-        <div class="gallery-placeholder"><i class="fas fa-warehouse"></i><span>Склад</span></div>
+        <div class="gallery-placeholder"><i class="fas fa-warehouse" aria-hidden="true"></i><span>Склад</span></div>
         <div class="gallery-overlay">Наш склад</div>
       </div>
       <div class="gallery-item">
-        <div class="gallery-placeholder"><i class="fas fa-boxes-stacked"></i><span>Партії</span></div>
+        <div class="gallery-placeholder"><i class="fas fa-boxes-stacked" aria-hidden="true"></i><span>Партії</span></div>
         <div class="gallery-overlay">Партії товару</div>
       </div>
       <div class="gallery-item">
-        <div class="gallery-placeholder"><i class="fas fa-truck"></i><span>Доставка</span></div>
+        <div class="gallery-placeholder"><i class="fas fa-truck" aria-hidden="true"></i><span>Доставка</span></div>
         <div class="gallery-overlay">Доставка</div>
       </div>
     </div>
     <p class="reveal" style="text-align:center;color:#888;font-size:.85rem;margin-bottom:24px;">Фото в процесі завантаження — дивіться відео на YouTube</p>
     <div class="gallery-cta reveal">
-      <a href="https://instagram.com/ltex_secondopt" target="_blank" rel="noopener" class="btn btn-green"><i class="fab fa-instagram"></i> Більше фото в Instagram &rarr;</a>
+      <a href="https://instagram.com/ltex_secondopt" target="_blank" rel="noopener" class="btn btn-green"><i class="fab fa-instagram" aria-hidden="true"></i> Більше фото в Instagram &rarr;</a>
     </div>
   </div>
 </section>
@@ -1582,46 +1652,50 @@ select:invalid.touched {
       <div class="review-card" itemscope itemtype="https://schema.org/Review">
         <div class="review-stars" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
           <meta itemprop="ratingValue" content="5"><meta itemprop="bestRating" content="5">
-          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          <i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i>
         </div>
         <p class="review-text" itemprop="reviewBody">&laquo;Вже 2 роки працюємо з L-TEX. Якість товару стабільна, доставка вчасно. Менеджер завжди на зв'язку.&raquo;</p>
         <div class="review-author" itemprop="author" itemscope itemtype="https://schema.org/Person">
           <div class="review-avatar">ОК</div>
           <div><div class="review-name" itemprop="name">Олена К.</div><div class="review-city">Рівне</div></div>
         </div>
+        <time itemprop="datePublished" datetime="2024-11-15" style="font-size:.72rem;color:rgba(255,255,255,.3);display:block;margin-top:4px">Листопад 2024</time>
       </div>
       <div class="review-card" itemscope itemtype="https://schema.org/Review">
         <div class="review-stars" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
           <meta itemprop="ratingValue" content="5"><meta itemprop="bestRating" content="5">
-          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          <i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i>
         </div>
         <p class="review-text" itemprop="reviewBody">&laquo;Відкрив точку секонд-хенду, перші партії брав тут. Допомогли підібрати асортимент під мій регіон.&raquo;</p>
         <div class="review-author" itemprop="author" itemscope itemtype="https://schema.org/Person">
           <div class="review-avatar">МВ</div>
           <div><div class="review-name" itemprop="name">Максим В.</div><div class="review-city">Полтава</div></div>
         </div>
+        <time itemprop="datePublished" datetime="2025-01-22" style="font-size:.72rem;color:rgba(255,255,255,.3);display:block;margin-top:4px">Січень 2025</time>
       </div>
       <div class="review-card" itemscope itemtype="https://schema.org/Review">
         <div class="review-stars" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
           <meta itemprop="ratingValue" content="5"><meta itemprop="bestRating" content="5">
-          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          <i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i>
         </div>
         <p class="review-text" itemprop="reviewBody">&laquo;Подобається що є відеоогляди кожного мішка — знаєш що отримаєш. Замовляємо регулярно.&raquo;</p>
         <div class="review-author" itemprop="author" itemscope itemtype="https://schema.org/Person">
           <div class="review-avatar">ТШ</div>
           <div><div class="review-name" itemprop="name">Тетяна Ш.</div><div class="review-city">Харків</div></div>
         </div>
+        <time itemprop="datePublished" datetime="2025-02-08" style="font-size:.72rem;color:rgba(255,255,255,.3);display:block;margin-top:4px">Лютий 2025</time>
       </div>
       <div class="review-card" itemscope itemtype="https://schema.org/Review">
         <div class="review-stars" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
           <meta itemprop="ratingValue" content="5"><meta itemprop="bestRating" content="5">
-          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          <i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i>
         </div>
         <p class="review-text" itemprop="reviewBody">&laquo;Дуже зручно працювати — прозорі ціни, чіткі терміни. Рекомендую колегам у сфері.&raquo;</p>
         <div class="review-author" itemprop="author" itemscope itemtype="https://schema.org/Person">
           <div class="review-avatar">АМ</div>
           <div><div class="review-name" itemprop="name">Андрій М.</div><div class="review-city">Дніпро</div></div>
         </div>
+        <time itemprop="datePublished" datetime="2025-03-10" style="font-size:.72rem;color:rgba(255,255,255,.3);display:block;margin-top:4px">Березень 2025</time>
       </div>
     </div>
   </div>
@@ -1635,10 +1709,10 @@ select:invalid.touched {
         <h2 class="section-title">Отримайте актуальний прайс-лист</h2>
         <p>Надішлемо посилання на онлайн-каталог із 600+ позицій, поточними цінами та відеооглядами</p>
         <ul class="form-features">
-          <li><i class="fas fa-check-circle"></i> 600+ найменувань товарів</li>
-          <li><i class="fas fa-check-circle"></i> Актуальні ціни в EUR</li>
-          <li><i class="fas fa-check-circle"></i> Відеоогляди кожної категорії</li>
-          <li><i class="fas fa-check-circle"></i> Безкоштовна консультація менеджера</li>
+          <li><i class="fas fa-check-circle" aria-hidden="true"></i> 600+ найменувань товарів</li>
+          <li><i class="fas fa-check-circle" aria-hidden="true"></i> Актуальні ціни в EUR</li>
+          <li><i class="fas fa-check-circle" aria-hidden="true"></i> Відеоогляди кожної категорії</li>
+          <li><i class="fas fa-check-circle" aria-hidden="true"></i> Безкоштовна консультація менеджера</li>
         </ul>
       </div>
       <div class="main-form reveal">
@@ -1676,7 +1750,7 @@ select:invalid.touched {
               <option>YouTube</option><option>Рекомендація</option><option>Інше</option>
             </select>
           </div>
-          <button type="submit" class="form-submit-btn">Надіслати каталог <i class="fas fa-box-open"></i></button>
+          <button type="submit" class="form-submit-btn">Надіслати каталог <i class="fas fa-box-open" aria-hidden="true"></i></button>
           <div class="form-success" id="mainFormSuccess">&#10003; Дякуємо! Ми надішлемо посилання на каталог протягом кількох хвилин.</div>
         </form>
       </div>
@@ -1691,21 +1765,21 @@ select:invalid.touched {
     <div class="contacts-grid reveal">
       <div class="contacts-info">
         <div class="contact-item">
-          <i class="fas fa-phone"></i>
+          <i class="fas fa-phone" aria-hidden="true"></i>
           <div>
             <a href="tel:+380676710515">+380 67 671 05 16</a>
             <span>Київстар</span>
           </div>
         </div>
         <div class="contact-item">
-          <i class="fas fa-phone"></i>
+          <i class="fas fa-phone" aria-hidden="true"></i>
           <div>
             <a href="tel:+380993584992">+380 99 358 49 92</a>
             <span>Vodafone</span>
           </div>
         </div>
         <div class="contact-item">
-          <i class="fas fa-envelope"></i>
+          <i class="fas fa-envelope" aria-hidden="true"></i>
           <div><a href="mailto:ltex.lutsk.ai@gmail.com">ltex.lutsk.ai@gmail.com</a></div>
         </div>
         <address class="contact-item" itemscope itemtype="https://schema.org/PostalAddress" style="font-style:normal">
@@ -1718,29 +1792,29 @@ select:invalid.touched {
           </div>
         </address>
         <div class="contact-item">
-          <i class="fas fa-clock"></i>
+          <i class="fas fa-clock" aria-hidden="true"></i>
           <div>Пн-Пт 9:00–18:00, Сб 9:00–14:00</div>
         </div>
       </div>
       <div class="contacts-social">
         <div class="social-grid">
           <a href="https://invite.viber.com/?g2=AQA%2Fxgye6%2BDx3El3Qybx4jkoK8aeVPb7x8On05U2OUZu92jUbrIS16QpCXAnJXHq" target="_blank" rel="noopener" class="social-btn viber">
-            <i class="fab fa-viber"></i> Viber-група
+            <i class="fab fa-viber" aria-hidden="true"></i> Viber-група
           </a>
           <a href="https://t.me/TarasKuzenko" target="_blank" rel="noopener" class="social-btn telegram">
-            <i class="fab fa-telegram-plane"></i> Telegram
+            <i class="fab fa-telegram-plane" aria-hidden="true"></i> Telegram
           </a>
           <a href="https://www.facebook.com/LTEXsecond" target="_blank" rel="noopener" class="social-btn facebook">
-            <i class="fab fa-facebook-f"></i> Facebook
+            <i class="fab fa-facebook-f" aria-hidden="true"></i> Facebook
           </a>
           <a href="https://instagram.com/ltex_secondopt" target="_blank" rel="noopener" class="social-btn instagram">
-            <i class="fab fa-instagram"></i> Instagram
+            <i class="fab fa-instagram" aria-hidden="true"></i> Instagram
           </a>
           <a href="https://www.tiktok.com/@ltex.second.opt" target="_blank" rel="noopener" class="social-btn tiktok">
-            <i class="fab fa-tiktok"></i> TikTok
+            <i class="fab fa-tiktok" aria-hidden="true"></i> TikTok
           </a>
           <a href="https://www.youtube.com/channel/UCbBvZnTCTQ2zTpU1z1DSErQ" target="_blank" rel="noopener" class="social-btn youtube">
-            <i class="fab fa-youtube"></i> YouTube
+            <i class="fab fa-youtube" aria-hidden="true"></i> YouTube
           </a>
         </div>
       </div>
@@ -1857,6 +1931,11 @@ select:invalid.touched {
       .then(function() {
         form.style.display = 'none';
         successEl.classList.add('show');
+        // GA4 event tracking
+        if (typeof gtag !== 'undefined') {
+          var label = form.id === 'popupForm' ? 'popup_consultation' : form.id === 'catalogModalForm' ? 'catalog_modal' : 'catalog_request';
+          gtag('event', 'generate_lead', { 'event_category': 'form', 'event_label': label });
+        }
         if (form.id === 'popupForm') {
           setTimeout(closePopup, 2000);
           setTimeout(function() {
@@ -2020,7 +2099,7 @@ select:invalid.touched {
   <div class="lb-stage">
     <button class="lb-btn lb-prev" id="lbPrev" aria-label="Попереднє">&#8249;</button>
     <div class="lb-img-wrap">
-      <img id="lbImage" src="" alt="">
+      <img id="lbImage" src="" alt="Фото товару L-TEX — секонд-хенд гуртом" loading="lazy" decoding="async">
     </div>
     <button class="lb-btn lb-next" id="lbNext" aria-label="Наступне">&#8250;</button>
   </div>
@@ -2113,6 +2192,14 @@ select:invalid.touched {
     if (e.key === 'ArrowRight') showSlide(current + 1);
   });
 })();
+
+// === GA4 SOCIAL CLICK TRACKING ===
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest('.social-btn, .float-btn, .popup-alt a');
+  if (!btn || typeof gtag === 'undefined') return;
+  var label = btn.getAttribute('aria-label') || btn.textContent.trim() || 'social';
+  gtag('event', 'social_click', { 'event_category': 'engagement', 'event_label': label });
+});
 </script>
 </body>
 </html>
