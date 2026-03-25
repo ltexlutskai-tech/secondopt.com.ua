@@ -1,0 +1,1805 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L-TEX — Секонд-хенд та сток гуртом | secondopt.com.ua</title>
+<meta name="description" content="Оптовий постачальник секонд-хенд та сток одягу з Англії, Польщі, Канади. 600+ найменувань. Одяг, взуття, аксесуари. Від 10 кг. Персональний менеджер.">
+<meta name="keywords" content="секонд хенд гуртом, сток одяг оптом, купити секонд хенд, одяг з Європи, L-TEX">
+<meta property="og:title" content="L-TEX — Секонд-хенд та сток гуртом">
+<meta property="og:description" content="Прямі поставки з Європи. 600+ позицій. Від 10 кг.">
+<meta property="og:url" content="https://secondopt.com.ua">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://secondopt.com.ua">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800;900&family=Nunito+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+  --primary: #1a7a3c;
+  --primary-dark: #14612f;
+  --dark-bg: #0f1f14;
+  --light-bg: #f5f7f5;
+  --text-light: #ffffff;
+  --text-dark: #1a2420;
+  --accent-gold: #e8b84b;
+  --accent-green: #2ecc71;
+  --font-heading: 'Exo 2', sans-serif;
+  --font-body: 'Nunito Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --header-h: 70px;
+  --transition: .3s ease;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  color: var(--text-dark);
+  line-height: 1.6;
+  background: var(--light-bg);
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  margin-bottom: .5em;
+  line-height: 1.2;
+}
+.section-subtitle {
+  font-size: 1.1rem;
+  opacity: .8;
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 14px 32px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+.btn-gold {
+  background: var(--accent-gold);
+  color: var(--dark-bg);
+  border-color: var(--accent-gold);
+}
+.btn-gold:hover { background: #d4a33d; }
+.btn-outline {
+  background: transparent;
+  color: var(--text-light);
+  border-color: rgba(255,255,255,.4);
+}
+.btn-outline:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+.btn-green {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+.btn-green:hover { background: var(--primary-dark); }
+
+/* ===== REVEAL ANIMATIONS ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== HEADER ===== */
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--header-h);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  transition: background var(--transition), box-shadow var(--transition);
+  background: transparent;
+}
+.header.scrolled {
+  background: rgba(15,31,20,.97);
+  box-shadow: 0 2px 20px rgba(0,0,0,.3);
+}
+.header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.logo {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 1.8rem;
+  color: var(--accent-green);
+  letter-spacing: 2px;
+}
+.logo span {
+  display: block;
+  font-size: .55rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.6);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: var(--font-body);
+  margin-top: -4px;
+}
+.nav { display: flex; align-items: center; gap: 28px; }
+.nav a {
+  color: rgba(255,255,255,.8);
+  font-size: .9rem;
+  font-weight: 600;
+  transition: color var(--transition);
+}
+.nav a:hover { color: var(--accent-green); }
+.header-cta {
+  padding: 10px 20px;
+  font-size: .85rem;
+  background: var(--accent-gold);
+  color: var(--dark-bg);
+  border-radius: 6px;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  transition: background var(--transition);
+}
+.header-cta:hover { background: #d4a33d; }
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 5px;
+}
+.burger span {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform var(--transition), opacity var(--transition);
+}
+.burger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.burger.active span:nth-child(2) { opacity: 0; }
+.burger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+.mobile-menu {
+  position: fixed;
+  top: var(--header-h);
+  left: 0; right: 0; bottom: 0;
+  background: rgba(15,31,20,.98);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  transform: translateX(100%);
+  transition: transform .4s ease;
+  z-index: 999;
+}
+.mobile-menu.open { transform: translateX(0); }
+.mobile-menu a {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  font-family: var(--font-heading);
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #0f1f14 0%, #1a3c25 50%, #0f1f14 100%);
+  position: relative;
+  overflow: hidden;
+  padding: calc(var(--header-h) + 40px) 0 60px;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; right: -30%;
+  width: 80%;
+  height: 200%;
+  background: radial-gradient(ellipse, rgba(26,122,60,.15) 0%, transparent 70%);
+  animation: heroPulse 8s ease-in-out infinite;
+}
+@keyframes heroPulse {
+  0%, 100% { opacity: .5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 120px;
+  background: linear-gradient(to top, var(--light-bg), transparent);
+  z-index: 1;
+}
+.hero-content { position: relative; z-index: 2; max-width: 700px; }
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(46,204,113,.12);
+  border: 1px solid rgba(46,204,113,.25);
+  border-radius: 50px;
+  padding: 8px 18px;
+  font-size: .85rem;
+  color: var(--accent-green);
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+.hero h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--accent-green);
+}
+.hero-sub {
+  font-size: 1.15rem;
+  color: rgba(255,255,255,.7);
+  margin-bottom: 32px;
+  max-width: 520px;
+}
+.hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 48px; }
+.counters {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.counter {
+  text-align: center;
+  padding: 16px 8px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px;
+}
+.counter-num {
+  font-family: var(--font-mono);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 700;
+  color: var(--accent-gold);
+  line-height: 1;
+}
+.counter-label {
+  font-size: .78rem;
+  color: rgba(255,255,255,.5);
+  margin-top: 6px;
+}
+
+/* ===== ПЕРЕВАГИ ===== */
+.advantages { padding: 80px 0; background: var(--light-bg); }
+.advantages .section-title { text-align: center; }
+.advantages .section-subtitle { text-align: center; margin-left: auto; margin-right: auto; }
+.advantages-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.adv-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px 24px;
+  border: 1px solid rgba(26,122,60,.08);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.adv-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(26,122,60,.1);
+}
+.adv-icon {
+  width: 56px;
+  height: 56px;
+  background: rgba(26,122,60,.08);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  color: var(--primary);
+}
+.adv-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.adv-card p {
+  font-size: .9rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* ===== КАТАЛОГ ===== */
+.catalog {
+  padding: 80px 0;
+  background: var(--dark-bg);
+  color: var(--text-light);
+}
+.catalog .section-title { text-align: center; }
+.catalog .section-subtitle { text-align: center; margin-left: auto; margin-right: auto; color: rgba(255,255,255,.6); }
+.catalog-scroll {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 10px 0 20px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
+}
+.catalog-scroll::-webkit-scrollbar { height: 6px; }
+.catalog-scroll::-webkit-scrollbar-track { background: transparent; }
+.catalog-scroll::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+.cat-card {
+  min-width: 170px;
+  flex-shrink: 0;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  padding: 28px 20px;
+  text-align: center;
+  transition: transform var(--transition), background var(--transition), border-color var(--transition);
+  cursor: default;
+  position: relative;
+}
+.cat-card:hover {
+  transform: translateY(-4px);
+  background: rgba(26,122,60,.15);
+}
+.cat-card.has-photos { cursor: pointer; border-color: rgba(26,122,60,.4); }
+.cat-card.has-photos:hover { border-color: var(--primary); background: rgba(26,122,60,.2); }
+.photo-badge {
+  position: absolute; top: 10px; right: 10px;
+  background: var(--primary); color: #fff;
+  font-size: .62rem; font-weight: 700;
+  padding: 3px 9px; border-radius: 20px;
+  pointer-events: none;
+}
+.cat-emoji { font-size: 2.4rem; margin-bottom: 12px; }
+.cat-card h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+.cat-card p {
+  font-size: .75rem;
+  color: rgba(255,255,255,.45);
+}
+.catalog-cta { text-align: center; margin-top: 40px; }
+
+/* --- Lightbox --- */
+#lightboxOverlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.93); z-index: 9999;
+  flex-direction: column; align-items: center; justify-content: center;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  padding: 20px;
+}
+#lightboxOverlay.open { display: flex; }
+.lb-close {
+  position: absolute; top: 16px; right: 20px;
+  background: rgba(255,255,255,.12); border: none; color: #fff;
+  font-size: 1.8rem; width: 46px; height: 46px; border-radius: 50%;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background .2s;
+}
+.lb-close:hover { background: rgba(255,255,255,.3); }
+.lb-title {
+  color: #fff; font-family: var(--font-heading);
+  font-size: 1.1rem; font-weight: 700;
+  margin-bottom: 16px; text-align: center;
+}
+.lb-stage {
+  position: relative; max-width: min(560px, 90vw);
+  width: 100%; display: flex; align-items: center;
+}
+.lb-img-wrap {
+  width: 100%; max-height: 68vh; border-radius: 14px;
+  overflow: hidden; background: #111;
+  display: flex; align-items: center; justify-content: center;
+}
+#lbImage {
+  max-width: 100%; max-height: 68vh; object-fit: contain;
+  border-radius: 14px; display: block; transition: opacity .22s;
+}
+#lbImage.fading { opacity: 0; }
+.lb-btn {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,.15); border: none; color: #fff;
+  font-size: 1.5rem; width: 46px; height: 46px; border-radius: 50%;
+  cursor: pointer; transition: background .2s;
+  display: flex; align-items: center; justify-content: center; z-index: 2;
+}
+.lb-btn:hover { background: rgba(26,122,60,.8); }
+.lb-prev { left: -58px; }
+.lb-next { right: -58px; }
+.lb-dots { display: flex; gap: 8px; margin-top: 16px; }
+.lb-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: rgba(255,255,255,.3); border: none;
+  cursor: pointer; transition: background .2s, transform .2s; padding: 0;
+}
+.lb-dot.active { background: var(--primary); transform: scale(1.35); }
+.lb-counter { color: rgba(255,255,255,.4); font-size: .78rem; margin-top: 8px; }
+@media (max-width: 640px) {
+  .lb-prev { left: 2px; }
+  .lb-next { right: 2px; }
+}
+
+/* ===== ВІДЕО ===== */
+.videos { padding: 80px 0; background: var(--light-bg); }
+.videos .section-title { text-align: center; }
+.videos .section-subtitle { text-align: center; margin-left: auto; margin-right: auto; }
+.videos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.video-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,.06);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.video-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,.1);
+}
+.video-thumb {
+  position: relative;
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg, #1a3c25, #0f1f14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-green);
+}
+.video-thumb .play-icon {
+  width: 64px;
+  height: 64px;
+  background: rgba(255,255,255,.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  transition: background var(--transition), transform var(--transition);
+}
+.video-card:hover .play-icon { background: rgba(232,184,75,.9); color: #000; transform: scale(1.1); }
+.video-info { padding: 16px 20px; }
+.video-info h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: .95rem;
+}
+.video-info p { font-size: .8rem; color: #888; margin-top: 4px; }
+.videos-cta { text-align: center; margin-top: 40px; }
+
+/* ===== ЯК ПРАЦЮЄМО ===== */
+.how-work {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #0f1f14, #1a3c25);
+  color: #fff;
+}
+.how-work .section-title { text-align: center; }
+.how-work .section-subtitle { text-align: center; margin-left: auto; margin-right: auto; color: rgba(255,255,255,.6); }
+.timeline {
+  display: flex;
+  gap: 12px;
+  position: relative;
+  margin-top: 40px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  height: 2px;
+  background: rgba(255,255,255,.12);
+}
+.step {
+  flex: 1;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.step-num {
+  width: 48px;
+  height: 48px;
+  background: var(--accent-gold);
+  color: var(--dark-bg);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  position: relative;
+}
+.step h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: .95rem;
+  margin-bottom: 6px;
+}
+.step p {
+  font-size: .82rem;
+  color: rgba(255,255,255,.55);
+  max-width: 180px;
+  margin: 0 auto;
+}
+
+/* ===== ГАЛЕРЕЯ ===== */
+.gallery { padding: 80px 0; background: var(--light-bg); }
+.gallery .section-title { text-align: center; }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.gallery-item {
+  aspect-ratio: 4/3;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(135deg, #1a3c25, #0f1f14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.gallery-placeholder {
+  text-align: center;
+  color: rgba(255,255,255,.4);
+  padding: 20px;
+}
+.gallery-placeholder i { font-size: 2rem; margin-bottom: 8px; display: block; color: var(--accent-green); opacity: .5; }
+.gallery-placeholder span { font-size: .85rem; font-weight: 600; }
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(26,122,60,.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+.gallery-cta { text-align: center; }
+
+/* ===== ВІДГУКИ ===== */
+.reviews {
+  padding: 80px 0;
+  background: var(--dark-bg);
+  color: #fff;
+}
+.reviews .section-title { text-align: center; }
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.review-card {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  padding: 28px 32px;
+  transition: transform var(--transition);
+}
+.review-card:hover { transform: translateY(-4px); }
+.review-stars { color: var(--accent-gold); font-size: .9rem; margin-bottom: 14px; }
+.review-text {
+  font-size: .95rem;
+  color: rgba(255,255,255,.8);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+.review-author { display: flex; align-items: center; gap: 12px; }
+.review-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: .9rem;
+  color: #fff;
+}
+.review-name {
+  font-weight: 700;
+  font-size: .9rem;
+}
+.review-city {
+  font-size: .78rem;
+  color: rgba(255,255,255,.45);
+}
+
+/* ===== ФОРМА КАТАЛОГУ ===== */
+.catalog-form-section {
+  padding: 80px 0;
+  background: var(--primary);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.catalog-form-section::before {
+  content: '';
+  position: absolute;
+  top: -50%; right: -20%;
+  width: 60%;
+  height: 200%;
+  background: radial-gradient(ellipse, rgba(255,255,255,.05) 0%, transparent 70%);
+}
+.form-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.form-info .section-title { margin-bottom: 16px; }
+.form-info p { font-size: 1.05rem; opacity: .85; margin-bottom: 20px; }
+.form-features { display: flex; flex-direction: column; gap: 12px; }
+.form-features li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .95rem;
+}
+.form-features li i { color: var(--accent-gold); }
+.main-form {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 20px;
+  padding: 36px;
+  backdrop-filter: blur(10px);
+}
+.form-group { margin-bottom: 18px; }
+.form-group label {
+  display: block;
+  font-size: .85rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  opacity: .9;
+}
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,.2);
+  background: rgba(255,255,255,.08);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: .95rem;
+  transition: border-color var(--transition), background var(--transition);
+}
+.form-group input::placeholder { color: rgba(255,255,255,.4); }
+.form-group select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 20px; }
+.form-group select option { background: #1a3c25; color: #fff; }
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+  background: rgba(255,255,255,.12);
+}
+.form-submit-btn {
+  width: 100%;
+  padding: 16px;
+  border-radius: 10px;
+  border: none;
+  background: var(--accent-gold);
+  color: var(--dark-bg);
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+}
+.form-submit-btn:hover { background: #d4a33d; transform: translateY(-2px); }
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 20px;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.form-success.show { display: block; }
+input:invalid.touched,
+select:invalid.touched {
+  border-color: #e74c3c;
+  animation: shake .3s;
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+/* ===== КОНТАКТИ ===== */
+.contacts {
+  padding: 80px 0;
+  background: var(--dark-bg);
+  color: #fff;
+}
+.contacts .section-title { text-align: center; margin-bottom: 40px; }
+.contacts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.contact-item i {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  background: rgba(26,122,60,.2);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-green);
+  font-size: .95rem;
+}
+.contact-item a {
+  color: #fff;
+  font-weight: 600;
+  transition: color var(--transition);
+}
+.contact-item a:hover { color: var(--accent-green); }
+.contact-item span { font-size: .82rem; color: rgba(255,255,255,.5); display: block; }
+.social-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.social-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: .9rem;
+  color: #fff;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.social-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,.3); }
+.social-btn i { font-size: 1.3rem; }
+.social-btn.viber { background: #7360f2; }
+.social-btn.telegram { background: #0088cc; }
+.social-btn.facebook { background: #1877f2; }
+.social-btn.instagram { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+.social-btn.tiktok { background: #010101; border: 1px solid rgba(255,255,255,.15); }
+.social-btn.youtube { background: #ff0000; }
+
+/* ===== FOOTER ===== */
+.footer {
+  padding: 40px 0;
+  background: #080f0a;
+  color: rgba(255,255,255,.5);
+  text-align: center;
+}
+.footer .logo { font-size: 1.4rem; margin-bottom: 8px; display: inline-block; }
+.footer-tagline { font-size: .85rem; margin-bottom: 20px; }
+.footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 20px; flex-wrap: wrap; }
+.footer-links a {
+  font-size: .85rem;
+  color: rgba(255,255,255,.5);
+  transition: color var(--transition);
+}
+.footer-links a:hover { color: var(--accent-green); }
+.footer-copy { font-size: .78rem; }
+
+/* ===== ПЛАВАЮЧІ КНОПКИ ===== */
+.floating-btns {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 900;
+}
+.float-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(0,0,0,.3);
+  transition: transform var(--transition), box-shadow var(--transition);
+  position: relative;
+}
+.float-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 24px rgba(0,0,0,.4);
+}
+.float-btn.phone { background: var(--primary); }
+.float-btn.tg { background: #0088cc; }
+.float-btn.vb { background: #7360f2; }
+.float-tooltip {
+  position: absolute;
+  right: 62px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #fff;
+  color: var(--text-dark);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: .78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+.float-btn:hover .float-tooltip { opacity: 1; }
+
+/* ===== POPUP ===== */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s ease, visibility .3s ease;
+}
+.popup-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+.popup {
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 440px;
+  width: 90%;
+  position: relative;
+  transform: translateY(20px);
+  transition: transform .3s ease;
+}
+.popup-overlay.open .popup { transform: translateY(0); }
+.popup-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition);
+  color: #333;
+}
+.popup-close:hover { background: #ddd; }
+.popup h2 {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+.popup .popup-sub {
+  font-size: .9rem;
+  color: #666;
+  margin-bottom: 24px;
+}
+.popup .form-group input {
+  background: var(--light-bg);
+  color: var(--text-dark);
+  border: 1px solid #ddd;
+}
+.popup .form-group input::placeholder { color: #999; }
+.popup .form-group input:focus {
+  border-color: var(--primary);
+  background: #fff;
+}
+.popup .form-submit-btn {
+  background: var(--primary);
+  color: #fff;
+}
+.popup .form-submit-btn:hover { background: var(--primary-dark); }
+.popup-alt {
+  text-align: center;
+  margin-top: 18px;
+  font-size: .85rem;
+  color: #888;
+}
+.popup-alt a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 8px 6px 0;
+  color: #fff;
+  font-size: 1rem;
+  transition: transform var(--transition);
+}
+.popup-alt a:hover { transform: scale(1.1); }
+.popup-alt a.tg-link { background: #0088cc; }
+.popup-alt a.vb-link { background: #7360f2; }
+.popup .form-success { color: var(--primary); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .nav, .header-cta { display: none; }
+  .burger { display: flex; }
+  .hero h1 { font-size: 1.8rem; }
+  .hero-sub { font-size: 1rem; }
+  .counters { grid-template-columns: repeat(2, 1fr); }
+  .advantages-grid { grid-template-columns: 1fr; }
+  .videos-grid { grid-template-columns: 1fr; }
+  .timeline {
+    flex-direction: column;
+    gap: 32px;
+  }
+  .timeline::before {
+    top: 24px;
+    bottom: 24px;
+    left: 23px;
+    right: auto;
+    width: 2px;
+    height: auto;
+  }
+  .step { text-align: left; display: flex; gap: 16px; align-items: flex-start; }
+  .step-num { margin: 0; flex-shrink: 0; }
+  .step p { margin: 0; max-width: none; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .form-wrapper { grid-template-columns: 1fr; gap: 32px; }
+  .contacts-grid { grid-template-columns: 1fr; gap: 40px; }
+  .social-grid { grid-template-columns: 1fr; }
+  .floating-btns { bottom: 16px; right: 16px; }
+  .float-btn { width: 46px; height: 46px; font-size: 1.1rem; }
+  .float-tooltip { display: none; }
+}
+@media (max-width: 480px) {
+  .hero { padding: calc(var(--header-h) + 20px) 0 40px; min-height: auto; }
+  .hero-buttons { flex-direction: column; }
+  .btn { width: 100%; justify-content: center; }
+  .counters { gap: 12px; }
+  .counter { padding: 12px 6px; }
+  .popup { padding: 28px; }
+  .popup h2 { font-size: 1.3rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="container">
+    <a href="#hero" class="logo">L-TEX<span>секонд-хенд гуртом</span></a>
+    <nav class="nav">
+      <a href="#advantages">Про нас</a>
+      <a href="#catalog">Товари</a>
+      <a href="#how-work">Як працюємо</a>
+      <a href="#reviews">Відгуки</a>
+      <a href="#contacts">Контакти</a>
+    </nav>
+    <a href="tel:+380676710515" class="header-cta"><i class="fas fa-phone"></i> Зателефонувати</a>
+    <button class="burger" id="burger" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#advantages" class="mobile-link">Про нас</a>
+  <a href="#catalog" class="mobile-link">Товари</a>
+  <a href="#how-work" class="mobile-link">Як працюємо</a>
+  <a href="#reviews" class="mobile-link">Відгуки</a>
+  <a href="#contacts" class="mobile-link">Контакти</a>
+  <a href="tel:+380676710515" class="btn btn-gold" style="margin-top:16px"><i class="fas fa-phone"></i> Зателефонувати</a>
+</div>
+
+<!-- POPUP MODAL -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup">
+    <button class="popup-close" id="popupClose" aria-label="Закрити">&times;</button>
+    <h2>Отримайте безкоштовну консультацію</h2>
+    <p class="popup-sub">Менеджер зв'яжеться протягом 1 години і допоможе підібрати товар</p>
+    <form id="popupForm">
+      <input type="hidden" name="_subject" value="Запит на консультацію з secondopt.com.ua">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+      <div class="form-group">
+        <label for="popup-name">Ваше ім'я</label>
+        <input type="text" id="popup-name" name="name" placeholder="Олена" required>
+      </div>
+      <div class="form-group">
+        <label for="popup-phone">Телефон</label>
+        <input type="tel" id="popup-phone" name="phone" placeholder="+380 XX XXX XX XX" required>
+      </div>
+      <button type="submit" class="form-submit-btn">Передзвоніть мені <i class="fas fa-phone"></i></button>
+      <div class="form-success" id="popupSuccess">&#10003; Чудово! Очікуйте дзвінка.</div>
+    </form>
+    <div class="popup-alt">
+      або напишіть одразу &rarr;
+      <div>
+        <a href="https://t.me/LTEX_Second" target="_blank" rel="noopener" class="tg-link" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+        <a href="https://invite.viber.com/?g2=AQA%2Fxgye6%2BDx3El3Qybx4jkoK8aeVPb7x8On05U2OUZu92jUbrIS16QpCXAnJXHq" target="_blank" rel="noopener" class="vb-link" aria-label="Viber"><i class="fab fa-viber"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FLOATING BUTTONS -->
+<div class="floating-btns">
+  <a href="tel:+380676710515" class="float-btn phone" aria-label="Зателефонувати">
+    <i class="fas fa-phone"></i>
+    <span class="float-tooltip">Зателефонувати</span>
+  </a>
+  <a href="https://t.me/LTEX_Second" target="_blank" rel="noopener" class="float-btn tg" aria-label="Telegram">
+    <i class="fab fa-telegram-plane"></i>
+    <span class="float-tooltip">Telegram</span>
+  </a>
+  <a href="https://invite.viber.com/?g2=AQA%2Fxgye6%2BDx3El3Qybx4jkoK8aeVPb7x8On05U2OUZu92jUbrIS16QpCXAnJXHq" target="_blank" rel="noopener" class="float-btn vb" aria-label="Viber">
+    <i class="fab fa-viber"></i>
+    <span class="float-tooltip">Viber</span>
+  </a>
+</div>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge"><span style="color:#2ecc71">&#9679;</span> Прямі поставки з Англії, Польщі, Канади, Німеччини</div>
+      <h1>Секонд-хенд та сток гуртом — <em>прямо з Європи</em></h1>
+      <p class="hero-sub">Якісний одяг, взуття та аксесуари для вашого бізнесу. Від 10 кг.</p>
+      <div class="hero-buttons">
+        <button class="btn btn-gold" id="heroCatalogBtn"><i class="fas fa-box-open"></i> Отримати каталог</button>
+        <a href="https://t.me/LTEX_Second" target="_blank" rel="noopener" class="btn btn-outline"><i class="fab fa-telegram-plane"></i> Написати в Telegram &rarr;</a>
+      </div>
+      <div class="counters">
+        <div class="counter">
+          <div class="counter-num" data-target="10" data-suffix="+">0</div>
+          <div class="counter-label">років на ринку</div>
+        </div>
+        <div class="counter">
+          <div class="counter-num" data-target="600" data-suffix="+">0</div>
+          <div class="counter-label">найменувань товарів</div>
+        </div>
+        <div class="counter">
+          <div class="counter-num" data-target="6" data-suffix="">0</div>
+          <div class="counter-label">країн-постачальників</div>
+        </div>
+        <div class="counter">
+          <div class="counter-num" data-target="10" data-prefix="від " data-suffix=" кг">0</div>
+          <div class="counter-label">мінімальне замовлення</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ПЕРЕВАГИ -->
+<section class="advantages" id="advantages">
+  <div class="container">
+    <h2 class="section-title reveal">Чому обирають L-TEX</h2>
+    <p class="section-subtitle reveal">Ми робимо оптову торгівлю секонд-хендом зручною та прозорою</p>
+    <div class="advantages-grid">
+      <div class="adv-card reveal">
+        <div class="adv-icon"><i class="fas fa-ship"></i></div>
+        <h3>Прямий імпорт</h3>
+        <p>Постачаємо безпосередньо з Англії, Польщі, Канади, Німеччини, Італії, Шотландії</p>
+      </div>
+      <div class="adv-card reveal">
+        <div class="adv-icon"><i class="fas fa-boxes-stacked"></i></div>
+        <h3>600+ найменувань</h3>
+        <p>Одяг, взуття, аксесуари, іграшки, декор — повна номенклатура в одному місці</p>
+      </div>
+      <div class="adv-card reveal">
+        <div class="adv-icon"><i class="fas fa-certificate"></i></div>
+        <h3>Гарантія якості</h3>
+        <p>Кожна партія проходить сортування: Екстра, Крем, 1-й сорт, 2-й сорт, Сток</p>
+      </div>
+      <div class="adv-card reveal">
+        <div class="adv-icon"><i class="fas fa-user-tie"></i></div>
+        <h3>Персональний менеджер</h3>
+        <p>Допоможемо підібрати товар під ваш регіон та формат бізнесу</p>
+      </div>
+      <div class="adv-card reveal">
+        <div class="adv-icon"><i class="fas fa-truck-fast"></i></div>
+        <h3>Власна доставка</h3>
+        <p>Доставляємо по всій Україні, швидко та без зайвих посередників</p>
+      </div>
+      <div class="adv-card reveal">
+        <div class="adv-icon"><i class="fas fa-tags"></i></div>
+        <h3>Гнучкі ціни</h3>
+        <p>Оптові ціни в EUR. Акційні пропозиції на партії. Мін. замовлення — від 10 кг</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- КАТАЛОГ ТОВАРІВ -->
+<section class="catalog" id="catalog">
+  <div class="container">
+    <h2 class="section-title reveal">Що є в наявності прямо зараз</h2>
+    <p class="section-subtitle reveal">7 категорій товарів з Європи — завжди в наявності на складі</p>
+    <div class="catalog-scroll reveal">
+      <div class="cat-card has-photos"
+           data-cat="Одяг"
+           data-photos="images/0117.jpg|images/0136.jpg|images/0122.jpg|images/0095.jpg|images/0147.jpg|images/0451.jpg|images/0276.jpg|images/0466.jpg|images/1175.jpg|images/1306.jpg"
+           data-labels="Лижний одяг|Спортивний одяг|Зимові куртки|Джинси|Светри|Літні сукні|Худі та толстовки|Дитячий одяг|Джинсові куртки|Робочий одяг">
+        <span class="photo-badge">&#128247; 10 фото</span>
+        <div class="cat-emoji">&#128087;</div>
+        <h3>Одяг</h3>
+        <p>Светри, куртки, джинси, сукні, спортивний одяг</p>
+      </div>
+      <div class="cat-card has-photos"
+           data-cat="Взуття"
+           data-photos="images/(1386).jpg|images/0028.jpg|images/0032.jpg|images/0036.jpg|images/0038.jpg|images/0048.jpg|images/0710.jpg|images/1378.jpg"
+           data-labels="Кросівки HOKA|Тапочки та капці|Сандалі та шльопанці|Зимові чоботи|Кеди та кросівки|Гумові дитячі|Кросівки різні|Сандалі та crocs">
+        <span class="photo-badge">&#128247; 8 фото</span>
+        <div class="cat-emoji">&#128095;</div>
+        <h3>Взуття</h3>
+        <p>Кросівки, черевики, туфлі, гумові, дитяче</p>
+      </div>
+      <div class="cat-card has-photos"
+           data-cat="Сумки та аксесуари"
+           data-photos="images/0014.jpg|images/0135.jpg|images/0057.jpg|images/1053.jpg|images/1705.jpg|images/1362.jpg|images/photo_2026-03-19_12-35-18.jpg"
+           data-labels="Дитячі рюкзаки|Жіночі сумки|Кепки дорослі|Сумки жіночі|Сумки та клатчі|Кепки бейсболки|Сумки різні">
+        <span class="photo-badge">&#128247; 7 фото</span>
+        <div class="cat-emoji">&#128092;</div>
+        <h3>Сумки та аксесуари</h3>
+        <p>Сумки, ремені, шарфи, капелюхи</p>
+      </div>
+      <div class="cat-card has-photos"
+           data-cat="Дім та побут"
+           data-photos="images/0015.jpg|images/0154.jpg|images/0173.jpg|images/0215.jpg|images/1030.jpg|images/1300.jpg|images/0683.jpg"
+           data-labels="Постільна білизна|Рушники|Подушки|Тюль та гардини|Подушки на стілець|Ковдра та плед|Килимки">
+        <span class="photo-badge">&#128247; 7 фото</span>
+        <div class="cat-emoji">&#127968;</div>
+        <h3>Дім та побут</h3>
+        <p>Текстиль, посуд, декор</p>
+      </div>
+      <div class="cat-card has-photos"
+           data-cat="Іграшки"
+           data-photos="images/0162.jpg|images/0164.jpg"
+           data-labels="М'які іграшки|Ляльки та іграшки">
+        <span class="photo-badge">&#128247; 2 фото</span>
+        <div class="cat-emoji">&#129528;</div>
+        <h3>Іграшки</h3>
+        <p>Дитячі іграшки всіх видів</p>
+      </div>
+      <div class="cat-card has-photos"
+           data-cat="Bric-a-Brac"
+           data-photos="images/0093.jpg|images/0155.jpg|images/0174.jpg|images/0186.jpg|images/1091.jpg"
+           data-labels="Пряжа для в'язання|Товари для тварин|Мотошоломи|Електроніка та кабелі|Мотоекіпірування">
+        <span class="photo-badge">&#128247; 5 фото</span>
+        <div class="cat-emoji">&#128142;</div>
+        <h3>Bric-a-Brac</h3>
+        <p>Вінтаж, антикваріат, дрібниці</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-emoji">&#128132;</div>
+        <h3>Косметика</h3>
+        <p>Догляд, парфумерія</p>
+      </div>
+    </div>
+    <div class="catalog-cta reveal">
+      <a href="https://ltexlutskai-tech.github.io/catalog-full/index.html" target="_blank" rel="noopener" class="btn btn-gold"><i class="fas fa-external-link-alt"></i> Переглянути онлайн-каталог &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ВІДЕО -->
+<section class="videos" id="videos">
+  <div class="container">
+    <h2 class="section-title reveal">Дивіться товар перед покупкою</h2>
+    <p class="section-subtitle reveal">Кожен мішок має власний відеоогляд — знаєте що купуєте</p>
+    <div class="videos-grid reveal">
+      <a href="https://www.youtube.com/channel/UCbBvZnTCTQ2zTpU1z1DSErQ" target="_blank" rel="noopener" class="video-card">
+        <div class="video-thumb">
+          <div class="play-icon"><i class="fas fa-play"></i></div>
+        </div>
+        <div class="video-info">
+          <h4>Огляд одягу</h4>
+          <p>Светри, куртки, спортивний одяг</p>
+        </div>
+      </a>
+      <a href="https://www.youtube.com/channel/UCbBvZnTCTQ2zTpU1z1DSErQ" target="_blank" rel="noopener" class="video-card">
+        <div class="video-thumb">
+          <div class="play-icon"><i class="fas fa-play"></i></div>
+        </div>
+        <div class="video-info">
+          <h4>Огляд взуття</h4>
+          <p>Кросівки, черевики, дитяче взуття</p>
+        </div>
+      </a>
+      <a href="https://www.youtube.com/channel/UCbBvZnTCTQ2zTpU1z1DSErQ" target="_blank" rel="noopener" class="video-card">
+        <div class="video-thumb">
+          <div class="play-icon"><i class="fas fa-play"></i></div>
+        </div>
+        <div class="video-info">
+          <h4>Наш склад</h4>
+          <p>Екскурсія складом та сортувальним центром</p>
+        </div>
+      </a>
+    </div>
+    <div class="videos-cta reveal">
+      <a href="https://www.youtube.com/channel/UCbBvZnTCTQ2zTpU1z1DSErQ" target="_blank" rel="noopener" class="btn btn-green"><i class="fab fa-youtube"></i> Підписатись на YouTube &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ЯК ПРАЦЮЄМО -->
+<section class="how-work" id="how-work">
+  <div class="container">
+    <h2 class="section-title reveal">Як розпочати співпрацю</h2>
+    <p class="section-subtitle reveal">5 простих кроків — і ви вже заробляєте</p>
+    <div class="timeline reveal">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h4>Залиште заявку</h4>
+          <p>Заповніть форму або напишіть нам у Telegram/Viber</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h4>Консультація</h4>
+          <p>Менеджер зв'яжеться протягом 1 години та уточнить ваш запит</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h4>Підбір товару</h4>
+          <p>Разом обираємо потрібні категорії, сорт та обсяг</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h4>Оплата та відвантаження</h4>
+          <p>Фіксуємо ціну, оформляємо та відправляємо партію</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div>
+          <h4>Ви заробляєте</h4>
+          <p>Отримуєте якісний товар і починаєте продавати</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ГАЛЕРЕЯ -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <h2 class="section-title reveal">Наш склад та товар</h2>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><i class="fas fa-tshirt"></i><span>Одяг</span></div>
+        <div class="gallery-overlay">Одяг</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><i class="fas fa-shoe-prints"></i><span>Взуття</span></div>
+        <div class="gallery-overlay">Взуття</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><i class="fas fa-bag-shopping"></i><span>Сумки</span></div>
+        <div class="gallery-overlay">Сумки та аксесуари</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><i class="fas fa-warehouse"></i><span>Склад</span></div>
+        <div class="gallery-overlay">Наш склад</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><i class="fas fa-boxes-stacked"></i><span>Партії</span></div>
+        <div class="gallery-overlay">Партії товару</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><i class="fas fa-truck"></i><span>Доставка</span></div>
+        <div class="gallery-overlay">Доставка</div>
+      </div>
+    </div>
+    <p class="reveal" style="text-align:center;color:#888;font-size:.85rem;margin-bottom:24px;">Фото в процесі завантаження — дивіться відео на YouTube</p>
+    <div class="gallery-cta reveal">
+      <a href="https://instagram.com/ltex_secondopt" target="_blank" rel="noopener" class="btn btn-green"><i class="fab fa-instagram"></i> Більше фото в Instagram &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ВІДГУКИ -->
+<section class="reviews" id="reviews">
+  <div class="container">
+    <h2 class="section-title reveal">Що кажуть наші клієнти</h2>
+    <div class="reviews-list reveal">
+      <div class="review-card">
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">&laquo;Вже 2 роки працюємо з L-TEX. Якість товару стабільна, доставка вчасно. Менеджер завжди на зв'язку.&raquo;</p>
+        <div class="review-author">
+          <div class="review-avatar">ОК</div>
+          <div><div class="review-name">Олена К.</div><div class="review-city">Рівне</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">&laquo;Відкрив точку секонд-хенду, перші партії брав тут. Допомогли підібрати асортимент під мій регіон.&raquo;</p>
+        <div class="review-author">
+          <div class="review-avatar">МВ</div>
+          <div><div class="review-name">Максим В.</div><div class="review-city">Полтава</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">&laquo;Подобається що є відеоогляди кожного мішка — знаєш що отримаєш. Замовляємо регулярно.&raquo;</p>
+        <div class="review-author">
+          <div class="review-avatar">ТШ</div>
+          <div><div class="review-name">Тетяна Ш.</div><div class="review-city">Харків</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">&laquo;Дуже зручно працювати — прозорі ціни, чіткі терміни. Рекомендую колегам у сфері.&raquo;</p>
+        <div class="review-author">
+          <div class="review-avatar">АМ</div>
+          <div><div class="review-name">Андрій М.</div><div class="review-city">Дніпро</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ФОРМА КАТАЛОГУ -->
+<section class="catalog-form-section" id="catalog-form">
+  <div class="container">
+    <div class="form-wrapper">
+      <div class="form-info reveal">
+        <h2 class="section-title">Отримайте актуальний прайс-лист</h2>
+        <p>Надішлемо посилання на онлайн-каталог із 600+ позицій, поточними цінами та відеооглядами</p>
+        <ul class="form-features">
+          <li><i class="fas fa-check-circle"></i> 600+ найменувань товарів</li>
+          <li><i class="fas fa-check-circle"></i> Актуальні ціни в EUR</li>
+          <li><i class="fas fa-check-circle"></i> Відеоогляди кожної категорії</li>
+          <li><i class="fas fa-check-circle"></i> Безкоштовна консультація менеджера</li>
+        </ul>
+      </div>
+      <div class="main-form reveal">
+        <form id="mainForm">
+          <input type="hidden" name="_subject" value="Запит на каталог L-TEX з secondopt.com.ua">
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+          <div class="form-group">
+            <label for="main-name">Ваше ім'я *</label>
+            <input type="text" id="main-name" name="name" placeholder="Олена" required>
+          </div>
+          <div class="form-group">
+            <label for="main-phone">Телефон *</label>
+            <input type="tel" id="main-phone" name="phone" placeholder="+380 XX XXX XX XX" required>
+          </div>
+          <div class="form-group">
+            <label for="main-region">Область</label>
+            <select id="main-region" name="region">
+              <option value="">Оберіть область</option>
+              <option>Вінницька</option><option>Волинська</option><option>Дніпропетровська</option>
+              <option>Донецька</option><option>Житомирська</option><option>Закарпатська</option>
+              <option>Запорізька</option><option>Івано-Франківська</option><option>Київська</option>
+              <option>Кіровоградська</option><option>Луганська</option><option>Львівська</option>
+              <option>Миколаївська</option><option>Одеська</option><option>Полтавська</option>
+              <option>Рівненська</option><option>Сумська</option><option>Тернопільська</option>
+              <option>Харківська</option><option>Херсонська</option><option>Хмельницька</option>
+              <option>Черкаська</option><option>Чернівецька</option><option>Чернігівська</option>
+              <option>м. Київ</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="main-source">Як дізнались про нас?</label>
+            <select id="main-source" name="source">
+              <option value="">Оберіть варіант</option>
+              <option>Google</option><option>TikTok</option><option>Instagram</option>
+              <option>YouTube</option><option>Рекомендація</option><option>Інше</option>
+            </select>
+          </div>
+          <button type="submit" class="form-submit-btn">Надіслати каталог <i class="fas fa-box-open"></i></button>
+          <div class="form-success" id="mainFormSuccess">&#10003; Дякуємо! Ми надішлемо посилання на каталог протягом кількох хвилин.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- КОНТАКТИ -->
+<section class="contacts" id="contacts">
+  <div class="container">
+    <h2 class="section-title reveal">Контакти</h2>
+    <div class="contacts-grid reveal">
+      <div class="contacts-info">
+        <div class="contact-item">
+          <i class="fas fa-phone"></i>
+          <div>
+            <a href="tel:+380676710515">+380 67 671 05 16</a>
+            <span>Київстар</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-phone"></i>
+          <div>
+            <a href="tel:+380993584992">+380 99 358 49 92</a>
+            <span>Vodafone</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <div><a href="mailto:ltex.lutsk.ai@gmail.com">ltex.lutsk.ai@gmail.com</a></div>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-location-dot"></i>
+          <div>с. Піддубці, вул. Київська 7,<br>Луцький р-н, Волинська обл.</div>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-clock"></i>
+          <div>Пн-Пт 9:00–18:00, Сб 9:00–14:00</div>
+        </div>
+      </div>
+      <div class="contacts-social">
+        <div class="social-grid">
+          <a href="https://invite.viber.com/?g2=AQA%2Fxgye6%2BDx3El3Qybx4jkoK8aeVPb7x8On05U2OUZu92jUbrIS16QpCXAnJXHq" target="_blank" rel="noopener" class="social-btn viber">
+            <i class="fab fa-viber"></i> Viber-група
+          </a>
+          <a href="https://t.me/LTEX_Second" target="_blank" rel="noopener" class="social-btn telegram">
+            <i class="fab fa-telegram-plane"></i> Telegram
+          </a>
+          <a href="https://www.facebook.com/LTEXsecond" target="_blank" rel="noopener" class="social-btn facebook">
+            <i class="fab fa-facebook-f"></i> Facebook
+          </a>
+          <a href="https://instagram.com/ltex_secondopt" target="_blank" rel="noopener" class="social-btn instagram">
+            <i class="fab fa-instagram"></i> Instagram
+          </a>
+          <a href="https://www.tiktok.com/@ltex.second.opt" target="_blank" rel="noopener" class="social-btn tiktok">
+            <i class="fab fa-tiktok"></i> TikTok
+          </a>
+          <a href="https://www.youtube.com/channel/UCbBvZnTCTQ2zTpU1z1DSErQ" target="_blank" rel="noopener" class="social-btn youtube">
+            <i class="fab fa-youtube"></i> YouTube
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="logo">L-TEX<span>секонд-хенд гуртом</span></div>
+    <p class="footer-tagline">Секонд-хенд та сток гуртом — якість з Європи</p>
+    <div class="footer-links">
+      <a href="https://ltexlutskai-tech.github.io/catalog-full/index.html" target="_blank" rel="noopener">Каталог</a>
+      <a href="https://t.me/LTEX_Second" target="_blank" rel="noopener">Telegram</a>
+      <a href="https://instagram.com/ltex_secondopt" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.youtube.com/channel/UCbBvZnTCTQ2zTpU1z1DSErQ" target="_blank" rel="noopener">YouTube</a>
+    </div>
+    <p class="footer-copy">&copy; 2025 L-TEX. Всі права захищені. | <a href="https://ltexlutskai-tech.github.io/catalog-full/index.html" target="_blank" rel="noopener">bricabrac.com.ua</a></p>
+  </div>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  // === HEADER SCROLL ===
+  const header = document.getElementById('header');
+  let lastScroll = 0;
+  window.addEventListener('scroll', function() {
+    header.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  // === BURGER MENU ===
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', function() {
+    burger.classList.toggle('active');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+  document.querySelectorAll('.mobile-link').forEach(function(link) {
+    link.addEventListener('click', function() {
+      burger.classList.remove('active');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // === POPUP ===
+  var popupOverlay = document.getElementById('popupOverlay');
+  var popupClose = document.getElementById('popupClose');
+
+  function openPopup() {
+    popupOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closePopup() {
+    popupOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  popupClose.addEventListener('click', closePopup);
+  popupOverlay.addEventListener('click', function(e) {
+    if (e.target === popupOverlay) closePopup();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closePopup();
+  });
+
+  // Auto-popup after 15s
+  if (!localStorage.getItem('ltex_popup_shown')) {
+    setTimeout(function() {
+      if (!popupOverlay.classList.contains('open')) {
+        openPopup();
+        localStorage.setItem('ltex_popup_shown', '1');
+      }
+    }, 15000);
+  }
+
+  // CTA buttons open popup
+  document.getElementById('heroCatalogBtn').addEventListener('click', openPopup);
+
+  // === FORM SUBMISSION ===
+  function submitForm(form, successEl, subject) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Mark touched
+      form.querySelectorAll('input, select').forEach(function(el) { el.classList.add('touched'); });
+      if (!form.checkValidity()) return;
+
+      var data = new FormData(form);
+      data.set('_subject', subject);
+
+      fetch('https://formsubmit.co/ajax/ltex.lutsk.ai@gmail.com', {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(function(res) { return res.json(); })
+      .then(function() {
+        form.style.display = 'none';
+        successEl.classList.add('show');
+        if (form.id === 'popupForm') {
+          setTimeout(closePopup, 2000);
+          setTimeout(function() {
+            form.style.display = '';
+            successEl.classList.remove('show');
+            form.reset();
+          }, 2500);
+        }
+      })
+      .catch(function() {
+        alert('Виникла помилка. Спробуйте ще раз або напишіть нам у Telegram.');
+      });
+    });
+  }
+
+  submitForm(
+    document.getElementById('popupForm'),
+    document.getElementById('popupSuccess'),
+    'Запит на консультацію з secondopt.com.ua'
+  );
+  submitForm(
+    document.getElementById('mainForm'),
+    document.getElementById('mainFormSuccess'),
+    'Запит на каталог L-TEX з secondopt.com.ua'
+  );
+
+  // Touch validation styling
+  document.querySelectorAll('.main-form input, .main-form select, .popup input').forEach(function(el) {
+    el.addEventListener('blur', function() { el.classList.add('touched'); });
+  });
+
+  // === SCROLL REVEAL ===
+  var reveals = document.querySelectorAll('.reveal');
+  var revealObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(function(el) { revealObs.observe(el); });
+
+  // === COUNTER ANIMATION ===
+  var counters = document.querySelectorAll('.counter-num');
+  var counterObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      var el = entry.target;
+      var target = parseInt(el.dataset.target, 10);
+      var prefix = el.dataset.prefix || '';
+      var suffix = el.dataset.suffix || '';
+      var duration = 1500;
+      var start = 0;
+      var startTime = null;
+
+      function animate(ts) {
+        if (!startTime) startTime = ts;
+        var progress = Math.min((ts - startTime) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var current = Math.floor(eased * target);
+        el.textContent = prefix + current + suffix;
+        if (progress < 1) requestAnimationFrame(animate);
+        else el.textContent = prefix + target + suffix;
+      }
+      requestAnimationFrame(animate);
+      counterObs.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(function(el) { counterObs.observe(el); });
+
+  // === PHONE MASK (basic) ===
+  document.querySelectorAll('input[type="tel"]').forEach(function(input) {
+    input.addEventListener('input', function() {
+      var val = input.value.replace(/[^\d+]/g, '');
+      if (val.length > 0 && val[0] !== '+') val = '+' + val;
+      input.value = val;
+    });
+  });
+
+})();
+
+// === LIGHTBOX ===
+(function() {
+  var overlay = document.getElementById('lightboxOverlay');
+  var lbImg   = document.getElementById('lbImage');
+  var lbTitle = document.getElementById('lbTitle');
+  var lbDots  = document.getElementById('lbDots');
+  var lbCnt   = document.getElementById('lbCounter');
+  var lbPrev  = document.getElementById('lbPrev');
+  var lbNext  = document.getElementById('lbNext');
+  var lbClose = document.getElementById('lbClose');
+  var photos = [], labels = [], catName = '', current = 0;
+
+  function openLightbox(card) {
+    photos  = card.dataset.photos.split('|');
+    labels  = card.dataset.labels ? card.dataset.labels.split('|') : [];
+    catName = card.dataset.cat || '';
+    current = 0;
+    renderDots();
+    setSlide(0);
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    lbPrev.style.display = photos.length < 2 ? 'none' : '';
+    lbNext.style.display = photos.length < 2 ? 'none' : '';
+    lbDots.style.display = photos.length < 2 ? 'none' : 'flex';
+  }
+
+  function closeLightbox() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function showSlide(idx) {
+    lbImg.classList.add('fading');
+    setTimeout(function() {
+      setSlide(idx);
+      lbImg.classList.remove('fading');
+    }, 220);
+  }
+
+  function setSlide(idx) {
+    current = (idx + photos.length) % photos.length;
+    lbImg.src = photos[current];
+    lbImg.alt = labels[current] || catName;
+    lbTitle.textContent = catName + (labels[current] ? ' \u2014 ' + labels[current] : '');
+    lbCnt.textContent   = (current + 1) + ' / ' + photos.length;
+    lbDots.querySelectorAll('.lb-dot').forEach(function(d, i) {
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  function renderDots() {
+    lbDots.innerHTML = '';
+    photos.forEach(function(_, i) {
+      var d = document.createElement('button');
+      d.className = 'lb-dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Фото ' + (i + 1));
+      d.addEventListener('click', function() { showSlide(i); });
+      lbDots.appendChild(d);
+    });
+  }
+
+  document.querySelectorAll('.cat-card.has-photos').forEach(function(card) {
+    card.addEventListener('click', function() { openLightbox(card); });
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    card.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(card); }
+    });
+  });
+
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', function() { showSlide(current - 1); });
+  lbNext.addEventListener('click', function() { showSlide(current + 1); });
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) closeLightbox(); });
+  document.addEventListener('keydown', function(e) {
+    if (!overlay.classList.contains('open')) return;
+    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowLeft')  showSlide(current - 1);
+    if (e.key === 'ArrowRight') showSlide(current + 1);
+  });
+})();
+</script>
+<!-- LIGHTBOX -->
+<div id="lightboxOverlay" role="dialog" aria-modal="true" aria-label="Перегляд фото">
+  <button class="lb-close" id="lbClose" aria-label="Закрити">&times;</button>
+  <div class="lb-title" id="lbTitle"></div>
+  <div class="lb-stage">
+    <button class="lb-btn lb-prev" id="lbPrev" aria-label="Попереднє">&#8249;</button>
+    <div class="lb-img-wrap">
+      <img id="lbImage" src="" alt="">
+    </div>
+    <button class="lb-btn lb-next" id="lbNext" aria-label="Наступне">&#8250;</button>
+  </div>
+  <div class="lb-dots" id="lbDots"></div>
+  <div class="lb-counter" id="lbCounter"></div>
+</div>
+</body>
+</html>
