@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /images/
 
 Sitemap: https://secondopt.com.ua/sitemap.xml
