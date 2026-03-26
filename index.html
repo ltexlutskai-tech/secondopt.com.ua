@@ -278,6 +278,16 @@ ul { list-style: none; }
   background: linear-gradient(to top, var(--light-bg), transparent);
   z-index: 1;
 }
+.hero-bg-photo {
+  position: absolute; inset: 0;
+  background-image: url('images/Головне фото/20260326_140036.webp');
+  background-size: cover; background-position: center; background-repeat: no-repeat;
+  filter: blur(3px) brightness(0.25);
+  transform: scale(1.05);
+  z-index: 0; pointer-events: none;
+}
+.hero::before { z-index: 1; }
+.hero::after { z-index: 1; }
 .hero-content { position: relative; z-index: 2; max-width: 700px; }
 .hero-badge {
   display: inline-flex;
@@ -470,9 +480,8 @@ ul { list-style: none; }
 }
 #lbImage {
   max-width: 100%; max-height: 68vh; object-fit: contain;
-  border-radius: 14px; display: block; transition: opacity .22s;
+  border-radius: 14px; display: block; transition: opacity .18s ease;
 }
-#lbImage.fading { opacity: 0; }
 .lb-btn {
   position: absolute; top: 50%; transform: translateY(-50%);
   background: rgba(255,255,255,.15); border: none; color: #fff;
@@ -491,6 +500,7 @@ ul { list-style: none; }
 }
 .lb-dot.active { background: var(--primary); transform: scale(1.35); }
 .lb-counter { color: rgba(255,255,255,.4); font-size: .78rem; margin-top: 8px; }
+.wc-btn:hover { background: rgba(26,122,60,.8) !important; }
 @media (max-width: 640px) {
   .lb-prev { left: 2px; }
   .lb-next { right: 2px; }
@@ -764,6 +774,8 @@ ul { list-style: none; }
 .form-group input::placeholder { color: rgba(255,255,255,.4); }
 .form-group select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 20px; }
 .form-group select option { background: #1a3c25; color: #fff; }
+#cm-category { border-color: var(--accent-gold); background: rgba(255,255,255,.13); }
+#cm-category:focus { border-color: var(--accent-gold); box-shadow: 0 0 0 3px rgba(232,184,75,.25); }
 .form-group input:focus,
 .form-group select:focus {
   outline: none;
@@ -954,6 +966,8 @@ select:invalid.touched {
   background: #fff;
   border-radius: 20px;
   padding: 40px;
+  max-height: 90vh;
+  overflow-y: auto;
   max-width: 440px;
   width: 90%;
   position: relative;
@@ -1056,7 +1070,6 @@ select:invalid.touched {
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
   .form-wrapper { grid-template-columns: 1fr; gap: 32px; }
   .contacts-grid { grid-template-columns: 1fr; gap: 40px; }
-  .about-facts > .container > div { grid-template-columns: 1fr !important; }
   .social-grid { grid-template-columns: 1fr; }
   .floating-btns { bottom: 16px; right: 16px; }
   .float-btn { width: 46px; height: 46px; font-size: 1.1rem; }
@@ -1213,7 +1226,7 @@ select:invalid.touched {
   <div class="container">
     <a href="#hero" class="logo">L-TEX<span>секонд-хенд гуртом</span></a>
     <nav class="nav">
-      <a href="#about">Про нас</a>
+      <a href="#advantages">Про нас</a>
       <a href="#catalog">Товари</a>
       <a href="#how-work">Як працюємо</a>
       <a href="#reviews">Відгуки</a>
@@ -1263,7 +1276,7 @@ select:invalid.touched {
     <div class="popup-alt">
       або напишіть одразу &rarr;
       <div>
-        <a href="https://t.me/TarasKuzenko" target="_blank" rel="noopener" class="tg-link" aria-label="Telegram"><i class="fab fa-telegram-plane" aria-hidden="true"></i></a>
+        <a href="https://t.me/LTEX_Second" target="_blank" rel="noopener" class="tg-link" aria-label="Telegram"><i class="fab fa-telegram-plane" aria-hidden="true"></i></a>
         <a href="viber://chat?number=%2B380676710515" target="_blank" rel="noopener" class="vb-link" aria-label="Viber"><i class="fab fa-viber" aria-hidden="true"></i></a>
       </div>
     </div>
@@ -1316,7 +1329,7 @@ select:invalid.touched {
     <i class="fas fa-phone" aria-hidden="true"></i>
     <span class="float-tooltip">Зателефонувати</span>
   </a>
-  <a href="https://t.me/TarasKuzenko" target="_blank" rel="noopener" class="float-btn tg" aria-label="Telegram">
+  <a href="https://t.me/LTEX_Second" target="_blank" rel="noopener" class="float-btn tg" aria-label="Telegram">
     <i class="fab fa-telegram-plane" aria-hidden="true"></i>
     <span class="float-tooltip">Telegram</span>
   </a>
@@ -1329,6 +1342,7 @@ select:invalid.touched {
 <main>
 <!-- HERO -->
 <section class="hero" id="hero">
+  <div class="hero-bg-photo" aria-hidden="true"></div>
   <div class="container">
     <div class="hero-content">
       <div class="hero-badge"><span style="color:#2ecc71">&#9679;</span> Прямі поставки з Англії, Польщі, Канади, Німеччини</div>
@@ -1336,7 +1350,7 @@ select:invalid.touched {
       <p class="hero-sub">Якісний одяг, взуття та аксесуари для вашого бізнесу. Від 10 кг.</p>
       <div class="hero-buttons">
         <button class="btn btn-gold" id="heroCatalogBtn"><i class="fas fa-box-open" aria-hidden="true"></i> Отримати каталог</button>
-        <a href="https://t.me/TarasKuzenko" target="_blank" rel="noopener" class="btn btn-outline"><i class="fab fa-telegram-plane" aria-hidden="true"></i> Написати в Telegram &rarr;</a>
+        <a href="https://t.me/LTEX_Second" target="_blank" rel="noopener" class="btn btn-outline"><i class="fab fa-telegram-plane" aria-hidden="true"></i> Написати в Telegram &rarr;</a>
       </div>
       <div class="counters">
         <div class="counter">
@@ -1400,51 +1414,6 @@ select:invalid.touched {
   </div>
 </section>
 
-<!-- ПРО КОМПАНІЮ -->
-<section class="about-facts" id="about" aria-label="Про компанію L-TEX"
-         style="padding:60px 0;background:#fff;border-top:1px solid rgba(26,122,60,.08)">
-  <div class="container">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center">
-      <div class="reveal">
-        <h2 class="section-title" style="font-size:clamp(1.5rem,3vw,2.2rem);text-align:left">
-          10 років на ринку секонд-хенду
-        </h2>
-        <p style="color:#555;line-height:1.7;margin-bottom:16px">
-          Компанія L-TEX заснована у Луцьку та спеціалізується на прямому імпорті
-          секонд-хенд та сток одягу з Великобританії, Польщі, Канади, Німеччини,
-          Італії та Шотландії.
-        </p>
-        <p style="color:#555;line-height:1.7;margin-bottom:24px">
-          Щотижня на склад у с. Піддубці надходять нові партії. Кожна партія
-          сортується за категоріями та сортами: Екстра, Крем, 1-й сорт, 2-й сорт, Сток —
-          так ви точно знаєте що отримуєте.
-        </p>
-        <a href="https://www.youtube.com/channel/UCbBvZnTCTQ2zTpU1z1DSErQ"
-           target="_blank" rel="noopener" class="btn btn-green" style="display:inline-flex">
-          <i class="fab fa-youtube" aria-hidden="true"></i> Подивитись склад на YouTube
-        </a>
-      </div>
-      <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-        <div style="background:var(--light-bg);border-radius:14px;padding:24px;text-align:center">
-          <div style="font-family:var(--font-mono);font-size:2rem;font-weight:700;color:var(--primary)">10+</div>
-          <div style="font-size:.82rem;color:#666;margin-top:6px">років досвіду</div>
-        </div>
-        <div style="background:var(--light-bg);border-radius:14px;padding:24px;text-align:center">
-          <div style="font-family:var(--font-mono);font-size:2rem;font-weight:700;color:var(--primary)">600+</div>
-          <div style="font-size:.82rem;color:#666;margin-top:6px">найменувань</div>
-        </div>
-        <div style="background:var(--light-bg);border-radius:14px;padding:24px;text-align:center">
-          <div style="font-family:var(--font-mono);font-size:2rem;font-weight:700;color:var(--primary)">6</div>
-          <div style="font-size:.82rem;color:#666;margin-top:6px">країн-постачальників</div>
-        </div>
-        <div style="background:var(--light-bg);border-radius:14px;padding:24px;text-align:center">
-          <div style="font-family:var(--font-mono);font-size:2rem;font-weight:700;color:var(--primary)">від 10</div>
-          <div style="font-size:.82rem;color:#666;margin-top:6px">кг мін. замовлення</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- КАТАЛОГ ТОВАРІВ -->
 <section class="catalog" id="catalog">
@@ -1497,12 +1466,20 @@ select:invalid.touched {
         <h3>Іграшки</h3>
         <p>Дитячі іграшки всіх видів</p>
       </div>
-      <div class="cat-card">
+      <div class="cat-card has-photos"
+           data-cat="Bric-a-Brac"
+           data-photos="images/Bric-a-Brac/photo_2026-02-21_09-48-52.jpg|images/Bric-a-Brac/photo_2026-02-21_09-49-25.jpg|images/Bric-a-Brac/photo_2026-02-21_09-50-51 (2).jpg|images/Bric-a-Brac/photo_2026-02-21_09-51-36.jpg|images/Bric-a-Brac/photo_2026-02-21_12-16-01.jpg|images/Bric-a-Brac/photo_2026-02-24_13-46-23 (2).jpg|images/Bric-a-Brac/photo_2026-02-24_13-46-23.jpg|images/Bric-a-Brac/photo_2026-02-24_13-46-24 (2).jpg|images/Bric-a-Brac/photo_2026-02-24_13-46-24.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-16.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-27.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-30.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-31.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-33.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-34.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-36.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-37.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-39.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-40.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-42.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-43.jpg"
+           data-labels="">
+        <span class="photo-badge">&#128247; 21 фото</span>
         <div class="cat-emoji">&#128142;</div>
         <h3>Bric-a-Brac</h3>
         <p>Вінтаж, антикваріат, дрібниці</p>
       </div>
-      <div class="cat-card">
+      <div class="cat-card has-photos"
+           data-cat="Косметика"
+           data-photos="images/Косметика/photo_2026-03-26_15-26-26.jpg|images/Косметика/photo_2026-03-26_15-26-28.jpg|images/Косметика/photo_2026-03-26_15-26-36.jpg|images/Косметика/photo_2026-03-26_15-26-37.jpg|images/Косметика/photo_2026-03-26_15-26-40.jpg|images/Косметика/photo_2026-03-26_15-26-41.jpg|images/Косметика/photo_2026-03-26_15-26-43.jpg|images/Косметика/photo_2026-03-26_15-26-45.jpg|images/Косметика/photo_2026-03-26_15-26-46.jpg|images/Косметика/photo_2026-03-26_15-26-48.jpg|images/Косметика/photo_2026-03-26_15-26-49.jpg|images/Косметика/photo_2026-03-26_15-26-51.jpg|images/Косметика/photo_2026-03-26_15-26-52.jpg|images/Косметика/photo_2026-03-26_15-26-53.jpg|images/Косметика/photo_2026-03-26_15-26-55.jpg|images/Косметика/photo_2026-03-26_15-26-58.jpg|images/Косметика/photo_2026-03-26_15-27-00.jpg|images/Косметика/photo_2026-03-26_15-27-01.jpg|images/Косметика/photo_2026-03-26_15-27-06.jpg|images/Косметика/photo_2026-03-26_15-27-08.jpg"
+           data-labels="">
+        <span class="photo-badge">&#128247; 20 фото</span>
         <div class="cat-emoji">&#128132;</div>
         <h3>Косметика</h3>
         <p>Догляд, парфумерія</p>
@@ -1609,33 +1586,12 @@ select:invalid.touched {
 <section class="gallery" id="gallery">
   <div class="container">
     <h2 class="section-title reveal">Наш склад та товар</h2>
-    <div class="gallery-grid reveal">
-      <div class="gallery-item">
-        <div class="gallery-placeholder"><i class="fas fa-tshirt" aria-hidden="true"></i><span>Одяг</span></div>
-        <div class="gallery-overlay">Одяг</div>
-      </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder"><i class="fas fa-shoe-prints" aria-hidden="true"></i><span>Взуття</span></div>
-        <div class="gallery-overlay">Взуття</div>
-      </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder"><i class="fas fa-bag-shopping" aria-hidden="true"></i><span>Сумки</span></div>
-        <div class="gallery-overlay">Сумки та аксесуари</div>
-      </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder"><i class="fas fa-warehouse" aria-hidden="true"></i><span>Склад</span></div>
-        <div class="gallery-overlay">Наш склад</div>
-      </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder"><i class="fas fa-boxes-stacked" aria-hidden="true"></i><span>Партії</span></div>
-        <div class="gallery-overlay">Партії товару</div>
-      </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder"><i class="fas fa-truck" aria-hidden="true"></i><span>Доставка</span></div>
-        <div class="gallery-overlay">Доставка</div>
-      </div>
+    <div class="warehouse-carousel reveal" style="position:relative;overflow:hidden;border-radius:16px;max-height:480px">
+      <div class="wc-track" id="wcTrack" style="display:flex;transition:transform .45s cubic-bezier(.4,0,.2,1)"></div>
+      <button class="wc-btn wc-prev" id="wcPrev" aria-label="Попереднє фото" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.45);border:none;color:#fff;font-size:1.8rem;width:48px;height:48px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;transition:background .2s">&#8249;</button>
+      <button class="wc-btn wc-next" id="wcNext" aria-label="Наступне фото" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.45);border:none;color:#fff;font-size:1.8rem;width:48px;height:48px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;transition:background .2s">&#8250;</button>
+      <div id="wcDots" style="position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:2"></div>
     </div>
-    <p class="reveal" style="text-align:center;color:#888;font-size:.85rem;margin-bottom:24px;">Фото в процесі завантаження — дивіться відео на YouTube</p>
     <div class="gallery-cta reveal">
       <a href="https://instagram.com/ltex_secondopt" target="_blank" rel="noopener" class="btn btn-green"><i class="fab fa-instagram" aria-hidden="true"></i> Більше фото в Instagram &rarr;</a>
     </div>
@@ -1799,7 +1755,7 @@ select:invalid.touched {
           <a href="https://invite.viber.com/?g2=AQA%2Fxgye6%2BDx3El3Qybx4jkoK8aeVPb7x8On05U2OUZu92jUbrIS16QpCXAnJXHq" target="_blank" rel="noopener" class="social-btn viber">
             <i class="fab fa-viber" aria-hidden="true"></i> Viber-група
           </a>
-          <a href="https://t.me/TarasKuzenko" target="_blank" rel="noopener" class="social-btn telegram">
+          <a href="https://t.me/LTEX_Second" target="_blank" rel="noopener" class="social-btn telegram">
             <i class="fab fa-telegram-plane" aria-hidden="true"></i> Telegram
           </a>
           <a href="https://www.facebook.com/LTEXsecond" target="_blank" rel="noopener" class="social-btn facebook">
@@ -1838,7 +1794,7 @@ select:invalid.touched {
     <p class="footer-tagline">Секонд-хенд та сток гуртом — якість з Європи</p>
     <div class="footer-links">
       <a href="https://ltexlutskai-tech.github.io/catalog-full/index.html" target="_blank" rel="noopener">Каталог</a>
-      <a href="https://t.me/TarasKuzenko" target="_blank" rel="noopener">Telegram</a>
+      <a href="https://t.me/LTEX_Second" target="_blank" rel="noopener">Telegram</a>
       <a href="https://instagram.com/ltex_secondopt" target="_blank" rel="noopener">Instagram</a>
       <a href="https://www.youtube.com/channel/UCbBvZnTCTQ2zTpU1z1DSErQ" target="_blank" rel="noopener">YouTube</a>
     </div>
@@ -2027,6 +1983,10 @@ select:invalid.touched {
   function openCatalogModal() {
     cmOverlay.classList.add('open');
     document.body.style.overflow = 'hidden';
+    setTimeout(function() {
+      var catField = document.getElementById('cm-category');
+      if (catField) catField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 300);
   }
   function closeCatalogModal() {
     cmOverlay.classList.remove('open');
@@ -2138,11 +2098,11 @@ select:invalid.touched {
   }
 
   function showSlide(idx) {
-    lbImg.classList.add('fading');
+    lbImg.style.opacity = '0';
     setTimeout(function() {
       setSlide(idx);
-      lbImg.classList.remove('fading');
-    }, 220);
+      lbImg.style.opacity = '1';
+    }, 180);
   }
 
   function setSlide(idx) {
@@ -2189,6 +2149,65 @@ select:invalid.touched {
     if (e.key === 'ArrowLeft')  showSlide(current - 1);
     if (e.key === 'ArrowRight') showSlide(current + 1);
   });
+})();
+
+// === WAREHOUSE CAROUSEL ===
+(function() {
+  var photos = [
+    'images/Наш склад та товар/photo_2026-03-26_16-01-58.jpg',
+    'images/Наш склад та товар/photo_2026-03-26_16-01-58 (2).jpg',
+    'images/Наш склад та товар/photo_2026-03-26_16-01-58 (3).jpg',
+    'images/Наш склад та товар/photo_2026-03-26_16-01-58 (4).jpg',
+    'images/Наш склад та товар/photo_2026-03-26_16-01-58 (5).jpg',
+    'images/Наш склад та товар/photo_2026-03-26_16-01-58 (6).jpg',
+    'images/Наш склад та товар/photo_2026-03-26_16-01-58 (7).jpg',
+    'images/Наш склад та товар/photo_2026-03-26_16-01-59.jpg',
+    'images/Наш склад та товар/photo_2026-03-26_16-01-59 (2).jpg',
+    'images/Наш склад та товар/photo_2026-03-26_16-01-59 (3).jpg',
+    'images/Наш склад та товар/photo_2026-03-26_16-09-05.jpg',
+    'images/Наш склад та товар/photo_2026-03-26_16-09-06.jpg',
+    'images/Наш склад та товар/photo_2026-03-26_16-09-06 (2).jpg'
+  ];
+  if (!photos.length) return;
+  var track = document.getElementById('wcTrack');
+  var dotsC = document.getElementById('wcDots');
+  var current = 0, autoTimer;
+  photos.forEach(function(src, i) {
+    var slide = document.createElement('div');
+    slide.style.cssText = 'min-width:100%;max-height:480px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#0f1f14';
+    var img = document.createElement('img');
+    img.src = src.replace(/\.(jpg|jpeg)$/i, '.webp');
+    img.alt = 'Склад L-TEX — секонд-хенд гуртом';
+    img.loading = i === 0 ? 'eager' : 'lazy';
+    img.decoding = 'async';
+    img.style.cssText = 'width:100%;max-height:480px;object-fit:cover;display:block';
+    img.onerror = function() { if (img.src.indexOf('.webp') > -1) img.src = src; };
+    slide.appendChild(img);
+    track.appendChild(slide);
+    var dot = document.createElement('button');
+    dot.style.cssText = 'width:9px;height:9px;border-radius:50%;border:none;cursor:pointer;transition:background .2s,transform .2s;padding:0;background:' + (i===0?'#fff':'rgba(255,255,255,.4)');
+    dot.setAttribute('aria-label', 'Фото ' + (i+1));
+    dot.addEventListener('click', function() { goTo(i); resetAuto(); });
+    dotsC.appendChild(dot);
+  });
+  function goTo(idx) {
+    current = (idx + photos.length) % photos.length;
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    dotsC.querySelectorAll('button').forEach(function(d, i) {
+      d.style.background = i === current ? '#fff' : 'rgba(255,255,255,.4)';
+      d.style.transform = i === current ? 'scale(1.3)' : 'scale(1)';
+    });
+  }
+  function resetAuto() { clearInterval(autoTimer); autoTimer = setInterval(function() { goTo(current + 1); }, 4500); }
+  document.getElementById('wcPrev').addEventListener('click', function() { goTo(current - 1); resetAuto(); });
+  document.getElementById('wcNext').addEventListener('click', function() { goTo(current + 1); resetAuto(); });
+  var startX = 0;
+  track.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', function(e) {
+    var diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) { goTo(current + (diff > 0 ? 1 : -1)); resetAuto(); }
+  });
+  resetAuto();
 })();
 
 // === GA4 SOCIAL CLICK TRACKING ===
