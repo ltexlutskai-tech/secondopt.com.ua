@@ -501,6 +501,17 @@ ul { list-style: none; }
 .lb-dot.active { background: var(--primary); transform: scale(1.35); }
 .lb-counter { color: rgba(255,255,255,.4); font-size: .78rem; margin-top: 8px; }
 .wc-btn:hover { background: rgba(26,122,60,.8) !important; }
+/* ===== FAQ ===== */
+.faq-section { padding: 70px 0; background: var(--light-bg); }
+.faq-section .section-title { text-align: center; margin-bottom: 2rem; }
+.faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 6px; }
+.faq-item { background: #fff; border-radius: 12px; overflow: hidden; border: 1px solid rgba(26,122,60,.08); transition: box-shadow var(--transition); }
+.faq-item:hover { box-shadow: 0 4px 16px rgba(26,122,60,.08); }
+.faq-item summary { padding: 20px 24px; cursor: pointer; font-weight: 700; font-family: var(--font-heading); font-size: 1rem; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; color: var(--text-dark); user-select: none; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-toggle { flex-shrink: 0; width: 28px; height: 28px; background: rgba(26,122,60,.08); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.2rem; transition: transform .2s ease, background .2s; }
+.faq-item[open] .faq-toggle { transform: rotate(45deg); background: var(--primary); color: #fff; }
+.faq-answer { padding: 0 24px 20px; color: #555; line-height: 1.65; font-size: .95rem; }
 @media (max-width: 640px) {
   .lb-prev { left: 2px; }
   .lb-next { right: 2px; }
@@ -1083,6 +1094,9 @@ select:invalid.touched {
   .counter { padding: 12px 6px; }
   .popup { padding: 28px; }
   .popup h2 { font-size: 1.3rem; }
+  #stickyCta { bottom: 80px; padding: 10px 20px; font-size: .85rem; }
+  .faq-item summary { padding: 16px 18px; font-size: .95rem; }
+  .faq-answer { padding: 0 18px 16px; }
 }
 </style>
 <script type="application/ld+json">
@@ -1229,6 +1243,7 @@ select:invalid.touched {
       <a href="#advantages">Про нас</a>
       <a href="#catalog">Товари</a>
       <a href="#how-work">Як працюємо</a>
+      <a href="#faq">FAQ</a>
       <a href="#reviews">Відгуки</a>
       <a href="#contacts">Контакти</a>
     </nav>
@@ -1244,6 +1259,7 @@ select:invalid.touched {
   <a href="#advantages" class="mobile-link">Про нас</a>
   <a href="#catalog" class="mobile-link">Товари</a>
   <a href="#how-work" class="mobile-link">Як працюємо</a>
+  <a href="#faq" class="mobile-link">FAQ</a>
   <a href="#reviews" class="mobile-link">Відгуки</a>
   <a href="#contacts" class="mobile-link">Контакти</a>
   <a href="tel:+380676710515" class="btn btn-gold" style="margin-top:16px"><i class="fas fa-phone" aria-hidden="true"></i> Зателефонувати</a>
@@ -1578,6 +1594,65 @@ select:invalid.touched {
           <p>Отримуєте якісний товар і починаєте продавати</p>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq" aria-label="Часті запитання про секонд-хенд гуртом">
+  <div class="container">
+    <h2 class="section-title reveal">Часті запитання</h2>
+    <div class="faq-list" itemscope itemtype="https://schema.org/FAQPage">
+
+      <details class="faq-item reveal" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">Яке мінімальне замовлення? <span class="faq-toggle" aria-hidden="true">+</span></summary>
+        <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+          <p class="faq-answer" itemprop="text">Мінімальне замовлення — від 10 кг. Це дозволяє навіть малому бізнесу стартувати з невеликими вкладеннями та тестувати попит у своєму регіоні.</p>
+        </div>
+      </details>
+
+      <details class="faq-item reveal" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">З яких країн надходять поставки? <span class="faq-toggle" aria-hidden="true">+</span></summary>
+        <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+          <p class="faq-answer" itemprop="text">Ми здійснюємо прямий імпорт з Великобританії, Польщі, Канади, Німеччини, Італії та Шотландії. Це 6 країн-постачальників із налагодженою логістикою.</p>
+        </div>
+      </details>
+
+      <details class="faq-item reveal" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">Які сорти товару є в наявності? <span class="faq-toggle" aria-hidden="true">+</span></summary>
+        <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+          <p class="faq-answer" itemprop="text">Кожна партія проходить ретельне сортування: Екстра — найвища якість без дефектів, Крем — відмінний стан, 1-й сорт — хороший стан з незначними слідами носіння, 2-й сорт — задовільний стан, Сток — новий нерозпроданий товар із магазинів.</p>
+        </div>
+      </details>
+
+      <details class="faq-item reveal" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">Як здійснюється доставка по Україні? <span class="faq-toggle" aria-hidden="true">+</span></summary>
+        <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+          <p class="faq-answer" itemprop="text">Доставляємо власним транспортом та транспортними компаніями по всій Україні. Без зайвих посередників — прямо з нашого складу у с. Піддубці (Луцький р-н, Волинська обл.) до вас.</p>
+        </div>
+      </details>
+
+      <details class="faq-item reveal" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">В яких одиницях вказані ціни? <span class="faq-toggle" aria-hidden="true">+</span></summary>
+        <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+          <p class="faq-answer" itemprop="text">Оптові ціни вказані в EUR (євро). Актуальний прайс-лист із 600+ позицій та поточними цінами надається після залишення заявки через форму або в Telegram.</p>
+        </div>
+      </details>
+
+      <details class="faq-item reveal" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">Як розпочати першу закупівлю? <span class="faq-toggle" aria-hidden="true">+</span></summary>
+        <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+          <p class="faq-answer" itemprop="text">Залиште заявку на сайті або напишіть у Telegram/Viber. Менеджер зв'яжеться протягом 1 години, уточнить потреби та допоможе підібрати категорію, сорт та обсяг партії під ваш регіон і бюджет.</p>
+        </div>
+      </details>
+
+      <details class="faq-item reveal" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">Чи можна переглянути товар перед купівлею? <span class="faq-toggle" aria-hidden="true">+</span></summary>
+        <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+          <p class="faq-answer" itemprop="text">Так — на нашому YouTube-каналі є відеоогляди кожного мішка та категорій. Також можна приїхати особисто на склад у с. Піддубці в робочий час: Пн–Пт 9:00–18:00, Сб 9:00–14:00.</p>
+        </div>
+      </details>
+
     </div>
   </div>
 </section>
@@ -2217,6 +2292,65 @@ document.addEventListener('click', function(e) {
   var label = btn.getAttribute('aria-label') || btn.textContent.trim() || 'social';
   gtag('event', 'social_click', { 'event_category': 'engagement', 'event_label': label });
 });
+
+// === BEHAVIORAL TRACKING ===
+(function() {
+  if (typeof gtag === 'undefined') return;
+  var scrollMilestones = { 25: false, 50: false, 75: false, 90: false };
+  window.addEventListener('scroll', function() {
+    var pct = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+    [25, 50, 75, 90].forEach(function(m) {
+      if (pct >= m && !scrollMilestones[m]) {
+        scrollMilestones[m] = true;
+        gtag('event', 'scroll_depth', { event_category: 'engagement', event_label: m + '%', value: m });
+      }
+    });
+  }, { passive: true });
+  [30, 60, 120, 300].forEach(function(sec) {
+    setTimeout(function() {
+      gtag('event', 'time_on_page', { event_category: 'engagement', event_label: sec + 'sec', value: sec });
+    }, sec * 1000);
+  });
+  document.querySelectorAll('.cat-card.has-photos').forEach(function(card) {
+    card.addEventListener('click', function() {
+      gtag('event', 'view_catalog_category', { event_category: 'catalog', event_label: card.dataset.cat || 'unknown' });
+    });
+  });
+  ['wcPrev', 'wcNext'].forEach(function(id) {
+    var btn = document.getElementById(id);
+    if (btn) btn.addEventListener('click', function() {
+      gtag('event', 'gallery_interaction', { event_category: 'engagement', event_label: id });
+    });
+  });
+})();
+
+// Sticky CTA
+var stickyCta = document.getElementById('stickyCta');
+var heroSection = document.getElementById('hero');
+if (stickyCta && heroSection) {
+  var ctaObs = new IntersectionObserver(function(entries) {
+    var visible = entries[0].isIntersecting;
+    stickyCta.style.transform = 'translateX(-50%) translateY(' + (visible ? '80px' : '0') + ')';
+    stickyCta.style.opacity = visible ? '0' : '1';
+    stickyCta.style.pointerEvents = visible ? 'none' : 'auto';
+    stickyCta.setAttribute('aria-hidden', visible ? 'true' : 'false');
+  }, { threshold: 0.15 });
+  ctaObs.observe(heroSection);
+}
 </script>
+
+<div id="stickyCta" aria-hidden="true"
+     style="position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(80px);
+            background:var(--primary);color:#fff;padding:11px 26px;border-radius:50px;
+            z-index:800;transition:transform .35s ease,opacity .35s ease;
+            box-shadow:0 4px 20px rgba(26,122,60,.45);opacity:0;pointer-events:none;
+            white-space:nowrap">
+  <a href="#catalog-form"
+     style="color:#fff;font-weight:700;font-family:var(--font-heading);font-size:.9rem;
+            display:flex;align-items:center;gap:8px;text-decoration:none">
+    <i class="fas fa-box-open" aria-hidden="true"></i> Отримати каталог &rarr;
+  </a>
+</div>
+
 </body>
 </html>
