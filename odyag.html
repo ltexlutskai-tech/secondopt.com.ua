@@ -62,11 +62,35 @@ h1 { font-family: 'Exo 2', sans-serif; font-size: clamp(1.6rem, 4vw, 2.6rem); fo
 .btn-outline:hover { background: var(--primary); color: #fff; }
 .links { margin-top: 40px; padding-top: 24px; border-top: 1px solid #e0e0e0; font-size: .95rem; }
 .links a { color: var(--primary); font-weight: 600; margin-right: 16px; }
-footer { background: var(--dark); color: rgba(255,255,255,.5); text-align: center; padding: 24px 20px; font-size: .82rem; margin-top: 48px; }
-footer a { color: rgba(255,255,255,.7); }
+.photo-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; max-width: 800px; margin: 0 auto; padding: 0 20px; }
+@media (max-width: 600px) {
+  .photo-grid { grid-template-columns: repeat(2,1fr) !important; }
+}
 </style>
 </head>
 <body>
+
+<!-- HEADER -->
+<header style="background:#0f1f14;padding:16px 20px;position:sticky;top:0;z-index:100">
+  <div style="max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+    <a href="/" style="color:#2ecc71;font-weight:900;font-size:1.5rem;text-decoration:none;letter-spacing:2px">
+      L-TEX
+      <span style="display:block;font-size:.5rem;color:rgba(255,255,255,.5);font-weight:400;letter-spacing:1px;text-transform:uppercase">секонд-хенд гуртом</span>
+    </a>
+    <nav style="display:flex;gap:16px;flex-wrap:wrap">
+      <a href="/#catalog" style="color:rgba(255,255,255,.8);font-size:.9rem;text-decoration:none">Каталог</a>
+      <a href="/odyag.html" style="color:#2ecc71;font-size:.9rem;text-decoration:none;font-weight:700">Одяг</a>
+      <a href="/vzuttya.html" style="color:rgba(255,255,255,.8);font-size:.9rem;text-decoration:none">Взуття</a>
+      <a href="/sumky.html" style="color:rgba(255,255,255,.8);font-size:.9rem;text-decoration:none">Сумки</a>
+      <a href="/#contacts" style="color:rgba(255,255,255,.8);font-size:.9rem;text-decoration:none">Контакти</a>
+    </nav>
+    <a href="tel:+380676710515"
+       style="background:#e8b84b;color:#0f1f14;padding:8px 18px;border-radius:6px;font-weight:700;font-size:.85rem;text-decoration:none">
+      Зателефонувати
+    </a>
+  </div>
+</header>
+
 <div class="hero">
   <div class="breadcrumb"><a href="/">Головна</a> → Одяг</div>
   <h1>Одяг секонд-хенд гуртом</h1>
@@ -87,7 +111,68 @@ footer a { color: rgba(255,255,255,.7); }
     <li><strong>Дитячий одяг</strong> — від немовлят до підлітків, комбінезони</li>
     <li><strong>Білизна та домашній одяг</strong> — піжами, халати, нічні сорочки</li>
   </ul>
+</div>
 
+<!-- Фотогалерея — 6 фото з категорії Одяг -->
+<section style="padding:40px 0">
+  <h2 style="text-align:center;margin-bottom:24px;font-family:'Exo 2',sans-serif;font-size:1.5rem;font-weight:700;color:#0f1f14">
+    Фото товару — Одяг
+  </h2>
+  <div class="photo-grid">
+    <img src="/images/%D0%9E%D0%B4%D1%8F%D0%B3/0009.webp"
+         alt="Одяг секонд-хенд гуртом — светр жіночий"
+         loading="lazy" decoding="async"
+         style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px">
+    <img src="/images/%D0%9E%D0%B4%D1%8F%D0%B3/0098.webp"
+         alt="Одяг секонд-хенд оптом — куртка чоловіча"
+         loading="lazy" decoding="async"
+         style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px">
+    <img src="/images/%D0%9E%D0%B4%D1%8F%D0%B3/0116.webp"
+         alt="Секонд-хенд одяг гуртом — джинси"
+         loading="lazy" decoding="async"
+         style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px">
+    <img src="/images/%D0%9E%D0%B4%D1%8F%D0%B3/0178.webp"
+         alt="Оптовий одяг секонд-хенд — сукня"
+         loading="lazy" decoding="async"
+         style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px">
+    <img src="/images/%D0%9E%D0%B4%D1%8F%D0%B3/0234.webp"
+         alt="Секонд-хенд одяг з Англії — толстовка"
+         loading="lazy" decoding="async"
+         style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px">
+    <img src="/images/%D0%9E%D0%B4%D1%8F%D0%B3/0280.webp"
+         alt="Одяг секонд-хенд Україна — верхній одяг"
+         loading="lazy" decoding="async"
+         style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px">
+  </div>
+  <p style="text-align:center;margin-top:20px">
+    <a href="/#catalog" style="color:#1a7a3c;font-weight:700">
+      Переглянути всі 44 фото у каталозі →
+    </a>
+  </p>
+</section>
+
+<!-- Блок 1: Що ми пропонуємо -->
+<section style="max-width:800px;margin:40px auto;padding:0 20px">
+  <h2 style="font-family:'Exo 2',sans-serif;font-size:1.5rem;font-weight:700;color:#0f1f14;margin-bottom:12px">Одяг секонд-хенд гуртом з Англії та Польщі</h2>
+  <p style="color:#444;line-height:1.7">Компанія L-TEX постачає одяг секонд-хенд гуртом безпосередньо з Великобританії та Польщі — без посередників. Кожна партія включає широкий асортимент: жіночі та чоловічі светри, куртки, пальта, джинси, сукні, спортивний одяг та верхній одяг різних сезонів.</p>
+  <p style="color:#444;line-height:1.7">Ми сортуємо кожну партію за якістю перед відправкою. Доступні сорти: <strong>Екстра</strong> (без слідів носіння, як новий), <strong>Крем</strong> (відмінний стан), <strong>1-й сорт</strong> (хороший стан з мінімальними слідами носіння), <strong>2-й сорт</strong> (задовільний стан), <strong>Сток</strong> (новий нерозпроданий товар з магазинів Європи).</p>
+</section>
+
+<!-- Блок 2: Для кого підходить -->
+<section style="background:#f5f7f5;padding:40px 20px;margin:20px 0">
+  <div style="max-width:800px;margin:0 auto">
+    <h2 style="font-family:'Exo 2',sans-serif;font-size:1.5rem;font-weight:700;color:#0f1f14;margin-bottom:12px">Кому підходять оптові партії одягу</h2>
+    <ul style="line-height:2;color:#555;list-style:none;padding:0">
+      <li>✓ Власникам секонд-хенд магазинів та шоурумів</li>
+      <li>✓ Підприємцям на ринках та ярмарках</li>
+      <li>✓ Онлайн-продавцям (OLX, Instagram, Telegram-магазини)</li>
+      <li>✓ Тим хто відкриває перший бізнес — мін. замовлення від 10 кг</li>
+      <li>✓ Благодійним організаціям та збірникам гуманітарної допомоги</li>
+    </ul>
+  </div>
+</section>
+
+<div class="content">
   <h2>Сорти та якість</h2>
   <p>Кожна партія проходить ретельне сортування на нашому складі у с. Піддубці (Волинська обл.):</p>
   <ul>
@@ -100,24 +185,48 @@ footer a { color: rgba(255,255,255,.7); }
 
   <h2>Ціни та умови</h2>
   <p>Оптові ціни вказані в EUR. Мінімальне замовлення — від 10 кг. Це дозволяє навіть малому бізнесу стартувати з невеликими вкладеннями та тестувати попит у своєму регіоні. Персональний менеджер допоможе підібрати оптимальний асортимент.</p>
+</div>
 
-  <h2>Як замовити одяг секонд-хенд гуртом</h2>
-  <p>Залиште заявку на головній сторінці або напишіть напряму менеджеру. Підберемо категорії, сорти та обсяг під ваш бюджет і регіон. Доставляємо по всій Україні власним транспортом.</p>
+<!-- Блок 3: Як замовити з CTA -->
+<section style="max-width:800px;margin:40px auto;padding:0 20px;text-align:center">
+  <h2 style="font-family:'Exo 2',sans-serif;font-size:1.5rem;font-weight:700;color:#0f1f14;margin-bottom:12px">Як замовити одяг секонд-хенд гуртом</h2>
+  <p style="color:#444;line-height:1.7">Напишіть у Telegram або залиште заявку на сайті. Менеджер зв'яжеться протягом 1 години, уточнить потрібний сорт та обсяг. Доставка по всій Україні власним транспортом та транспортними компаніями.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px">
+    <a href="https://t.me/LTEX_Second"
+       style="background:#0088cc;color:#fff;padding:14px 28px;border-radius:8px;font-weight:700;text-decoration:none">
+      Написати в Telegram
+    </a>
+    <a href="tel:+380676710515"
+       style="background:#1a7a3c;color:#fff;padding:14px 28px;border-radius:8px;font-weight:700;text-decoration:none">
+      +380 67 671 05 16
+    </a>
+  </div>
+</section>
 
-  <a href="https://t.me/L_TEX" target="_blank" rel="noopener" class="btn">Написати менеджеру в Telegram →</a>
-  <a href="/" class="btn btn-outline" style="margin-left:12px">← На головну</a>
-
+<div class="content">
   <div class="links">
     <p>Також дивіться:</p>
     <a href="/vzuttya.html">Взуття гуртом</a>
     <a href="/sumky.html">Сумки та аксесуари</a>
+    <a href="/dim-pobut.html">Дім та побут</a>
+    <a href="/igrashky.html">Іграшки гуртом</a>
+    <a href="/bric-a-brac.html">Bric-a-Brac</a>
     <a href="/">Всі категорії L-TEX</a>
   </div>
 </div>
 
-<footer>
-  <p>© 2025 L-TEX — секонд-хенд та сток гуртом з Європи | <a href="/">secondopt.com.ua</a></p>
-  <p style="margin-top:6px">☎ <a href="tel:+380676710515">+380 67 671 05 16</a> · <a href="tel:+380993584992">+380 99 358 49 92</a></p>
+<!-- FOOTER -->
+<footer style="background:#080f0a;color:rgba(255,255,255,.5);padding:32px 20px;text-align:center;margin-top:60px">
+  <a href="/" style="color:#2ecc71;font-weight:900;font-size:1.3rem;text-decoration:none;display:inline-block;margin-bottom:8px">L-TEX</a>
+  <p style="font-size:.82rem;margin-bottom:16px">Секонд-хенд та сток гуртом — якість з Європи</p>
+  <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:12px">
+    <a href="/" style="color:rgba(255,255,255,.5);font-size:.85rem;text-decoration:none">Головна</a>
+    <a href="/odyag.html" style="color:rgba(255,255,255,.5);font-size:.85rem;text-decoration:none">Одяг</a>
+    <a href="/vzuttya.html" style="color:rgba(255,255,255,.5);font-size:.85rem;text-decoration:none">Взуття</a>
+    <a href="/sumky.html" style="color:rgba(255,255,255,.5);font-size:.85rem;text-decoration:none">Сумки</a>
+    <a href="https://t.me/LTEX_Second" target="_blank" rel="noopener" style="color:rgba(255,255,255,.5);font-size:.85rem;text-decoration:none">Telegram</a>
+  </div>
+  <p style="font-size:.75rem">&copy; 2025 L-TEX. Всі права захищені.</p>
 </footer>
 </body>
 </html>
