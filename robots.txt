@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
 
+Disallow: /priceltex
+Disallow: /posy/
+Disallow: /work
+Disallow: /opt
+Disallow: /kurtki-miks-ekstra/
+
 Sitemap: https://secondopt.com.ua/sitemap.xml

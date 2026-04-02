@@ -1269,8 +1269,8 @@ select:invalid.touched {
 <div class="popup-overlay" id="popupOverlay">
   <div class="popup">
     <button class="popup-close" id="popupClose" aria-label="Закрити">&times;</button>
-    <h2>Отримайте безкоштовну консультацію</h2>
-    <p class="popup-sub">Менеджер зв'яжеться протягом 1 години і допоможе підібрати товар</p>
+    <h2>Отримайте прайс-лист прямо зараз</h2>
+    <p class="popup-sub">600+ позицій з цінами в EUR — надішлемо у Telegram протягом 5 хвилин</p>
     <form id="popupForm">
       <input type="hidden" name="_subject" value="Запит на консультацію з secondopt.com.ua">
       <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
@@ -1363,7 +1363,7 @@ select:invalid.touched {
     <div class="hero-content">
       <div class="hero-badge"><span style="color:#2ecc71">&#9679;</span> Прямі поставки з Англії, Польщі, Канади, Німеччини</div>
       <h1>Секонд-хенд та сток <em>гуртом</em> — прямі поставки з Європи для вашого бізнесу</h1>
-      <p class="hero-sub">Якісний одяг, взуття та аксесуари для вашого бізнесу. Від 10 кг.</p>
+      <p class="hero-sub">Якісний одяг, взуття та аксесуари для вашого бізнесу. Від 10 кг. Дзвоніть: <a href="tel:+380676710515" style="color:var(--accent-gold);font-weight:700;white-space:nowrap" onclick="if(typeof gtag!=='undefined')gtag('event','phone_click',{event_category:'hero',event_label:'+380676710515'})">+380 67 671 05 16</a></p>
       <div class="hero-buttons">
         <button class="btn btn-gold" id="heroCatalogBtn"><i class="fas fa-box-open" aria-hidden="true"></i> Отримати каталог</button>
         <a href="https://t.me/L_TEX" target="_blank" rel="noopener" class="btn btn-outline"><i class="fab fa-telegram-plane" aria-hidden="true"></i> Написати в Telegram &rarr;</a>
@@ -1511,6 +1511,7 @@ select:invalid.touched {
       <p><a href="/dim-pobut.html" style="color:rgba(255,255,255,.7);text-decoration:underline"><strong>Дім та побут оптом</strong></a> — текстиль, постільна білизна, пледи, килимки, декор з Європи.</p>
       <p><a href="/igrashky.html" style="color:rgba(255,255,255,.7);text-decoration:underline"><strong>Іграшки секонд-хенд оптом</strong></a> — м'які іграшки, конструктори, настільні ігри, ляльки з Англії та Європи.</p>
       <p><a href="/bric-a-brac.html" style="color:rgba(255,255,255,.7);text-decoration:underline"><strong>Bric-a-Brac гуртом</strong></a> — вінтажні речі, декор, біжутерія, дрібниці з британських благодійних магазинів.</p>
+      <p><a href="/kosmetyka.html" style="color:rgba(255,255,255,.7);text-decoration:underline"><strong>Косметика та парфумерія</strong></a> — секонд-хенд з Англії гуртом.</p>
     </div>
   </div>
 </section>
@@ -1829,6 +1830,9 @@ select:invalid.touched {
             </select>
           </div>
           <button type="submit" class="form-submit-btn">Консультація менеджера <i class="fas fa-phone" aria-hidden="true"></i></button>
+          <p style="text-align:center;font-size:.78rem;color:rgba(255,255,255,.5);margin-top:10px;margin-bottom:0">
+  🔒 Без спаму · Відповідаємо протягом 1 год · Понад 200 оптовиків вже співпрацюють з нами
+</p>
           <div class="form-success" id="mainFormSuccess">&#10003; Дякуємо! Ми надішлемо посилання на каталог протягом кількох хвилин.</div>
         </form>
       </div>
@@ -1985,6 +1989,23 @@ select:invalid.touched {
         localStorage.setItem('ltex_popup_shown', '1');
       }
     }, 15000);
+  }
+
+  // Exit intent — показати popup при спробі закрити вкладку
+  var exitShown = sessionStorage.getItem('ltex_exit');
+  if (!exitShown) {
+    document.addEventListener('mouseleave', function exitHandler(e) {
+      if (e.clientY > 0) return;
+      exitShown = true;
+      sessionStorage.setItem('ltex_exit', '1');
+      document.removeEventListener('mouseleave', exitHandler);
+      if (!popupOverlay.classList.contains('open')) {
+        openPopup();
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'exit_intent', { event_category: 'engagement' });
+        }
+      }
+    });
   }
 
   // CTA buttons — heroCatalogBtn handled by catalog modal JS below
