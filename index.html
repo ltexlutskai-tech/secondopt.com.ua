@@ -44,7 +44,7 @@
 <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-<link rel="dns-prefetch" href="https://formsubmit.co">
+<link rel="dns-prefetch" href="https://api.web3forms.com">
 <!-- Preconnect -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1284,8 +1284,10 @@ select:invalid.touched {
     <h2>Отримайте прайс-лист прямо зараз</h2>
     <p class="popup-sub">600+ позицій з цінами в EUR — надішлемо у Telegram протягом 5 хвилин</p>
     <form id="popupForm">
-      <input type="hidden" name="_subject" value="Запит на консультацію з secondopt.com.ua">
-      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+      <input type="hidden" name="access_key" value="f8902802-ad5f-4539-86e6-71d26f5ecb57">
+      <input type="hidden" name="subject" value="Запит на консультацію з secondopt.com.ua">
+      <input type="hidden" name="from_name" value="secondopt.com.ua — Консультація">
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
       <div class="form-group">
         <label for="popup-name">Ваше ім'я</label>
         <input type="text" id="popup-name" name="name" placeholder="Олена" required>
@@ -1318,8 +1320,10 @@ select:invalid.touched {
     <h2>Отримайте доступ до каталогу</h2>
     <p class="popup-sub">Залиште контакти — ми відкриємо онлайн-каталог із 600+ позицій</p>
     <form id="catalogModalForm">
-      <input type="hidden" name="_subject" value="Запит на каталог з secondopt.com.ua">
-      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+      <input type="hidden" name="access_key" value="f8902802-ad5f-4539-86e6-71d26f5ecb57">
+      <input type="hidden" name="subject" value="Запит на каталог з secondopt.com.ua">
+      <input type="hidden" name="from_name" value="secondopt.com.ua — Каталог (модалка)">
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
       <div class="form-group">
         <label for="cm-name">Ваше ім'я *</label>
         <input type="text" id="cm-name" name="name" placeholder="Олена" required>
@@ -1808,8 +1812,10 @@ select:invalid.touched {
       </div>
       <div class="main-form reveal">
         <form id="mainForm">
-          <input type="hidden" name="_subject" value="Запит на каталог L-TEX з secondopt.com.ua">
-          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+          <input type="hidden" name="access_key" value="f8902802-ad5f-4539-86e6-71d26f5ecb57">
+          <input type="hidden" name="subject" value="Запит на каталог L-TEX з secondopt.com.ua">
+          <input type="hidden" name="from_name" value="secondopt.com.ua — Каталог (основна форма)">
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
           <div class="form-group">
             <label for="main-name">Ваше ім'я *</label>
             <input type="text" id="main-name" name="name" placeholder="Олена" required>
@@ -2023,26 +2029,24 @@ select:invalid.touched {
   // CTA buttons — heroCatalogBtn handled by catalog modal JS below
 
   // === FORM SUBMISSION ===
-  function submitForm(form, successEl, subject) {
+  function submitForm(form, successEl) {
     form.addEventListener('submit', function(e) {
       e.preventDefault();
-      // Mark touched
       form.querySelectorAll('input, select').forEach(function(el) { el.classList.add('touched'); });
       if (!form.checkValidity()) return;
 
       var data = new FormData(form);
-      data.set('_subject', subject);
 
-      fetch('https://formsubmit.co/ajax/ltex.lutsk.ai@gmail.com', {
+      fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: data,
         headers: { 'Accept': 'application/json' }
       })
       .then(function(res) { return res.json(); })
-      .then(function() {
+      .then(function(json) {
+        if (!json || json.success === false) throw new Error(json && json.message || 'submission failed');
         form.style.display = 'none';
         successEl.classList.add('show');
-        // GA4 event tracking
         if (typeof gtag !== 'undefined') {
           var label = form.id === 'popupForm' ? 'popup_consultation' : form.id === 'catalogModalForm' ? 'catalog_modal' : 'catalog_request';
           gtag('event', 'generate_lead', { 'event_category': 'form', 'event_label': label });
@@ -2064,13 +2068,11 @@ select:invalid.touched {
 
   submitForm(
     document.getElementById('popupForm'),
-    document.getElementById('popupSuccess'),
-    'Запит на консультацію з secondopt.com.ua'
+    document.getElementById('popupSuccess')
   );
   submitForm(
     document.getElementById('mainForm'),
-    document.getElementById('mainFormSuccess'),
-    'Запит на каталог L-TEX з secondopt.com.ua'
+    document.getElementById('mainFormSuccess')
   );
 
   // Touch validation styling
@@ -2174,8 +2176,7 @@ select:invalid.touched {
 
     // Send form data in background — don't gate catalog access on its success
     var data = new FormData(cmForm);
-    data.set('_subject', 'Запит на каталог з secondopt.com.ua');
-    fetch('https://formsubmit.co/ajax/ltex.lutsk.ai@gmail.com', {
+    fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       body: data,
       headers: { 'Accept': 'application/json' }
