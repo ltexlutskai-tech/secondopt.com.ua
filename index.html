@@ -2029,6 +2029,21 @@ select:invalid.touched {
   // CTA buttons — heroCatalogBtn handled by catalog modal JS below
 
   // === FORM SUBMISSION ===
+  window.buildLeadMessage = function(form) {
+    var lines = ['Нова заявка з сайту secondopt.com.ua', ''];
+    var labels = { name: 'Імʼя', phone: 'Телефон', region: 'Регіон/Область', category: 'Категорія', source: 'Джерело', email: 'Email' };
+    Object.keys(labels).forEach(function(key) {
+      var el = form.querySelector('[name="' + key + '"]');
+      if (el && el.value) lines.push(labels[key] + ': ' + el.value);
+    });
+    lines.push('');
+    lines.push('Форма: ' + form.id);
+    lines.push('Час: ' + new Date().toLocaleString('uk-UA'));
+    lines.push('URL: ' + location.href);
+    return lines.join('\n');
+  };
+  var buildLeadMessage = window.buildLeadMessage;
+
   function submitForm(form, successEl) {
     form.addEventListener('submit', function(e) {
       e.preventDefault();
@@ -2036,6 +2051,7 @@ select:invalid.touched {
       if (!form.checkValidity()) return;
 
       var data = new FormData(form);
+      data.set('message', buildLeadMessage(form));
 
       fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -2180,6 +2196,7 @@ select:invalid.touched {
 
     // Send form data in background — don't gate catalog access on its success
     var data = new FormData(cmForm);
+    data.set('message', window.buildLeadMessage(cmForm));
     fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       body: data,

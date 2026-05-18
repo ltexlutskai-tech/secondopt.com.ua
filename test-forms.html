@@ -24,9 +24,9 @@
 
 <div class="card">
   <label>Ваше імʼя</label>
-  <input id="t-name" value="Test User">
+  <input id="t-name" value="Олена Тестова">
   <label>Телефон</label>
-  <input id="t-phone" value="+380000000000">
+  <input id="t-phone" value="+380501234567">
   <label>Email (для reply-to, опц.)</label>
   <input id="t-email" value="" placeholder="можна залишити пустим">
   <label>Тип форми (subject)</label>
@@ -62,15 +62,24 @@ document.getElementById('t-submit').addEventListener('click', function() {
   var type = document.getElementById('t-form').value;
   btn.disabled = true;
 
+  var name = document.getElementById('t-name').value;
+  var phone = document.getElementById('t-phone').value;
+  var email = document.getElementById('t-email').value;
+  var msg = 'Тестова заявка з secondopt.com.ua/test-forms.html\n\n'
+          + 'Імʼя: ' + name + '\n'
+          + 'Телефон: ' + phone + '\n'
+          + (email ? 'Email: ' + email + '\n' : '')
+          + '\nЧас: ' + new Date().toLocaleString('uk-UA');
+
   var payload = {
     access_key: ACCESS_KEY,
     subject: SUBJECTS[type],
     from_name: FROM_NAMES[type],
-    name: document.getElementById('t-name').value,
-    phone: document.getElementById('t-phone').value,
-    email: document.getElementById('t-email').value || undefined,
-    diagnostic: 'test-forms.html @ ' + new Date().toISOString()
+    name: name,
+    phone: phone,
+    message: msg
   };
+  if (email) payload.email = email;
 
   log.textContent = '→ Sending to https://api.web3forms.com/submit\n' + JSON.stringify(payload, null, 2) + '\n\n…';
 
