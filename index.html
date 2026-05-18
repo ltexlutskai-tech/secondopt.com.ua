@@ -1016,16 +1016,28 @@ select:invalid.touched {
   color: #666;
   margin-bottom: 24px;
 }
-.popup .form-group input {
+.popup .form-group input,
+.popup .form-group select {
   background: var(--light-bg);
   color: var(--text-dark);
   border: 1px solid #ddd;
 }
 .popup .form-group input::placeholder { color: #999; }
-.popup .form-group input:focus {
+.popup .form-group input:focus,
+.popup .form-group select:focus {
   border-color: var(--primary);
   background: #fff;
 }
+.popup .form-group select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231a2420'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 20px;
+  padding-right: 40px;
+}
+.popup .form-group select option { background: #fff; color: var(--text-dark); }
+.popup #cm-category { background-color: #fffaf0; }
+.popup #cm-category:focus { background-color: #fff; }
 .popup .form-submit-btn {
   background: var(--primary);
   color: #fff;
