@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<title>Діагностика форм — secondopt.com.ua</title>
+<style>
+  body { font-family: -apple-system, sans-serif; max-width: 860px; margin: 30px auto; padding: 0 16px; background: #f6f7f8; color: #222; }
+  h1 { font-size: 1.4rem; }
+  .card { background: #fff; padding: 18px; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,.06); margin-bottom: 18px; }
+  label { display: block; font-size: .85rem; margin: 8px 0 4px; color: #555; }
+  input, select, button { font: inherit; padding: 8px 10px; border-radius: 6px; border: 1px solid #ccc; width: 100%; }
+  button { background: #1a7a3c; color: #fff; border: 0; cursor: pointer; padding: 12px; font-weight: 700; margin-top: 10px; }
+  button:disabled { opacity: .5; cursor: wait; }
+  pre { background: #0f1f14; color: #b6e5c8; padding: 14px; border-radius: 8px; overflow: auto; font-size: .85rem; white-space: pre-wrap; word-break: break-word; max-height: 360px; }
+  .ok { color: #2ecc71; font-weight: 700; }
+  .err { color: #e74c3c; font-weight: 700; }
+  small { color: #777; }
+</style>
+</head>
+<body>
+<h1>Діагностика форм secondopt.com.ua → Web3Forms</h1>
+<p><small>Ця сторінка робить прямий запит до <code>https://api.web3forms.com/submit</code> з тим же ключем що й продакшн-форми. Відповідь показується нижче — повний JSON, статус-код, тривалість. Сторінка прихована від пошуковиків (<code>noindex</code>).</small></p>
+
+<div class="card">
+  <label>Ваше імʼя</label>
+  <input id="t-name" value="Test User">
+  <label>Телефон</label>
+  <input id="t-phone" value="+380000000000">
+  <label>Email (для reply-to, опц.)</label>
+  <input id="t-email" value="" placeholder="можна залишити пустим">
+  <label>Тип форми (subject)</label>
+  <select id="t-form">
+    <option value="popup">popup — Запит на консультацію</option>
+    <option value="catalog-modal">catalog-modal — Запит на каталог (модалка)</option>
+    <option value="main">main — Запит на каталог (основна)</option>
+  </select>
+  <button id="t-submit">Відправити тестовий запит</button>
+</div>
+
+<div class="card">
+  <strong>Лог відповіді:</strong>
+  <pre id="t-log">— ще немає запитів —</pre>
+</div>
+
+<script>
+var ACCESS_KEY = 'f8902802-ad5f-4539-86e6-71d26f5ecb57';
+var SUBJECTS = {
+  'popup': 'Запит на консультацію з secondopt.com.ua',
+  'catalog-modal': 'Запит на каталог з secondopt.com.ua',
+  'main': 'Запит на каталог L-TEX з secondopt.com.ua'
+};
+var FROM_NAMES = {
+  'popup': 'secondopt.com.ua Консультація',
+  'catalog-modal': 'secondopt.com.ua Каталог (модалка)',
+  'main': 'secondopt.com.ua Каталог (основна)'
+};
+
+document.getElementById('t-submit').addEventListener('click', function() {
+  var btn = this;
+  var log = document.getElementById('t-log');
+  var type = document.getElementById('t-form').value;
+  btn.disabled = true;
+
+  var payload = {
+    access_key: ACCESS_KEY,
+    subject: SUBJECTS[type],
+    from_name: FROM_NAMES[type],
+    name: document.getElementById('t-name').value,
+    phone: document.getElementById('t-phone').value,
+    email: document.getElementById('t-email').value || undefined,
+    diagnostic: 'test-forms.html @ ' + new Date().toISOString()
+  };
+
+  log.textContent = '→ Sending to https://api.web3forms.com/submit\n' + JSON.stringify(payload, null, 2) + '\n\n…';
+
+  var t0 = performance.now();
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(function(res) {
+    var status = res.status;
+    return res.text().then(function(txt) {
+      var body;
+      try { body = JSON.parse(txt); } catch(e) { body = txt; }
+      return { status: status, body: body };
+    });
+  })
+  .then(function(r) {
+    var dt = (performance.now() - t0).toFixed(0);
+    var ok = r.body && r.body.success === true;
+    log.innerHTML = (ok ? '<span class="ok">✓ SUCCESS</span>' : '<span class="err">✗ FAILED</span>')
+      + '  HTTP ' + r.status + '  (' + dt + 'ms)\n\n'
+      + 'Response body:\n' + JSON.stringify(r.body, null, 2)
+      + '\n\nЗапит:\n' + JSON.stringify(payload, null, 2);
+  })
+  .catch(function(err) {
+    var dt = (performance.now() - t0).toFixed(0);
+    log.innerHTML = '<span class="err">✗ NETWORK ERROR</span>  (' + dt + 'ms)\n\n' + (err && err.message ? err.message : String(err));
+  })
+  .then(function() { btn.disabled = false; });
+});
+</script>
+</body>
+</html>

@@ -1286,7 +1286,7 @@ select:invalid.touched {
     <form id="popupForm">
       <input type="hidden" name="access_key" value="f8902802-ad5f-4539-86e6-71d26f5ecb57">
       <input type="hidden" name="subject" value="Запит на консультацію з secondopt.com.ua">
-      <input type="hidden" name="from_name" value="secondopt.com.ua — Консультація">
+      <input type="hidden" name="from_name" value="secondopt.com.ua - Консультація">
       <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
       <div class="form-group">
         <label for="popup-name">Ваше ім'я</label>
@@ -1322,7 +1322,7 @@ select:invalid.touched {
     <form id="catalogModalForm">
       <input type="hidden" name="access_key" value="f8902802-ad5f-4539-86e6-71d26f5ecb57">
       <input type="hidden" name="subject" value="Запит на каталог з secondopt.com.ua">
-      <input type="hidden" name="from_name" value="secondopt.com.ua — Каталог (модалка)">
+      <input type="hidden" name="from_name" value="secondopt.com.ua - Каталог (модалка)">
       <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
       <div class="form-group">
         <label for="cm-name">Ваше ім'я *</label>
@@ -1814,7 +1814,7 @@ select:invalid.touched {
         <form id="mainForm">
           <input type="hidden" name="access_key" value="f8902802-ad5f-4539-86e6-71d26f5ecb57">
           <input type="hidden" name="subject" value="Запит на каталог L-TEX з secondopt.com.ua">
-          <input type="hidden" name="from_name" value="secondopt.com.ua — Каталог (основна форма)">
+          <input type="hidden" name="from_name" value="secondopt.com.ua - Каталог (основна форма)">
           <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
           <div class="form-group">
             <label for="main-name">Ваше ім'я *</label>
@@ -2079,8 +2079,8 @@ select:invalid.touched {
     document.getElementById('mainFormSuccess')
   );
 
-  // Touch validation styling
-  document.querySelectorAll('.main-form input, .main-form select, .popup input').forEach(function(el) {
+  // Touch validation styling — applies to all form fields on page
+  document.querySelectorAll('form input, form select').forEach(function(el) {
     el.addEventListener('blur', function() { el.classList.add('touched'); });
   });
 
@@ -2211,17 +2211,6 @@ select:invalid.touched {
     }, 1500);
   });
 
-  // Phone mask for new fields
-  cmForm.querySelectorAll('input[type="tel"]').forEach(function(input) {
-    input.addEventListener('input', function() {
-      var val = input.value.replace(/[^\d+]/g, '');
-      if (val.length > 0 && val[0] !== '+') val = '+' + val;
-      input.value = val;
-    });
-  });
-  cmForm.querySelectorAll('input, select').forEach(function(el) {
-    el.addEventListener('blur', function() { el.classList.add('touched'); });
-  });
 })();
 </script>
 
