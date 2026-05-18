@@ -810,11 +810,30 @@ ul { list-style: none; }
 .form-success {
   display: none;
   text-align: center;
-  padding: 20px;
-  font-size: 1.1rem;
-  font-weight: 700;
+  padding: 28px 20px;
+  border-radius: 14px;
+  background: rgba(46, 204, 113, .14);
+  border: 1px solid rgba(46, 204, 113, .45);
+  color: #fff;
 }
-.form-success.show { display: block; }
+.form-success.show { display: block; animation: fadeInUp .35s ease; }
+.form-success .fs-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: #2ecc71;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 auto 14px;
+  box-shadow: 0 8px 24px rgba(46, 204, 113, .35);
+}
+.form-success .fs-title { font-family: var(--font-heading); font-weight: 800; font-size: 1.25rem; margin-bottom: 8px; }
+.form-success .fs-sub { font-size: .92rem; font-weight: 400; opacity: .9; line-height: 1.5; }
+.form-success .fs-sub a { color: var(--accent-gold); font-weight: 700; text-decoration: underline; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 input:invalid.touched,
 select:invalid.touched {
   border-color: #e74c3c;
@@ -1064,7 +1083,13 @@ select:invalid.touched {
 .popup-alt a:hover { transform: scale(1.1); }
 .popup-alt a.tg-link { background: #0088cc; }
 .popup-alt a.vb-link { background: #7360f2; }
-.popup .form-success { color: var(--primary); }
+.popup .form-success {
+  color: var(--text-dark);
+  background: rgba(46, 204, 113, .12);
+  border-color: rgba(46, 204, 113, .5);
+}
+.popup .form-success .fs-sub { opacity: .85; }
+.popup .form-success .fs-sub a { color: var(--primary); }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
@@ -1299,7 +1324,11 @@ select:invalid.touched {
         <input type="text" id="popup-region" name="region" placeholder="Луцьк, Волинська обл.">
       </div>
       <button type="submit" class="form-submit-btn">Передзвоніть мені <i class="fas fa-phone" aria-hidden="true"></i></button>
-      <div class="form-success" id="popupSuccess">&#10003; Чудово! Очікуйте дзвінка.</div>
+      <div class="form-success" id="popupSuccess">
+        <div class="fs-icon">&#10003;</div>
+        <div class="fs-title">Заявку відправлено</div>
+        <div class="fs-sub">Менеджер передзвонить вам найближчим часом. Або напишіть одразу в <a href="https://t.me/L_TEX" target="_blank" rel="noopener">Telegram</a>.</div>
+      </div>
     </form>
     <div class="popup-alt">
       або напишіть одразу &rarr;
@@ -1346,7 +1375,11 @@ select:invalid.touched {
         </select>
       </div>
       <button type="submit" class="form-submit-btn">Відкрити каталог <i class="fas fa-box-open" aria-hidden="true"></i></button>
-      <div class="form-success" id="catalogModalSuccess">&#10003; Дякуємо! Перенаправляємо на каталог...</div>
+      <div class="form-success" id="catalogModalSuccess">
+        <div class="fs-icon">&#10003;</div>
+        <div class="fs-title">Дякуємо! Каталог відкривається</div>
+        <div class="fs-sub">Якщо вкладка не відкрилась — <a id="catalogFallbackLink" href="https://ltexlutskai-tech.github.io/catalog-full/index.html" target="_blank" rel="noopener">натисніть тут</a>.</div>
+      </div>
     </form>
   </div>
 </div>
@@ -1845,7 +1878,11 @@ select:invalid.touched {
           <p style="text-align:center;font-size:.78rem;color:rgba(255,255,255,.5);margin-top:10px;margin-bottom:0">
   🔒 Без спаму · Відповідаємо протягом 1 год · Понад 200 оптовиків вже співпрацюють з нами
 </p>
-          <div class="form-success" id="mainFormSuccess">&#10003; Дякуємо! Ми надішлемо посилання на каталог протягом кількох хвилин.</div>
+          <div class="form-success" id="mainFormSuccess">
+            <div class="fs-icon">&#10003;</div>
+            <div class="fs-title">Заявку успішно відправлено</div>
+            <div class="fs-sub">Менеджер звʼяжеться з вами протягом 1 години та надішле каталог. Або напишіть одразу в <a href="https://t.me/L_TEX" target="_blank" rel="noopener">Telegram</a>.</div>
+          </div>
         </form>
       </div>
     </div>
