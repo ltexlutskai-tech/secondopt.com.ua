@@ -2168,29 +2168,37 @@ select:invalid.touched {
     cmForm.querySelectorAll('input, select').forEach(function(el) { el.classList.add('touched'); });
     if (!cmForm.checkValidity()) return;
 
+    // Open catalog synchronously to preserve user-gesture (avoids popup blocker)
+    var catalogWindow = window.open(catalogURL, '_blank', 'noopener');
+    var popupBlocked = !catalogWindow || catalogWindow.closed || typeof catalogWindow.closed === 'undefined';
+
+    // Send form data in background — don't gate catalog access on its success
     var data = new FormData(cmForm);
     data.set('_subject', 'Запит на каталог з secondopt.com.ua');
-
     fetch('https://formsubmit.co/ajax/ltex.lutsk.ai@gmail.com', {
       method: 'POST',
       body: data,
       headers: { 'Accept': 'application/json' }
-    })
-    .then(function(res) { return res.json(); })
-    .then(function() {
-      cmForm.style.display = 'none';
-      cmSuccess.classList.add('show');
-      setTimeout(function() {
-        window.open(catalogURL, '_blank');
-        closeCatalogModal();
-        cmForm.style.display = '';
-        cmSuccess.classList.remove('show');
-        cmForm.reset();
-      }, 1500);
-    })
-    .catch(function() {
-      alert('Виникла помилка. Спробуйте ще раз.');
-    });
+    }).catch(function() { /* silent — user already has catalog */ });
+
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'generate_lead', { event_category: 'form', event_label: 'catalog_modal' });
+    }
+
+    if (popupBlocked) {
+      // Fallback: navigate current tab if browser blocked the new tab
+      window.location.href = catalogURL;
+      return;
+    }
+
+    cmForm.style.display = 'none';
+    cmSuccess.classList.add('show');
+    setTimeout(function() {
+      closeCatalogModal();
+      cmForm.style.display = '';
+      cmSuccess.classList.remove('show');
+      cmForm.reset();
+    }, 1500);
   });
 
   // Phone mask for new fields
