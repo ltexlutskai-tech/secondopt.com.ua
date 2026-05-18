@@ -2042,9 +2042,12 @@ select:invalid.touched {
         body: data,
         headers: { 'Accept': 'application/json' }
       })
-      .then(function(res) { return res.json(); })
+      .then(function(res) { return res.json().catch(function() { return { success: false, message: 'HTTP ' + res.status }; }); })
       .then(function(json) {
-        if (!json || json.success === false) throw new Error(json && json.message || 'submission failed');
+        if (!json || json.success === false) {
+          console.error('[Web3Forms] submission rejected:', json);
+          throw new Error(json && json.message || 'submission failed');
+        }
         form.style.display = 'none';
         successEl.classList.add('show');
         if (typeof gtag !== 'undefined') {
@@ -2060,8 +2063,9 @@ select:invalid.touched {
           }, 2500);
         }
       })
-      .catch(function() {
-        alert('Виникла помилка. Спробуйте ще раз або напишіть нам у Telegram.');
+      .catch(function(err) {
+        console.error('[Web3Forms] error:', err);
+        alert('Не вдалось відправити заявку.\n\nПричина: ' + (err && err.message ? err.message : 'невідома помилка') + '\n\nСпробуйте ще раз або напишіть нам у Telegram.');
       });
     });
   }
@@ -2180,7 +2184,12 @@ select:invalid.touched {
       method: 'POST',
       body: data,
       headers: { 'Accept': 'application/json' }
-    }).catch(function() { /* silent — user already has catalog */ });
+    })
+    .then(function(res) { return res.json().catch(function() { return { success: false, message: 'HTTP ' + res.status }; }); })
+    .then(function(json) {
+      if (!json || json.success === false) console.error('[Web3Forms] catalog form rejected:', json);
+    })
+    .catch(function(err) { console.error('[Web3Forms] catalog form error:', err); });
 
     if (typeof gtag !== 'undefined') {
       gtag('event', 'generate_lead', { event_category: 'form', event_label: 'catalog_modal' });
