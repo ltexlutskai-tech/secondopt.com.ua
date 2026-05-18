@@ -44,7 +44,7 @@
 <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-<link rel="dns-prefetch" href="https://api.web3forms.com">
+<link rel="dns-prefetch" href="https://secondopt-forms.ltex-lutsk-ai.workers.dev">
 <!-- Preconnect -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1284,9 +1284,7 @@ select:invalid.touched {
     <h2>Отримайте прайс-лист прямо зараз</h2>
     <p class="popup-sub">600+ позицій з цінами в EUR — надішлемо у Telegram протягом 5 хвилин</p>
     <form id="popupForm">
-      <input type="hidden" name="access_key" value="f8902802-ad5f-4539-86e6-71d26f5ecb57">
       <input type="hidden" name="subject" value="Запит на консультацію з secondopt.com.ua">
-      <input type="hidden" name="from_name" value="secondopt.com.ua - Консультація">
       <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
       <div class="form-group">
         <label for="popup-name">Ваше ім'я</label>
@@ -1320,9 +1318,7 @@ select:invalid.touched {
     <h2>Отримайте доступ до каталогу</h2>
     <p class="popup-sub">Залиште контакти — ми відкриємо онлайн-каталог із 600+ позицій</p>
     <form id="catalogModalForm">
-      <input type="hidden" name="access_key" value="f8902802-ad5f-4539-86e6-71d26f5ecb57">
       <input type="hidden" name="subject" value="Запит на каталог з secondopt.com.ua">
-      <input type="hidden" name="from_name" value="secondopt.com.ua - Каталог (модалка)">
       <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
       <div class="form-group">
         <label for="cm-name">Ваше ім'я *</label>
@@ -1812,9 +1808,7 @@ select:invalid.touched {
       </div>
       <div class="main-form reveal">
         <form id="mainForm">
-          <input type="hidden" name="access_key" value="f8902802-ad5f-4539-86e6-71d26f5ecb57">
           <input type="hidden" name="subject" value="Запит на каталог L-TEX з secondopt.com.ua">
-          <input type="hidden" name="from_name" value="secondopt.com.ua - Каталог (основна форма)">
           <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
           <div class="form-group">
             <label for="main-name">Ваше ім'я *</label>
@@ -2029,20 +2023,7 @@ select:invalid.touched {
   // CTA buttons — heroCatalogBtn handled by catalog modal JS below
 
   // === FORM SUBMISSION ===
-  window.buildLeadMessage = function(form) {
-    var lines = ['Нова заявка з сайту secondopt.com.ua', ''];
-    var labels = { name: 'Імʼя', phone: 'Телефон', region: 'Регіон/Область', category: 'Категорія', source: 'Джерело', email: 'Email' };
-    Object.keys(labels).forEach(function(key) {
-      var el = form.querySelector('[name="' + key + '"]');
-      if (el && el.value) lines.push(labels[key] + ': ' + el.value);
-    });
-    lines.push('');
-    lines.push('Форма: ' + form.id);
-    lines.push('Час: ' + new Date().toLocaleString('uk-UA'));
-    lines.push('URL: ' + location.href);
-    return lines.join('\n');
-  };
-  var buildLeadMessage = window.buildLeadMessage;
+  var FORMS_ENDPOINT = 'https://secondopt-forms.ltex-lutsk-ai.workers.dev/';
 
   function submitForm(form, successEl) {
     form.addEventListener('submit', function(e) {
@@ -2051,9 +2032,9 @@ select:invalid.touched {
       if (!form.checkValidity()) return;
 
       var data = new FormData(form);
-      data.set('message', buildLeadMessage(form));
+      data.set('_form', form.id);
 
-      fetch('https://api.web3forms.com/submit', {
+      fetch(FORMS_ENDPOINT, {
         method: 'POST',
         body: data,
         headers: { 'Accept': 'application/json' }
@@ -2061,7 +2042,7 @@ select:invalid.touched {
       .then(function(res) { return res.json().catch(function() { return { success: false, message: 'HTTP ' + res.status }; }); })
       .then(function(json) {
         if (!json || json.success === false) {
-          console.error('[Web3Forms] submission rejected:', json);
+          console.error('[forms] submission rejected:', json);
           throw new Error(json && json.message || 'submission failed');
         }
         form.style.display = 'none';
@@ -2080,7 +2061,7 @@ select:invalid.touched {
         }
       })
       .catch(function(err) {
-        console.error('[Web3Forms] error:', err);
+        console.error('[forms] error:', err);
         alert('Не вдалось відправити заявку.\n\nПричина: ' + (err && err.message ? err.message : 'невідома помилка') + '\n\nСпробуйте ще раз або напишіть нам у Telegram.');
       });
     });
@@ -2196,17 +2177,17 @@ select:invalid.touched {
 
     // Send form data in background — don't gate catalog access on its success
     var data = new FormData(cmForm);
-    data.set('message', window.buildLeadMessage(cmForm));
-    fetch('https://api.web3forms.com/submit', {
+    data.set('_form', cmForm.id);
+    fetch('https://secondopt-forms.ltex-lutsk-ai.workers.dev/', {
       method: 'POST',
       body: data,
       headers: { 'Accept': 'application/json' }
     })
     .then(function(res) { return res.json().catch(function() { return { success: false, message: 'HTTP ' + res.status }; }); })
     .then(function(json) {
-      if (!json || json.success === false) console.error('[Web3Forms] catalog form rejected:', json);
+      if (!json || json.success === false) console.error('[forms] catalog form rejected:', json);
     })
-    .catch(function(err) { console.error('[Web3Forms] catalog form error:', err); });
+    .catch(function(err) { console.error('[forms] catalog form error:', err); });
 
     if (typeof gtag !== 'undefined') {
       gtag('event', 'generate_lead', { event_category: 'form', event_label: 'catalog_modal' });

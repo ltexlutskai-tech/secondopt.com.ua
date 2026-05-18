@@ -9,26 +9,29 @@
   h1 { font-size: 1.4rem; }
   .card { background: #fff; padding: 18px; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,.06); margin-bottom: 18px; }
   label { display: block; font-size: .85rem; margin: 8px 0 4px; color: #555; }
-  input, select, button { font: inherit; padding: 8px 10px; border-radius: 6px; border: 1px solid #ccc; width: 100%; }
+  input, select, button { font: inherit; padding: 8px 10px; border-radius: 6px; border: 1px solid #ccc; width: 100%; box-sizing: border-box; }
   button { background: #1a7a3c; color: #fff; border: 0; cursor: pointer; padding: 12px; font-weight: 700; margin-top: 10px; }
   button:disabled { opacity: .5; cursor: wait; }
   pre { background: #0f1f14; color: #b6e5c8; padding: 14px; border-radius: 8px; overflow: auto; font-size: .85rem; white-space: pre-wrap; word-break: break-word; max-height: 360px; }
   .ok { color: #2ecc71; font-weight: 700; }
   .err { color: #e74c3c; font-weight: 700; }
   small { color: #777; }
+  code { background: #eee; padding: 2px 6px; border-radius: 4px; font-size: .85em; }
 </style>
 </head>
 <body>
-<h1>Діагностика форм secondopt.com.ua → Web3Forms</h1>
-<p><small>Ця сторінка робить прямий запит до <code>https://api.web3forms.com/submit</code> з тим же ключем що й продакшн-форми. Відповідь показується нижче — повний JSON, статус-код, тривалість. Сторінка прихована від пошуковиків (<code>noindex</code>).</small></p>
+<h1>Діагностика форм secondopt.com.ua → Telegram (через Cloudflare Worker)</h1>
+<p><small>Ця сторінка робить прямий запит до <code>https://secondopt-forms.ltex-lutsk-ai.workers.dev/</code>. Відповідь показується нижче. Сторінка прихована від пошуковиків (<code>noindex</code>).</small></p>
 
 <div class="card">
   <label>Ваше імʼя</label>
   <input id="t-name" value="Олена Тестова">
   <label>Телефон</label>
   <input id="t-phone" value="+380501234567">
-  <label>Email (для reply-to, опц.)</label>
-  <input id="t-email" value="" placeholder="можна залишити пустим">
+  <label>Регіон (опц.)</label>
+  <input id="t-region" value="Луцьк">
+  <label>Категорія (опц.)</label>
+  <input id="t-category" value="Одяг">
   <label>Тип форми (subject)</label>
   <select id="t-form">
     <option value="popup">popup — Запит на консультацію</option>
@@ -44,16 +47,11 @@
 </div>
 
 <script>
-var ACCESS_KEY = 'f8902802-ad5f-4539-86e6-71d26f5ecb57';
+var ENDPOINT = 'https://secondopt-forms.ltex-lutsk-ai.workers.dev/';
 var SUBJECTS = {
   'popup': 'Запит на консультацію з secondopt.com.ua',
   'catalog-modal': 'Запит на каталог з secondopt.com.ua',
   'main': 'Запит на каталог L-TEX з secondopt.com.ua'
-};
-var FROM_NAMES = {
-  'popup': 'secondopt.com.ua Консультація',
-  'catalog-modal': 'secondopt.com.ua Каталог (модалка)',
-  'main': 'secondopt.com.ua Каталог (основна)'
 };
 
 document.getElementById('t-submit').addEventListener('click', function() {
@@ -62,29 +60,20 @@ document.getElementById('t-submit').addEventListener('click', function() {
   var type = document.getElementById('t-form').value;
   btn.disabled = true;
 
-  var name = document.getElementById('t-name').value;
-  var phone = document.getElementById('t-phone').value;
-  var email = document.getElementById('t-email').value;
-  var msg = 'Тестова заявка з secondopt.com.ua/test-forms.html\n\n'
-          + 'Імʼя: ' + name + '\n'
-          + 'Телефон: ' + phone + '\n'
-          + (email ? 'Email: ' + email + '\n' : '')
-          + '\nЧас: ' + new Date().toLocaleString('uk-UA');
-
   var payload = {
-    access_key: ACCESS_KEY,
     subject: SUBJECTS[type],
-    from_name: FROM_NAMES[type],
-    name: name,
-    phone: phone,
-    message: msg
+    name: document.getElementById('t-name').value,
+    phone: document.getElementById('t-phone').value,
+    region: document.getElementById('t-region').value || undefined,
+    category: document.getElementById('t-category').value || undefined,
+    _form: 'test-forms.html / ' + type
   };
-  if (email) payload.email = email;
+  Object.keys(payload).forEach(function(k) { if (payload[k] === undefined) delete payload[k]; });
 
-  log.textContent = '→ Sending to https://api.web3forms.com/submit\n' + JSON.stringify(payload, null, 2) + '\n\n…';
+  log.textContent = '→ POST ' + ENDPOINT + '\n' + JSON.stringify(payload, null, 2) + '\n\n…';
 
   var t0 = performance.now();
-  fetch('https://api.web3forms.com/submit', {
+  fetch(ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
     body: JSON.stringify(payload)
@@ -100,7 +89,7 @@ document.getElementById('t-submit').addEventListener('click', function() {
   .then(function(r) {
     var dt = (performance.now() - t0).toFixed(0);
     var ok = r.body && r.body.success === true;
-    log.innerHTML = (ok ? '<span class="ok">✓ SUCCESS</span>' : '<span class="err">✗ FAILED</span>')
+    log.innerHTML = (ok ? '<span class="ok">✓ SUCCESS — повідомлення надіслано в Telegram</span>' : '<span class="err">✗ FAILED</span>')
       + '  HTTP ' + r.status + '  (' + dt + 'ms)\n\n'
       + 'Response body:\n' + JSON.stringify(r.body, null, 2)
       + '\n\nЗапит:\n' + JSON.stringify(payload, null, 2);
