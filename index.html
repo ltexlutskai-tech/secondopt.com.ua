@@ -447,6 +447,76 @@ ul { list-style: none; }
 }
 .catalog-cta { text-align: center; margin-top: 40px; }
 
+/* ===== RAIL CAROUSEL (товари + відео) ===== */
+.rail-wrap { position: relative; }
+.rail-track {
+  display: flex; gap: 20px; overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding: 10px 4px 18px;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.rail-track::-webkit-scrollbar { display: none; }
+.rail-track > * { scroll-snap-align: start; flex: 0 0 auto; }
+.rail-arrow {
+  position: absolute; top: 44%; transform: translateY(-50%);
+  z-index: 6; width: 46px; height: 46px; border-radius: 50%;
+  border: none; background: var(--primary); color: #fff;
+  font-size: 1.5rem; line-height: 1; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,.28);
+  transition: background var(--transition), transform var(--transition), opacity var(--transition);
+}
+.rail-arrow:hover { background: var(--primary-dark); transform: translateY(-50%) scale(1.08); }
+.rail-arrow:disabled { opacity: .3; cursor: default; }
+.rail-prev { left: -8px; }
+.rail-next { right: -8px; }
+.rail-progress {
+  height: 4px; width: 100%; max-width: 560px;
+  margin: 4px auto 0; border-radius: 4px;
+  background: rgba(255,255,255,.14); overflow: hidden;
+}
+.rail-progress > span {
+  display: block; height: 100%; width: 20%;
+  background: var(--primary); border-radius: 4px;
+  transition: width .15s ease, margin-left .15s ease;
+}
+.videos .rail-progress { background: rgba(0,0,0,.08); }
+
+/* --- Product card --- */
+.prod-card {
+  width: 232px; background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08); border-radius: 16px;
+  overflow: hidden; display: flex; flex-direction: column;
+  transition: transform var(--transition), border-color var(--transition);
+}
+.prod-card:hover { transform: translateY(-4px); border-color: var(--primary); }
+.prod-img { aspect-ratio: 1 / 1; background: #0c1810; overflow: hidden; }
+.prod-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s ease; }
+.prod-card:hover .prod-img img { transform: scale(1.05); }
+.prod-body { padding: 14px 16px 18px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.prod-tag {
+  align-self: flex-start; font-size: .6rem; font-weight: 800;
+  letter-spacing: .03em; text-transform: uppercase; color: #9be3b4;
+  background: rgba(26,122,60,.22); padding: 3px 10px; border-radius: 20px;
+}
+.prod-card h3 { font-family: var(--font-heading); font-size: .98rem; font-weight: 700; color: #fff; line-height: 1.25; }
+.btn-price {
+  margin-top: auto; background: var(--accent-gold); color: var(--dark-bg);
+  border: none; border-radius: 10px; padding: 10px 14px;
+  font-family: var(--font-heading); font-weight: 800; font-size: .85rem;
+  cursor: pointer; transition: background var(--transition), transform var(--transition);
+}
+.btn-price:hover { background: #f2c75e; transform: translateY(-1px); }
+.btn-price i { margin-right: 6px; }
+
+/* --- Video card width inside rail --- */
+.videos .rail-track .video-card { width: 320px; }
+@media (max-width: 560px) {
+  .prod-card { width: 200px; }
+  .videos .rail-track .video-card { width: 270px; }
+  .rail-arrow { width: 40px; height: 40px; font-size: 1.3rem; }
+}
+
 /* --- Lightbox --- */
 #lightboxOverlay {
   display: none; position: fixed; inset: 0;
@@ -1480,72 +1550,13 @@ select:invalid.touched {
 <section class="catalog" id="catalog">
   <div class="container">
     <h2 class="section-title reveal">Що є в наявності прямо зараз</h2>
-    <p class="section-subtitle reveal">7 категорій товарів з Європи — завжди в наявності на складі</p>
-    <div class="catalog-scroll reveal">
-      <div class="cat-card has-photos"
-           data-cat="Одяг"
-           data-photos="images/%D0%9E%D0%B4%D1%8F%D0%B3/0009.jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0086..jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0091..jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0091.jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0095..jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0098.jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0105...jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0116.jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0117...jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0123..jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0138.jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0151..jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0178.jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0213.jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0234.jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0240.jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0246..jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0263..jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0269..jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0270...jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0275..jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0276...jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0280.jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0281.jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0353..jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0451...jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0540.jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/0620..jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/1000...jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/1090...jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/1172...jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/1172.jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/1173.jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/1175...jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/1282...jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/1306.jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/1373.jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/1392.jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/1426.jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/1430.jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/1464.....jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/1464.jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/1672.....jpg|images/%D0%9E%D0%B4%D1%8F%D0%B3/1672.jpg"
-           data-labels="">
-        <span class="photo-badge">&#128247; 44 фото</span>
-        <div class="cat-emoji">&#128087;</div>
-        <h3>Одяг</h3>
-        <p>Светри, куртки, джинси, сукні, спортивний одяг</p>
-      </div>
-      <div class="cat-card has-photos"
-           data-cat="Взуття"
-           data-photos="images/%D0%92%D0%B7%D1%83%D1%82%D1%82%D1%8F/%281386%29.jpg|images/%D0%92%D0%B7%D1%83%D1%82%D1%82%D1%8F/0025.....jpg|images/%D0%92%D0%B7%D1%83%D1%82%D1%82%D1%8F/0028.....jpg|images/%D0%92%D0%B7%D1%83%D1%82%D1%82%D1%8F/0032...jpg|images/%D0%92%D0%B7%D1%83%D1%82%D1%82%D1%8F/0038.....jpg|images/%D0%92%D0%B7%D1%83%D1%82%D1%82%D1%8F/0048...jpg|images/%D0%92%D0%B7%D1%83%D1%82%D1%82%D1%8F/0077...jpg|images/%D0%92%D0%B7%D1%83%D1%82%D1%82%D1%8F/0102...jpg|images/%D0%92%D0%B7%D1%83%D1%82%D1%82%D1%8F/0103..jpg|images/%D0%92%D0%B7%D1%83%D1%82%D1%82%D1%8F/0710..jpg|images/%D0%92%D0%B7%D1%83%D1%82%D1%82%D1%8F/0710.jpg|images/%D0%92%D0%B7%D1%83%D1%82%D1%82%D1%8F/1206...jpg|images/%D0%92%D0%B7%D1%83%D1%82%D1%82%D1%8F/1662..jpg|images/%D0%92%D0%B7%D1%83%D1%82%D1%82%D1%8F/1663...jpg|images/%D0%92%D0%B7%D1%83%D1%82%D1%82%D1%8F/1663.jpg|images/%D0%92%D0%B7%D1%83%D1%82%D1%82%D1%8F/1818.jpg"
-           data-labels="">
-        <span class="photo-badge">&#128247; 16 фото</span>
-        <div class="cat-emoji">&#128095;</div>
-        <h3>Взуття</h3>
-        <p>Кросівки, черевики, туфлі, гумові, дитяче</p>
-      </div>
-      <div class="cat-card has-photos"
-           data-cat="Сумки та аксесуари"
-           data-photos="images/%D0%A1%D1%83%D0%BC%D0%BA%D0%B8%20%D1%82%D0%B0%20%D0%B0%D0%BA%D1%81%D0%B5%D1%81%D1%83%D0%B0%D1%80%D0%B8/0013...jpg|images/%D0%A1%D1%83%D0%BC%D0%BA%D0%B8%20%D1%82%D0%B0%20%D0%B0%D0%BA%D1%81%D0%B5%D1%81%D1%83%D0%B0%D1%80%D0%B8/0013.jpg|images/%D0%A1%D1%83%D0%BC%D0%BA%D0%B8%20%D1%82%D0%B0%20%D0%B0%D0%BA%D1%81%D0%B5%D1%81%D1%83%D0%B0%D1%80%D0%B8/0014.jpg|images/%D0%A1%D1%83%D0%BC%D0%BA%D0%B8%20%D1%82%D0%B0%20%D0%B0%D0%BA%D1%81%D0%B5%D1%81%D1%83%D0%B0%D1%80%D0%B8/0057...jpg|images/%D0%A1%D1%83%D0%BC%D0%BA%D0%B8%20%D1%82%D0%B0%20%D0%B0%D0%BA%D1%81%D0%B5%D1%81%D1%83%D0%B0%D1%80%D0%B8/0061..jpg|images/%D0%A1%D1%83%D0%BC%D0%BA%D0%B8%20%D1%82%D0%B0%20%D0%B0%D0%BA%D1%81%D0%B5%D1%81%D1%83%D0%B0%D1%80%D0%B8/0135...jpg|images/%D0%A1%D1%83%D0%BC%D0%BA%D0%B8%20%D1%82%D0%B0%20%D0%B0%D0%BA%D1%81%D0%B5%D1%81%D1%83%D0%B0%D1%80%D0%B8/0135..jpg|images/%D0%A1%D1%83%D0%BC%D0%BA%D0%B8%20%D1%82%D0%B0%20%D0%B0%D0%BA%D1%81%D0%B5%D1%81%D1%83%D0%B0%D1%80%D0%B8/0575...jpg|images/%D0%A1%D1%83%D0%BC%D0%BA%D0%B8%20%D1%82%D0%B0%20%D0%B0%D0%BA%D1%81%D0%B5%D1%81%D1%83%D0%B0%D1%80%D0%B8/0575..jpg|images/%D0%A1%D1%83%D0%BC%D0%BA%D0%B8%20%D1%82%D0%B0%20%D0%B0%D0%BA%D1%81%D0%B5%D1%81%D1%83%D0%B0%D1%80%D0%B8/0744...jpg|images/%D0%A1%D1%83%D0%BC%D0%BA%D0%B8%20%D1%82%D0%B0%20%D0%B0%D0%BA%D1%81%D0%B5%D1%81%D1%83%D0%B0%D1%80%D0%B8/0744..jpg|images/%D0%A1%D1%83%D0%BC%D0%BA%D0%B8%20%D1%82%D0%B0%20%D0%B0%D0%BA%D1%81%D0%B5%D1%81%D1%83%D0%B0%D1%80%D0%B8/1053..jpg|images/%D0%A1%D1%83%D0%BC%D0%BA%D0%B8%20%D1%82%D0%B0%20%D0%B0%D0%BA%D1%81%D0%B5%D1%81%D1%83%D0%B0%D1%80%D0%B8/1053.jpg|images/%D0%A1%D1%83%D0%BC%D0%BA%D0%B8%20%D1%82%D0%B0%20%D0%B0%D0%BA%D1%81%D0%B5%D1%81%D1%83%D0%B0%D1%80%D0%B8/1093.jpg|images/%D0%A1%D1%83%D0%BC%D0%BA%D0%B8%20%D1%82%D0%B0%20%D0%B0%D0%BA%D1%81%D0%B5%D1%81%D1%83%D0%B0%D1%80%D0%B8/1696..jpg|images/%D0%A1%D1%83%D0%BC%D0%BA%D0%B8%20%D1%82%D0%B0%20%D0%B0%D0%BA%D1%81%D0%B5%D1%81%D1%83%D0%B0%D1%80%D0%B8/1705.jpg|images/%D0%A1%D1%83%D0%BC%D0%BA%D0%B8%20%D1%82%D0%B0%20%D0%B0%D0%BA%D1%81%D0%B5%D1%81%D1%83%D0%B0%D1%80%D0%B8/1812.jpg|images/%D0%A1%D1%83%D0%BC%D0%BA%D0%B8%20%D1%82%D0%B0%20%D0%B0%D0%BA%D1%81%D0%B5%D1%81%D1%83%D0%B0%D1%80%D0%B8/photo_2026-03-19_12-35-18.jpg"
-           data-labels="">
-        <span class="photo-badge">&#128247; 18 фото</span>
-        <div class="cat-emoji">&#128092;</div>
-        <h3>Сумки та аксесуари</h3>
-        <p>Сумки, ремені, шарфи, капелюхи</p>
-      </div>
-      <div class="cat-card has-photos"
-           data-cat="Дім та побут"
-           data-photos="images/%D0%94%D1%96%D0%BC%20%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%83%D1%82/0015.jpg|images/%D0%94%D1%96%D0%BC%20%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%83%D1%82/0088.jpg|images/%D0%94%D1%96%D0%BC%20%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%83%D1%82/0149...jpg|images/%D0%94%D1%96%D0%BC%20%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%83%D1%82/0149..jpg|images/%D0%94%D1%96%D0%BC%20%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%83%D1%82/0149.jpg|images/%D0%94%D1%96%D0%BC%20%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%83%D1%82/0154..jpg|images/%D0%94%D1%96%D0%BC%20%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%83%D1%82/0160...jpg|images/%D0%94%D1%96%D0%BC%20%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%83%D1%82/0160.jpg|images/%D0%94%D1%96%D0%BC%20%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%83%D1%82/0170.jpg|images/%D0%94%D1%96%D0%BC%20%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%83%D1%82/0173...jpg|images/%D0%94%D1%96%D0%BC%20%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%83%D1%82/0173.jpg|images/%D0%94%D1%96%D0%BC%20%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%83%D1%82/0186.jpg|images/%D0%94%D1%96%D0%BC%20%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%83%D1%82/0233...jpg|images/%D0%94%D1%96%D0%BC%20%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%83%D1%82/0233..jpg|images/%D0%94%D1%96%D0%BC%20%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%83%D1%82/0683...jpg|images/%D0%94%D1%96%D0%BC%20%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%83%D1%82/0824....jpg|images/%D0%94%D1%96%D0%BC%20%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%83%D1%82/0824.jpg|images/%D0%94%D1%96%D0%BC%20%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%83%D1%82/1208..jpg|images/%D0%94%D1%96%D0%BC%20%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%83%D1%82/1208.jpg|images/%D0%94%D1%96%D0%BC%20%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%83%D1%82/1245...jpg|images/%D0%94%D1%96%D0%BC%20%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%83%D1%82/1308...jpg"
-           data-labels="">
-        <span class="photo-badge">&#128247; 21 фото</span>
-        <div class="cat-emoji">&#127968;</div>
-        <h3>Дім та побут</h3>
-        <p>Текстиль, посуд, декор</p>
-      </div>
-      <div class="cat-card has-photos"
-           data-cat="Іграшки"
-           data-photos="images/%D0%86%D0%B3%D1%80%D0%B0%D1%88%D0%BA%D0%B8/0162..jpg|images/%D0%86%D0%B3%D1%80%D0%B0%D1%88%D0%BA%D0%B8/0162.jpg|images/%D0%86%D0%B3%D1%80%D0%B0%D1%88%D0%BA%D0%B8/0164....jpg|images/%D0%86%D0%B3%D1%80%D0%B0%D1%88%D0%BA%D0%B8/0164...jpg|images/%D0%86%D0%B3%D1%80%D0%B0%D1%88%D0%BA%D0%B8/0164.jpg"
-           data-labels="">
-        <span class="photo-badge">&#128247; 5 фото</span>
-        <div class="cat-emoji">&#129528;</div>
-        <h3>Іграшки</h3>
-        <p>Дитячі іграшки всіх видів</p>
-      </div>
-      <div class="cat-card has-photos"
-           data-cat="Bric-a-Brac"
-           data-photos="images/Bric-a-Brac/photo_2026-02-21_09-48-52.jpg|images/Bric-a-Brac/photo_2026-02-21_09-49-25.jpg|images/Bric-a-Brac/photo_2026-02-21_09-50-51 (2).jpg|images/Bric-a-Brac/photo_2026-02-21_09-51-36.jpg|images/Bric-a-Brac/photo_2026-02-21_12-16-01.jpg|images/Bric-a-Brac/photo_2026-02-24_13-46-23 (2).jpg|images/Bric-a-Brac/photo_2026-02-24_13-46-23.jpg|images/Bric-a-Brac/photo_2026-02-24_13-46-24 (2).jpg|images/Bric-a-Brac/photo_2026-02-24_13-46-24.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-16.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-27.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-30.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-31.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-33.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-34.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-36.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-37.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-39.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-40.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-42.jpg|images/Bric-a-Brac/photo_2026-03-26_15-14-43.jpg"
-           data-labels="">
-        <span class="photo-badge">&#128247; 21 фото</span>
-        <div class="cat-emoji">&#128142;</div>
-        <h3>Bric-a-Brac</h3>
-        <p>Вінтаж, антикваріат, дрібниці</p>
-      </div>
-      <div class="cat-card has-photos"
-           data-cat="Косметика"
-           data-photos="images/Косметика/photo_2026-03-26_15-26-26.jpg|images/Косметика/photo_2026-03-26_15-26-28.jpg|images/Косметика/photo_2026-03-26_15-26-36.jpg|images/Косметика/photo_2026-03-26_15-26-37.jpg|images/Косметика/photo_2026-03-26_15-26-40.jpg|images/Косметика/photo_2026-03-26_15-26-41.jpg|images/Косметика/photo_2026-03-26_15-26-43.jpg|images/Косметика/photo_2026-03-26_15-26-45.jpg|images/Косметика/photo_2026-03-26_15-26-46.jpg|images/Косметика/photo_2026-03-26_15-26-48.jpg|images/Косметика/photo_2026-03-26_15-26-49.jpg|images/Косметика/photo_2026-03-26_15-26-51.jpg|images/Косметика/photo_2026-03-26_15-26-52.jpg|images/Косметика/photo_2026-03-26_15-26-53.jpg|images/Косметика/photo_2026-03-26_15-26-55.jpg|images/Косметика/photo_2026-03-26_15-26-58.jpg|images/Косметика/photo_2026-03-26_15-27-00.jpg|images/Косметика/photo_2026-03-26_15-27-01.jpg|images/Косметика/photo_2026-03-26_15-27-06.jpg|images/Косметика/photo_2026-03-26_15-27-08.jpg"
-           data-labels="">
-        <span class="photo-badge">&#128247; 20 фото</span>
-        <div class="cat-emoji">&#128132;</div>
-        <h3>Косметика</h3>
-        <p>Догляд, парфумерія</p>
-      </div>
+    <p class="section-subtitle reveal">Популярні позиції з Європи — завжди в наявності на складі</p>
+    <div class="rail-wrap reveal">
+      <button class="rail-arrow rail-prev" id="prodPrev" aria-label="Попередні товари">&#8249;</button>
+      <div class="rail-track" id="prodTrack"></div>
+      <button class="rail-arrow rail-next" id="prodNext" aria-label="Наступні товари">&#8250;</button>
     </div>
+    <div class="rail-progress reveal"><span id="prodProgress"></span></div>
     <div class="catalog-cta reveal">
       <button class="btn btn-gold" id="catalogViewBtn"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Переглянути онлайн-каталог &rarr;</button>
     </div>
@@ -1566,34 +1577,12 @@ select:invalid.touched {
   <div class="container">
     <h2 class="section-title reveal">Дивіться товар перед покупкою</h2>
     <p class="section-subtitle reveal">Кожен мішок має власний відеоогляд — знаєте що купуєте</p>
-    <div class="videos-grid reveal">
-      <a href="https://www.youtube.com/channel/UCbBvZnTCTQ2zTpU1z1DSErQ" target="_blank" rel="noopener" class="video-card">
-        <div class="video-thumb">
-          <div class="play-icon"><i class="fas fa-play" aria-hidden="true"></i></div>
-        </div>
-        <div class="video-info">
-          <h4>Огляд одягу</h4>
-          <p>Светри, куртки, спортивний одяг</p>
-        </div>
-      </a>
-      <a href="https://www.youtube.com/channel/UCbBvZnTCTQ2zTpU1z1DSErQ" target="_blank" rel="noopener" class="video-card">
-        <div class="video-thumb">
-          <div class="play-icon"><i class="fas fa-play" aria-hidden="true"></i></div>
-        </div>
-        <div class="video-info">
-          <h4>Огляд взуття</h4>
-          <p>Кросівки, черевики, дитяче взуття</p>
-        </div>
-      </a>
-      <a href="https://www.youtube.com/channel/UCbBvZnTCTQ2zTpU1z1DSErQ" target="_blank" rel="noopener" class="video-card">
-        <div class="video-thumb">
-          <div class="play-icon"><i class="fas fa-play" aria-hidden="true"></i></div>
-        </div>
-        <div class="video-info">
-          <h4>Наш склад</h4>
-          <p>Екскурсія складом та сортувальним центром</p>
-        </div>
-      </a>
+    <div class="rail-wrap reveal">
+      <button class="rail-arrow rail-prev" id="videoPrev" aria-label="Попередні відео">&#8249;</button>
+      <div class="rail-track" id="videoTrack"></div>
+      <button class="rail-arrow rail-next" id="videoNext" aria-label="Наступні відео">&#8250;</button>
+    </div>
+    <div class="rail-progress reveal"><span id="videoProgress"></span></div>
     </div>
     <div class="videos-cta reveal">
       <a href="https://www.youtube.com/channel/UCbBvZnTCTQ2zTpU1z1DSErQ" target="_blank" rel="noopener" class="btn btn-green"><i class="fab fa-youtube" aria-hidden="true"></i> Підписатись на YouTube &rarr;</a>
@@ -2176,8 +2165,12 @@ select:invalid.touched {
   var cmForm = document.getElementById('catalogModalForm');
   var cmSuccess = document.getElementById('catalogModalSuccess');
   var catalogURL = 'https://ltexlutskai-tech.github.io/catalog-full/index.html';
+  var activeCatalogURL = catalogURL;   // де відкрити каталог після заявки
+  var activeProduct = '';              // назва товару для листа менеджеру
 
-  function openCatalogModal() {
+  function openCatalogModal(url, product) {
+    activeCatalogURL = (typeof url === 'string' && url) ? url : catalogURL;
+    activeProduct = (typeof product === 'string') ? product : '';
     cmOverlay.classList.add('open');
     document.body.style.overflow = 'hidden';
     setTimeout(function() {
@@ -2185,6 +2178,7 @@ select:invalid.touched {
       if (catField) catField.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 300);
   }
+  window.openCatalogModal = openCatalogModal;   // доступ із каруселі товарів
   function closeCatalogModal() {
     cmOverlay.classList.remove('open');
     document.body.style.overflow = '';
@@ -2209,12 +2203,13 @@ select:invalid.touched {
     if (!cmForm.checkValidity()) return;
 
     // Open catalog synchronously to preserve user-gesture (avoids popup blocker)
-    var catalogWindow = window.open(catalogURL, '_blank', 'noopener');
+    var catalogWindow = window.open(activeCatalogURL, '_blank', 'noopener');
     var popupBlocked = !catalogWindow || catalogWindow.closed || typeof catalogWindow.closed === 'undefined';
 
     // Send form data in background — don't gate catalog access on its success
     var data = new FormData(cmForm);
     data.set('_form', cmForm.id);
+    if (activeProduct) data.set('Товар', activeProduct);
     fetch('https://secondopt-forms.ltex-lutsk-ai.workers.dev/', {
       method: 'POST',
       body: data,
@@ -2232,7 +2227,7 @@ select:invalid.touched {
 
     if (popupBlocked) {
       // Fallback: navigate current tab if browser blocked the new tab
-      window.location.href = catalogURL;
+      window.location.href = activeCatalogURL;
       return;
     }
 
@@ -2348,6 +2343,144 @@ select:invalid.touched {
     if (e.key === 'ArrowLeft')  showSlide(current - 1);
     if (e.key === 'ArrowRight') showSlide(current + 1);
   });
+})();
+
+// === ТОВАРИ "Що є в наявності" (карусель з 15 позицій) ===
+// Щоб додати посилання на конкретну позицію в каталозі — впишіть його у поле url.
+// Порожній url → відкриється загальна форма каталогу.
+(function() {
+  var YT_CHANNEL = 'https://www.youtube.com/channel/UCbBvZnTCTQ2zTpU1z1DSErQ';
+
+  var catalogProducts = [
+    { img: 'images/Bric-a-Brac/photo_2026-02-21_09-48-52.webp', name: 'Bric-a-Brac',          cat: 'Bric-a-Brac',  url: 'https://ltexlutskai-tech.github.io/catalog-full/product.html?id=1913' },
+    { img: 'images/Одяг/0009.webp',                          name: 'Флісові кофти',           cat: 'Одяг',         url: 'https://ltexlutskai-tech.github.io/catalog-full/product.html?id=0223' },
+    { img: 'images/Взуття/0025.....webp',                    name: 'Кросівки Сток',           cat: 'Взуття',       url: 'https://ltexlutskai-tech.github.io/catalog-full/product.html?id=1907' },
+    { img: 'images/Одяг/0086..webp',                         name: 'Одяг жіночий XXL',        cat: 'Одяг',         url: 'https://ltexlutskai-tech.github.io/catalog-full/product.html?id=0658' },
+    { img: 'images/Одяг/0091.webp',                          name: 'Купальники CUPSHE',       cat: 'Одяг',         url: 'https://ltexlutskai-tech.github.io/catalog-full/product.html?id=1420' },
+    { img: 'images/Одяг/0095..webp',                         name: 'Робочий одяг Parkside',   cat: 'Одяг',         url: 'https://ltexlutskai-tech.github.io/catalog-full/product.html?id=0318' },
+    { img: 'images/Одяг/0098.webp',                          name: 'Шкарпетки',               cat: 'Одяг',         url: 'https://ltexlutskai-tech.github.io/catalog-full/product.html?id=1727' },
+    { img: 'images/Одяг/0105...webp',                        name: 'Жилетки',                 cat: 'Одяг',         url: 'https://ltexlutskai-tech.github.io/catalog-full/product.html?id=0809' },
+    { img: 'images/Взуття/0028.....webp',                    name: 'Кросівки мікс',           cat: 'Взуття',       url: 'https://ltexlutskai-tech.github.io/catalog-full/product.html?id=1323' },
+    { img: 'images/Взуття/0032...webp',                      name: 'Кросівки GoreTex',        cat: 'Взуття',       url: 'https://ltexlutskai-tech.github.io/catalog-full/product.html?id=1844' },
+    { img: 'images/Взуття/0038.....webp',                    name: 'Кросівки New Balance',    cat: 'Взуття',       url: 'https://ltexlutskai-tech.github.io/catalog-full/product.html?id=1655' },
+    { img: 'images/Взуття/0048...webp',                      name: 'Кросівки Adidas',         cat: 'Взуття',       url: 'https://ltexlutskai-tech.github.io/catalog-full/product.html?id=1836' },
+    { img: 'images/Взуття/0077...webp',                      name: 'Кросівки HOKA',           cat: 'Взуття',       url: 'https://ltexlutskai-tech.github.io/catalog-full/product.html?id=1293' },
+    { img: 'images/Сумки та аксесуари/0013.webp',            name: 'Сумки та гаманці',        cat: 'Аксесуари',    url: 'https://ltexlutskai-tech.github.io/catalog-full/product.html?id=0135' },
+    { img: 'images/Дім та побут/0015.webp',                  name: 'Домовий мікс',            cat: 'Дім та побут', url: 'https://ltexlutskai-tech.github.io/catalog-full/product.html?id=0418' }
+  ];
+
+  var prodTrack = document.getElementById('prodTrack');
+  if (prodTrack) {
+    catalogProducts.forEach(function(p, i) {
+      var card = document.createElement('div');
+      card.className = 'prod-card';
+
+      var imgWrap = document.createElement('div');
+      imgWrap.className = 'prod-img';
+      var img = document.createElement('img');
+      img.src = p.img;
+      img.alt = p.name + ' — секонд-хенд гуртом L-TEX';
+      img.loading = i < 4 ? 'eager' : 'lazy';
+      img.decoding = 'async';
+      img.onerror = function() {
+        if (img.src.indexOf('.webp') > -1) { img.onerror = null; img.src = p.img.replace(/\.webp$/i, '.jpg'); }
+      };
+      imgWrap.appendChild(img);
+
+      var body = document.createElement('div');
+      body.className = 'prod-body';
+      var tag = document.createElement('span');
+      tag.className = 'prod-tag';
+      tag.textContent = p.cat;
+      var h3 = document.createElement('h3');
+      h3.textContent = p.name;
+      var btn = document.createElement('button');
+      btn.className = 'btn-price';
+      btn.type = 'button';
+      btn.innerHTML = '<i class="fas fa-tag" aria-hidden="true"></i> Дізнатись ціну';
+      btn.addEventListener('click', function() {
+        if (typeof window.openCatalogModal === 'function') window.openCatalogModal(p.url, p.name);
+        if (typeof gtag !== 'undefined') gtag('event', 'product_price_click', { event_category: 'catalog', event_label: p.name });
+      });
+
+      body.appendChild(tag);
+      body.appendChild(h3);
+      body.appendChild(btn);
+      card.appendChild(imgWrap);
+      card.appendChild(body);
+      prodTrack.appendChild(card);
+    });
+  }
+
+  // === ВІДЕООГЛЯДИ (карусель з 15 заготовок) ===
+  // Замініть url на YouTube-посилання конкретного відео.
+  var videoReviews = [
+    { title: 'Футболки Екстра',        desc: 'Чоловічі + жіночі, Англія (1925)',                url: 'https://www.youtube.com/watch?v=JcQFpDnquk4&list=PL6gwWuwZT8pFubE9VozaULXn8Qk196WpM&index=2' },
+    { title: 'Футболки 2й сорт',       desc: 'Чоловічі (0275)',                                 url: 'https://www.youtube.com/watch?v=DS9hXYtM8vc&list=PL6gwWuwZT8pFqO-IpH0ouubb_iDC5Zjpc&index=2' },
+    { title: 'Спортивний одяг Сток',   desc: 'Adidas, Reebok, демісезон, дорослий + дитячий (1022)', url: 'https://www.youtube.com/watch?v=D5Esp9SVHls&list=PL6gwWuwZT8pHVsNUNrwaPPfgFh01exzq6&index=1' },
+    { title: 'Спортивний одяг Crivit', desc: 'Мікс демісезон, Сток (0348)',                     url: 'https://www.youtube.com/watch?v=iM0axm2QPnM&list=PL6gwWuwZT8pFzDHAiozQ0w77TjD_yNciD&index=3' },
+    { title: 'Куртки Екстра',          desc: 'Мікс демісезон (1724)',                           url: 'https://www.youtube.com/watch?v=aEupDqBkRIM&list=PL6gwWuwZT8pGPjzjyhssT5ND6QVFcDKw6&index=1' },
+    { title: 'Куртки зимові',          desc: 'Мікс зима, 2й сорт (0009)',                       url: 'https://www.youtube.com/watch?v=lLJ_a_zvJVc&list=PL6gwWuwZT8pFvRiO55wbHPwPEU1kcY_DB&index=1' },
+    { title: 'Спортивні штани',        desc: 'Чоловічі демісезон, 1й сорт (0260)',              url: 'https://www.youtube.com/watch?v=qGETFS9Aj50&list=PL6gwWuwZT8pGeBE6gX0dQGCLy7QKaTe4M&index=2&t=25s' },
+    { title: 'Кросівки Сток',          desc: 'Reebok/Adidas/Polo, демісезон (1907)',            url: 'https://www.youtube.com/watch?v=1xKnUkki4wM&list=PL6gwWuwZT8pGn9c5aZLFboEjM0pk8l3yi&index=1' },
+    { title: 'Взуття Крем',            desc: 'Доросле та дитяче, мікс демісезон (1125)',         url: 'https://www.youtube.com/watch?v=JQ4HviI5leg&list=PL6gwWuwZT8pEeqiqSG9AMrbr54C1IEkgp&index=2' },
+    { title: 'Кімнатні тапочки',       desc: 'Мікс демісезон, 1й сорт (1001)',                  url: 'https://www.youtube.com/watch?v=TuellgN2GVU&list=PL6gwWuwZT8pE1IogoKOKKKZ6kwaE9PMIH&index=158' },
+    { title: 'Робоче взуття PARKSIDE', desc: 'Чоловіче, сток (1473)',                           url: 'https://www.youtube.com/watch?v=Uj_6WUuRUTk&list=PL6gwWuwZT8pH8ARDDwZrMuf0FUpFErzZP&index=1' },
+    { title: 'Кросівки HOKA',          desc: 'Демісезон сток — нові, легке б/у (1321)',         url: 'https://www.youtube.com/watch?v=iH6X7UhZ7hU&list=PL6gwWuwZT8pE4EIRPYkhlgtTQ9J_WD6oS&index=1' },
+    { title: 'Crocs літо',             desc: 'Крокси, сабо, босоніжки, сток (1899)',            url: 'https://www.youtube.com/watch?v=mjhYObPpba4&list=PL6gwWuwZT8pH0X2rO4D-XWuIPyT_pXEAj&index=1' },
+    { title: 'Тверді іграшки',         desc: 'Англія/Шотландія, 1й сорт + Екстра (1567)',       url: 'https://www.youtube.com/watch?v=lwfdlrawO_w&list=PL6gwWuwZT8pHoxDA-8fBRbQpCR4xz0X4a&index=39' },
+    { title: 'Bric-a-Brac',            desc: 'Дім, офіс, іграшки, порцеляна, посуд (1913)',      url: 'https://www.youtube.com/watch?v=iMVuwsBLWXs&list=PL6gwWuwZT8pGuQK7GRfEPIht8qosbsR9Z&index=2' }
+  ];
+
+  var videoTrack = document.getElementById('videoTrack');
+  if (videoTrack) {
+    videoReviews.forEach(function(v) {
+      var a = document.createElement('a');
+      a.className = 'video-card';
+      a.href = v.url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.innerHTML =
+        '<div class="video-thumb"><div class="play-icon"><i class="fas fa-play" aria-hidden="true"></i></div></div>' +
+        '<div class="video-info"><h4></h4><p></p></div>';
+      a.querySelector('h4').textContent = v.title;
+      a.querySelector('p').textContent = v.desc;
+      videoTrack.appendChild(a);
+    });
+  }
+
+  // === Універсальна логіка каруселі (стрілки + прогрес + клавіатура) ===
+  function initRail(trackId, prevId, nextId, progId) {
+    var track = document.getElementById(trackId);
+    if (!track) return;
+    var prev = document.getElementById(prevId);
+    var next = document.getElementById(nextId);
+    var prog = progId ? document.getElementById(progId) : null;
+
+    function step() {
+      var first = track.firstElementChild;
+      var w = first ? first.getBoundingClientRect().width : track.clientWidth * 0.8;
+      return w + 20; // gap
+    }
+    function update() {
+      var max = track.scrollWidth - track.clientWidth;
+      if (prev) prev.disabled = track.scrollLeft <= 2;
+      if (next) next.disabled = track.scrollLeft >= max - 2;
+      if (prog) {
+        var ratio = max > 0 ? track.scrollLeft / max : 0;
+        var thumb = Math.max(14, (track.clientWidth / track.scrollWidth) * 100);
+        prog.style.width = thumb + '%';
+        prog.style.marginLeft = (ratio * (100 - thumb)) + '%';
+      }
+    }
+    if (prev) prev.addEventListener('click', function() { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    if (next) next.addEventListener('click', function() { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+  initRail('prodTrack', 'prodPrev', 'prodNext', 'prodProgress');
+  initRail('videoTrack', 'videoPrev', 'videoNext', 'videoProgress');
 })();
 
 // === WAREHOUSE CAROUSEL ===
