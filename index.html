@@ -615,11 +615,31 @@ ul { list-style: none; }
   align-items: center;
   justify-content: center;
   color: var(--accent-green);
+  overflow: hidden;
 }
+.video-thumb .yt-thumb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.video-thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.18);
+  transition: background var(--transition);
+}
+.video-card:hover .video-thumb::after { background: rgba(0,0,0,.06); }
 .video-thumb .play-icon {
+  position: relative;
+  z-index: 2;
   width: 64px;
   height: 64px;
-  background: rgba(255,255,255,.15);
+  background: rgba(0,0,0,.45);
+  color: #fff;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -2432,6 +2452,11 @@ select:invalid.touched {
     { title: 'Bric-a-Brac',            desc: 'Дім, офіс, іграшки, порцеляна, посуд (1913)',      url: 'https://www.youtube.com/watch?v=iMVuwsBLWXs&list=PL6gwWuwZT8pGuQK7GRfEPIht8qosbsR9Z&index=2' }
   ];
 
+  function ytId(url) {
+    var m = String(url).match(/[?&]v=([\w-]{11})/) || String(url).match(/youtu\.be\/([\w-]{11})/);
+    return m ? m[1] : '';
+  }
+
   var videoTrack = document.getElementById('videoTrack');
   if (videoTrack) {
     videoReviews.forEach(function(v) {
@@ -2445,6 +2470,22 @@ select:invalid.touched {
         '<div class="video-info"><h4></h4><p></p></div>';
       a.querySelector('h4').textContent = v.title;
       a.querySelector('p').textContent = v.desc;
+      // YouTube-заставка як прев'ю
+      var id = ytId(v.url);
+      if (id) {
+        var thumb = a.querySelector('.video-thumb');
+        var img = document.createElement('img');
+        img.className = 'yt-thumb';
+        img.src = 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
+        img.alt = v.title;
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        // hqdefault існує завжди; пробуємо HD, з відкатом
+        var hd = new Image();
+        hd.onload = function() { if (hd.naturalWidth > 480) img.src = hd.src; };
+        hd.src = 'https://i.ytimg.com/vi/' + id + '/maxresdefault.jpg';
+        thumb.insertBefore(img, thumb.firstChild);
+      }
       videoTrack.appendChild(a);
     });
   }
