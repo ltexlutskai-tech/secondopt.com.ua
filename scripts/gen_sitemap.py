@@ -27,6 +27,12 @@ SUBPAGES = [
     {'loc': BASE_URL + '/dim-pobut.html', 'lastmod': TODAY, 'changefreq': 'monthly', 'priority': '0.7', 'imageFolder': 'Дім та побут'},
     {'loc': BASE_URL + '/igrashky.html', 'lastmod': TODAY, 'changefreq': 'monthly', 'priority': '0.7', 'imageFolder': 'Іграшки'},
     {'loc': BASE_URL + '/bric-a-brac.html', 'lastmod': TODAY, 'changefreq': 'monthly', 'priority': '0.7', 'imageFolder': 'Bric-a-Brac'},
+    {'loc': BASE_URL + '/kosmetyka.html', 'lastmod': TODAY, 'changefreq': 'monthly', 'priority': '0.7', 'imageFolder': 'Косметика'},
+    {'loc': BASE_URL + '/blog/', 'lastmod': TODAY, 'changefreq': 'weekly', 'priority': '0.7', 'imageFolder': None},
+    {'loc': BASE_URL + '/blog/shcho-take-sekond-hend.html', 'lastmod': TODAY, 'changefreq': 'monthly', 'priority': '0.6', 'imageFolder': None},
+    {'loc': BASE_URL + '/blog/sorty-sekond-hendu.html', 'lastmod': TODAY, 'changefreq': 'monthly', 'priority': '0.6', 'imageFolder': None},
+    {'loc': BASE_URL + '/blog/yak-vidkryty-biznes-na-sekond-hendi.html', 'lastmod': TODAY, 'changefreq': 'monthly', 'priority': '0.6', 'imageFolder': None},
+    {'loc': BASE_URL + '/blog/yak-kupuvaty-sekond-hend-gurtom.html', 'lastmod': TODAY, 'changefreq': 'monthly', 'priority': '0.6', 'imageFolder': None},
 ]
 
 def esc(s):
@@ -52,7 +58,7 @@ for page in SUBPAGES:
     lines.append('    <changefreq>' + page['changefreq'] + '</changefreq>')
     lines.append('    <priority>' + page['priority'] + '</priority>')
 
-    if page['loc'].endswith('/'):
+    if page['loc'] == BASE_URL + '/':
         for folder, title in CATEGORY_TITLES.items():
             for f in get_imgs(folder):
                 url = BASE_URL + '/images/' + urllib.parse.quote(folder) + '/' + urllib.parse.quote(f)
