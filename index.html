@@ -517,57 +517,6 @@ ul { list-style: none; }
   .rail-arrow { width: 40px; height: 40px; font-size: 1.3rem; }
 }
 
-/* ===== BMW × NOVA POSHTA PROMO ===== */
-.promo-bmw { padding: 34px 0 6px; }
-.promo-bmw.is-hidden { display: none; }
-.promo-bmw__card {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 28px;
-  align-items: center;
-  background: linear-gradient(120deg, #eef2f8 0%, #ffffff 58%);
-  border: 1px solid rgba(20,40,80,.08);
-  border-radius: 20px;
-  padding: 22px;
-  box-shadow: 0 14px 40px rgba(20,40,80,.10);
-  overflow: hidden;
-}
-.promo-bmw__card::before {
-  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px;
-  background: linear-gradient(180deg, #0066b1 0%, #e2231a 100%);
-}
-.promo-bmw__img-link { display: block; border-radius: 14px; overflow: hidden; line-height: 0; }
-.promo-bmw__img-link img { width: 100%; height: auto; display: block; border-radius: 14px; transition: transform .4s ease; }
-.promo-bmw__img-link:hover img { transform: scale(1.02); }
-.promo-bmw__body { padding-right: 4px; }
-.promo-bmw__badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: rgba(226,35,26,.10); color: #e2231a;
-  font-weight: 800; font-size: .7rem; letter-spacing: .03em; text-transform: uppercase;
-  padding: 5px 12px; border-radius: 30px; margin-bottom: 12px;
-}
-.promo-bmw__title {
-  font-family: var(--font-heading); font-weight: 800;
-  font-size: clamp(1.5rem, 2.8vw, 2.05rem); line-height: 1.05;
-  color: #0a1a33; margin-bottom: 12px;
-}
-.promo-bmw__text { color: #3a4660; font-size: .95rem; line-height: 1.6; margin-bottom: 18px; }
-.promo-bmw__cta { white-space: nowrap; }
-.promo-bmw__close {
-  position: absolute; top: 10px; right: 12px; z-index: 3;
-  width: 34px; height: 34px; border-radius: 50%; border: none;
-  background: rgba(10,26,51,.08); color: #0a1a33; font-size: 1.5rem; line-height: 1;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: background .2s, transform .2s;
-}
-.promo-bmw__close:hover { background: rgba(10,26,51,.18); transform: rotate(90deg); }
-@media (max-width: 760px) {
-  .promo-bmw__card { grid-template-columns: 1fr; gap: 16px; padding: 16px; }
-  .promo-bmw__title { font-size: 1.45rem; }
-  .promo-bmw__cta { width: 100%; text-align: center; }
-}
-
 /* --- Lightbox --- */
 #lightboxOverlay {
   display: none; position: fixed; inset: 0;
@@ -1650,50 +1599,6 @@ select:invalid.touched {
     </div>
   </div>
 </section>
-
-<!-- BMW × NOVA POSHTA PROMO -->
-<section class="promo-bmw reveal" id="promoBmw" aria-label="Акція Нової пошти — виграй BMW">
-  <div class="container">
-    <div class="promo-bmw__card">
-      <button class="promo-bmw__close" id="promoBmwClose" type="button" aria-label="Закрити банер">&times;</button>
-      <a href="https://novaposhta.ua/win_bmw" target="_blank" rel="noopener" class="promo-bmw__img-link" aria-label="Взяти участь в акції BMW від Нової пошти">
-        <img src="images/bmw-novaposhta.jpg" alt="Акція Нової пошти — замовляй доставку, розпакуй BMW" loading="eager" decoding="async"
-             onerror="this.closest('.promo-bmw__img-link').style.display='none'">
-      </a>
-      <div class="promo-bmw__body">
-        <span class="promo-bmw__badge"><i class="fas fa-gift" aria-hidden="true"></i> Акція Нової пошти</span>
-        <h2 class="promo-bmw__title">Замовляй доставку — розпакуй BMW</h2>
-        <p class="promo-bmw__text">
-          З <strong>17.06.2026</strong> до <strong>31.07.2026</strong> стартує акція від Нової пошти
-          «Замовляй доставку — розпакуй BMW». Умови прості: зроби замовлення у нас, зареєструйся
-          за номером телефону на сайті Нової пошти за посиланням — і автоматично стань учасником
-          розіграшу <strong>BMW 3 серії Туринг</strong>. Хай удача буде на твоєму боці!
-        </p>
-        <a href="https://novaposhta.ua/win_bmw" target="_blank" rel="noopener" class="btn btn-gold promo-bmw__cta" id="promoBmwCta">
-          <i class="fas fa-external-link-alt" aria-hidden="true"></i> Взяти участь в акції &rarr;
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-<script>
-(function() {
-  var sec = document.getElementById('promoBmw');
-  if (!sec) return;
-  var KEY = 'promoBmwClosed_v1';
-  try { if (localStorage.getItem(KEY) === '1') sec.classList.add('is-hidden'); } catch (e) {}
-  var closeBtn = document.getElementById('promoBmwClose');
-  if (closeBtn) closeBtn.addEventListener('click', function() {
-    sec.classList.add('is-hidden');
-    try { localStorage.setItem(KEY, '1'); } catch (e) {}
-    if (typeof gtag !== 'undefined') gtag('event', 'promo_close', { event_category: 'promo', event_label: 'bmw_novaposhta' });
-  });
-  var cta = document.getElementById('promoBmwCta');
-  if (cta) cta.addEventListener('click', function() {
-    if (typeof gtag !== 'undefined') gtag('event', 'promo_click', { event_category: 'promo', event_label: 'bmw_novaposhta' });
-  });
-})();
-</script>
 
 <!-- ПЕРЕВАГИ -->
 <section class="advantages" id="advantages" aria-label="Переваги L-TEX">
