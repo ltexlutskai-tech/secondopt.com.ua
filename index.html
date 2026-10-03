@@ -2145,6 +2145,26 @@ select:invalid.touched {
 
   // === FORM SUBMISSION ===
   var FORMS_ENDPOINT = 'https://secondopt-forms.ltex-lutsk-ai.workers.dev/';
+  // Заявка йде ОДРАЗУ в систему L-TEX (стає лідом у менеджерці). Старий
+  // обробник (Telegram-чат) — запасний: лише якщо система не відповіла.
+  var LTEX_ENDPOINT = 'https://ltex.com.ua/api/public/site-form';
+
+  function postJson(url, data) {
+    return fetch(url, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
+      .then(function(res) { return res.json().catch(function() { return { success: false, message: 'HTTP ' + res.status }; }); });
+  }
+
+  function sendLead(data) {
+    return postJson(LTEX_ENDPOINT, data)
+      .then(function(json) {
+        if (json && json.success !== false) return json;
+        throw new Error(json && json.message || 'ltex rejected');
+      })
+      .catch(function(err) {
+        console.warn('[forms] L-TEX недоступна, запасний шлях:', err);
+        return postJson(FORMS_ENDPOINT, data);
+      });
+  }
 
   function submitForm(form, successEl) {
     form.addEventListener('submit', function(e) {
@@ -2155,12 +2175,7 @@ select:invalid.touched {
       var data = new FormData(form);
       data.set('_form', form.id);
 
-      fetch(FORMS_ENDPOINT, {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      })
-      .then(function(res) { return res.json().catch(function() { return { success: false, message: 'HTTP ' + res.status }; }); })
+      sendLead(data)
       .then(function(json) {
         if (!json || json.success === false) {
           console.error('[forms] submission rejected:', json);
@@ -2305,12 +2320,7 @@ select:invalid.touched {
     var data = new FormData(cmForm);
     data.set('_form', cmForm.id);
     if (activeProduct) data.set('Товар', activeProduct);
-    fetch('https://secondopt-forms.ltex-lutsk-ai.workers.dev/', {
-      method: 'POST',
-      body: data,
-      headers: { 'Accept': 'application/json' }
-    })
-    .then(function(res) { return res.json().catch(function() { return { success: false, message: 'HTTP ' + res.status }; }); })
+    sendLead(data)
     .then(function(json) {
       if (!json || json.success === false) console.error('[forms] catalog form rejected:', json);
     })
