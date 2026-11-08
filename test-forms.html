@@ -20,18 +20,23 @@
 </style>
 </head>
 <body>
-<h1>Діагностика форм secondopt.com.ua → Telegram (через Cloudflare Worker)</h1>
-<p><small>Ця сторінка робить прямий запит до <code>https://secondopt-forms.ltex-lutsk-ai.workers.dev/</code>. Відповідь показується нижче. Сторінка прихована від пошуковиків (<code>noindex</code>).</small></p>
+<h1>Діагностика форм secondopt.com.ua → CRM L-TEX (резерв — Cloudflare Worker → Telegram)</h1>
+<p><small>Ця сторінка робить прямий запит до обраного обробника: <code>https://ltex.com.ua/api/public/site-form</code> (CRM, головний — створює справжнього ліда; імʼя «Тест …» видно в CRM → Ліди) або <code>https://secondopt-forms.ltex-lutsk-ai.workers.dev/</code> (резерв, Telegram). Відповідь показується нижче. Сторінка прихована від пошуковиків (<code>noindex</code>).</small></p>
 
 <div class="card">
   <label>Ваше імʼя</label>
-  <input id="t-name" value="Олена Тестова">
+  <input id="t-name" value="Тест Олена">
   <label>Телефон</label>
   <input id="t-phone" value="+380501234567">
   <label>Регіон (опц.)</label>
-  <input id="t-region" value="Луцьк">
+  <input id="t-region" value="Волинська">
   <label>Категорія (опц.)</label>
   <input id="t-category" value="Одяг">
+  <label>Куди слати</label>
+  <select id="t-endpoint">
+    <option value="https://ltex.com.ua/api/public/site-form">CRM L-TEX (головний)</option>
+    <option value="https://secondopt-forms.ltex-lutsk-ai.workers.dev/">Worker → Telegram (резерв)</option>
+  </select>
   <label>Тип форми (subject)</label>
   <select id="t-form">
     <option value="popup">popup — Запит на консультацію</option>
@@ -47,7 +52,7 @@
 </div>
 
 <script>
-var ENDPOINT = 'https://secondopt-forms.ltex-lutsk-ai.workers.dev/';
+var FORM_IDS = { 'popup': 'popupForm', 'catalog-modal': 'catalogModalForm', 'main': 'mainForm' };
 var SUBJECTS = {
   'popup': 'Запит на консультацію з secondopt.com.ua',
   'catalog-modal': 'Запит на каталог з secondopt.com.ua',
@@ -58,6 +63,7 @@ document.getElementById('t-submit').addEventListener('click', function() {
   var btn = this;
   var log = document.getElementById('t-log');
   var type = document.getElementById('t-form').value;
+  var ENDPOINT = document.getElementById('t-endpoint').value;
   btn.disabled = true;
 
   var payload = {
@@ -66,7 +72,9 @@ document.getElementById('t-submit').addEventListener('click', function() {
     phone: document.getElementById('t-phone').value,
     region: document.getElementById('t-region').value || undefined,
     category: document.getElementById('t-category').value || undefined,
-    _form: 'test-forms.html / ' + type
+    _subject: 'ТЕСТ: ' + SUBJECTS[type],
+    _form: FORM_IDS[type],
+    _page: location.href
   };
   Object.keys(payload).forEach(function(k) { if (payload[k] === undefined) delete payload[k]; });
 
@@ -89,7 +97,7 @@ document.getElementById('t-submit').addEventListener('click', function() {
   .then(function(r) {
     var dt = (performance.now() - t0).toFixed(0);
     var ok = r.body && r.body.success === true;
-    log.innerHTML = (ok ? '<span class="ok">✓ SUCCESS — повідомлення надіслано в Telegram</span>' : '<span class="err">✗ FAILED</span>')
+    log.innerHTML = (ok ? '<span class="ok">✓ SUCCESS — заявку прийнято</span>' : '<span class="err">✗ FAILED</span>')
       + '  HTTP ' + r.status + '  (' + dt + 'ms)\n\n'
       + 'Response body:\n' + JSON.stringify(r.body, null, 2)
       + '\n\nЗапит:\n' + JSON.stringify(payload, null, 2);
