@@ -1543,11 +1543,26 @@ select:invalid.touched {
 
   function postCrm(pairs) {
     var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
-    var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 12000) : null;
+    // Р-281: форма часто відкриває каталог / Telegram у новій вкладці, і телефон
+    // «заморожує» цю сторінку. Таймер 12 с тоді спрацьовував на повернення і
+    // обривав запит, що вже йшов, — заявка йшла в резерв «⚠️ НЕ В CRM».
+    // Тепер: keepalive (браузер доводить запит до кінця навіть у фоні), а
+    // таймер рахує лише час, поки сторінку видно.
+    var waited = 0, timer = null;
+    function tick() {
+      timer = setTimeout(function () {
+        if (typeof document !== 'undefined' && document.hidden) { tick(); return; }
+        waited += 1000;
+        if (waited >= 12000) { if (ctrl) ctrl.abort(); return; }
+        tick();
+      }, 1000);
+    }
+    if (ctrl) tick();
     return fetch(CRM_URL, {
       method: 'POST',
       body: toForm(pairs),
       headers: { 'Accept': 'application/json' },
+      keepalive: true,
       signal: ctrl ? ctrl.signal : undefined
     }).then(function (r) {
       return r.json().catch(function () { return null; }).then(function (j) {
@@ -1620,7 +1635,7 @@ select:invalid.touched {
       if (!err || !err.status || err.status >= 500) queue(pairs);
       return (function (form, fd, err) {
         // Запасний шлях — Cloudflare Worker → Telegram-чат.
-        fd.set('subject', '⚠️ НЕ В CRM — ' + (fd.get('subject') || 'Заявка з сайту'));
+        fd.set('subject', '⚠️ НЕ В CRM (' + (err && err.status ? 'HTTP ' + err.status : (err && err.name === 'AbortError' ? 'таймаут' : 'мережа')) + ') — ' + (fd.get('subject') || 'Заявка з сайту'));
         return fetch('https://secondopt-forms.ltex-lutsk-ai.workers.dev/', { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } })
           .then(function (r) { return r.json().catch(function () { return null; }); })
           .then(function (j) { return !!(j && j.success !== false); });
@@ -2531,28 +2546,33 @@ select:invalid.touched {
     // Р-240в: номер — 10 цифр; невалідний — повідомлення під полем, каталог не відкриваємо.
     if (window.ltexCheckPhone && window.ltexCheckPhone(cmForm)) return;
 
-    // Open catalog synchronously to preserve user-gesture (avoids popup blocker)
-    var catalogWindow = window.open(activeCatalogURL, '_blank', 'noopener');
-    var popupBlocked = !catalogWindow || catalogWindow.closed || typeof catalogWindow.closed === 'undefined';
-
-    // Send form data in background — don't gate catalog access on its success
+    // Р-281: спершу ВІДПРАВЛЯЄМО заявку (запит стартує одразу), і лише потім
+    // відкриваємо каталог — раніше нова вкладка «заморожувала» цю сторінку ще до
+    // старту запиту, і заявка йшла в резерв «⚠️ НЕ В CRM».
     var data = new FormData(cmForm);
     data.set('_form', cmForm.id);
     if (activeProduct) data.set('Товар', activeProduct);
     // Окремий блок скрипта — тут лише глобальна window.ltexSendLead (з <head>).
-    window.ltexSendLead(cmForm, data)
+    var sending = window.ltexSendLead(cmForm, data)
     .then(function(r) {
       if (!r.ok) console.error('[forms] catalog form rejected:', r.message);
     })
     .catch(function(err) { console.error('[forms] catalog form error:', err); });
+
+    // Open catalog synchronously to preserve user-gesture (avoids popup blocker)
+    var catalogWindow = window.open(activeCatalogURL, '_blank', 'noopener');
+    var popupBlocked = !catalogWindow || catalogWindow.closed || typeof catalogWindow.closed === 'undefined';
 
     if (typeof gtag !== 'undefined') {
       gtag('event', 'generate_lead', { event_category: 'form', event_label: 'catalog_modal' });
     }
 
     if (popupBlocked) {
-      // Fallback: navigate current tab if browser blocked the new tab
-      window.location.href = activeCatalogURL;
+      // Fallback: navigate current tab if browser blocked the new tab.
+      // Р-281: не йдемо зі сторінки, поки заявка не пішла (максимум 4 с).
+      var go = function() { window.location.href = activeCatalogURL; };
+      var guard = setTimeout(go, 4000);
+      sending.then(function() { clearTimeout(guard); go(); });
       return;
     }
 
