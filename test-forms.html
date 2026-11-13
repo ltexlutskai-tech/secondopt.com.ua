@@ -44,6 +44,8 @@
     <option value="main">main — Запит на каталог (основна)</option>
   </select>
   <button id="t-submit">Відправити тестовий запит</button>
+  <button id="t-dup" style="margin-top:8px">Перевірити дубль (Р-306): дві відправки в CRM з одним _lid</button>
+  <p><small>Друга кнопка шле в CRM ту саму заявку двічі з одним ідентифікатором <code>_lid</code>. Очікується: перша — «прийнято» (у CRM один лід або один «Повторний запит»), друга — <code>"duplicate": true</code>, і в CRM нічого нового не зʼявляється.</small></p>
 </div>
 
 <div class="card">
@@ -58,6 +60,63 @@ var SUBJECTS = {
   'catalog-modal': 'Запит на каталог з secondopt.com.ua',
   'main': 'Запит на каталог L-TEX з secondopt.com.ua'
 };
+
+function testPayload(type) {
+  var payload = {
+    subject: SUBJECTS[type],
+    name: document.getElementById('t-name').value,
+    phone: document.getElementById('t-phone').value,
+    region: document.getElementById('t-region').value || undefined,
+    category: document.getElementById('t-category').value || undefined,
+    _subject: 'ТЕСТ: ' + SUBJECTS[type],
+    _form: FORM_IDS[type],
+    _page: location.href
+  };
+  Object.keys(payload).forEach(function(k) { if (payload[k] === undefined) delete payload[k]; });
+  return payload;
+}
+
+function postJson(url, payload) {
+  return fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(function(res) {
+    return res.text().then(function(txt) {
+      var body;
+      try { body = JSON.parse(txt); } catch(e) { body = txt; }
+      return { status: res.status, body: body };
+    });
+  });
+}
+
+// Р-306: дві відправки з одним _lid → вдруге CRM відповідає duplicate: true.
+document.getElementById('t-dup').addEventListener('click', function() {
+  var btn = this;
+  var log = document.getElementById('t-log');
+  var CRM = 'https://ltex.com.ua/api/public/site-form';
+  var payload = testPayload(document.getElementById('t-form').value);
+  payload._lid = 'test-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
+  btn.disabled = true;
+  log.textContent = '→ POST ' + CRM + ' двічі з _lid = ' + payload._lid + '\n\n…';
+  var first;
+  postJson(CRM, payload)
+  .then(function(r) { first = r; return postJson(CRM, payload); })
+  .then(function(second) {
+    var ok1 = first.body && first.body.success === true && !first.body.duplicate;
+    var ok2 = second.body && second.body.success === true && second.body.duplicate === true;
+    log.innerHTML = (ok1 && ok2
+        ? '<span class="ok">✓ ДУБЛЬ ВІДСІЧЕНО — перша прийнята, друга «duplicate»</span>'
+        : '<span class="err">✗ ОЧІКУВАЛОСЬ: перша — success, друга — duplicate: true</span>')
+      + '\n\n1-ша: HTTP ' + first.status + '\n' + JSON.stringify(first.body, null, 2)
+      + '\n\n2-га: HTTP ' + second.status + '\n' + JSON.stringify(second.body, null, 2)
+      + '\n\nЗапит:\n' + JSON.stringify(payload, null, 2);
+  })
+  .catch(function(err) {
+    log.innerHTML = '<span class="err">✗ NETWORK ERROR</span>\n\n' + (err && err.message ? err.message : String(err));
+  })
+  .then(function() { btn.disabled = false; });
+});
 
 document.getElementById('t-submit').addEventListener('click', function() {
   var btn = this;
