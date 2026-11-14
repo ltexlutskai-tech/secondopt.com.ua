@@ -1576,27 +1576,102 @@ select:invalid.touched {
     }, function (e) { if (timer) clearTimeout(timer); throw e; });
   }
 
-  function queue(pairs) {
+  // Р-306: ідентифікатор заявки — один на заявку, той самий у повторах, у
+  // черзі браузера й у резерві «⚠️ НЕ В CRM». CRM за ним відкидає дубль:
+  // запит, що дійшов, хоча сторінка побачила мережеву помилку, вдруге лід
+  // чи «Повторний запит» не створить.
+  function newLid() {
+    var r = '';
     try {
-      var list = JSON.parse(localStorage.getItem(QUEUE_KEY) || '[]') || [];
-      list.push({ t: Date.now(), pairs: pairs });
-      localStorage.setItem(QUEUE_KEY, JSON.stringify(list.slice(-5)));
+      var a = new Uint8Array(9);
+      crypto.getRandomValues(a);
+      for (var i = 0; i < a.length; i++) r += ('0' + a[i].toString(16)).slice(-2);
+    } catch (e) { r = Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2); }
+    return 'l' + Date.now().toString(36) + '-' + r.slice(0, 18);
+  }
+  function lidOf(pairs) {
+    for (var i = 0; pairs && i < pairs.length; i++) if (pairs[i][0] === '_lid') return pairs[i][1];
+    return null;
+  }
+
+  // Черга заявок, які CRM ще не підтвердила. Р-306: заявка лягає сюди ДО
+  // відправки і зникає, щойно CRM відповіла (або відмовила через дані, 4xx).
+  // Сторінку закрили посеред запиту — заявку дошле наступне відкриття сайту
+  // з тим самим _lid (дійшла — CRM просто відповість «вже є»).
+  var inFlight = {};
+  function readQueue() {
+    try { return JSON.parse(localStorage.getItem(QUEUE_KEY) || '[]') || []; } catch (e) { return []; }
+  }
+  function writeQueue(list) {
+    try {
+      if (list.length) localStorage.setItem(QUEUE_KEY, JSON.stringify(list.slice(-5)));
+      else localStorage.removeItem(QUEUE_KEY);
     } catch (e) {}
+  }
+  function unqueue(lid) {
+    if (!lid) return;
+    writeQueue(readQueue().filter(function (it) { return !(it && lidOf(it.pairs) === lid); }));
+  }
+  function queue(pairs) {
+    var lid = lidOf(pairs);
+    var list = readQueue().filter(function (it) { return !(lid && it && lidOf(it.pairs) === lid); });
+    list.push({ t: Date.now(), pairs: pairs });
+    writeQueue(list);
   }
   // Дослати заявки, що не пішли минулого разу (не старші 7 днів).
   function flushQueue() {
-    var list;
-    try { list = JSON.parse(localStorage.getItem(QUEUE_KEY) || '[]') || []; } catch (e) { return; }
-    if (!list.length) return;
-    try { localStorage.removeItem(QUEUE_KEY); } catch (e) {}
-    list.forEach(function (item) {
-      if (!item || !item.pairs || Date.now() - item.t > 7 * 864e5) return;
-      postCrm(item.pairs.concat([['_retry', '1']])).catch(function (err) {
-        if (!err || !err.status || err.status >= 500) queue(item.pairs);
+    var now = Date.now();
+    var list = readQueue().filter(function (it) { return it && it.pairs && now - it.t <= 7 * 864e5; });
+    // Заявки зі старої версії сторінки — без _lid: даємо його зараз.
+    list.forEach(function (it) { if (!lidOf(it.pairs)) it.pairs.push(['_lid', newLid()]); });
+    writeQueue(list);
+    list.forEach(function (it) {
+      var lid = lidOf(it.pairs);
+      if (inFlight[lid]) return; // цю заявку саме надсилає форма на сторінці
+      inFlight[lid] = true;
+      postCrm(it.pairs.concat([['_retry', '1']])).then(function () {
+        delete inFlight[lid];
+        unqueue(lid);
+      }, function (err) {
+        delete inFlight[lid];
+        // 4xx — CRM уже сказала «ні»; мережа/5xx — лишаємо до наступного разу.
+        if (err && err.status && err.status < 500) unqueue(lid);
       });
     });
   }
   setTimeout(flushQueue, 3000);
+
+  // Р-306: мережева помилка / таймаут / 5xx — це ще не «CRM недоступна».
+  // Часто запит уже дійшов (сторінка відкрила каталог / Telegram і браузер
+  // обірвав відповідь). Тож: дочекатися, поки сторінку знову видно, і ще до
+  // 2 разів повторити запит у CRM з тим самим _lid, з паузою 2–4 с. Лише
+  // якщо й вони невдалі — резерв. 4xx (400 дані, 429 ліміт) — без повторів.
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  function whenVisible() {
+    return new Promise(function (resolve) {
+      if (typeof document === 'undefined' || !document.hidden) { resolve(); return; }
+      var done = false;
+      function finish() {
+        if (done) return;
+        done = true;
+        document.removeEventListener('visibilitychange', on);
+        resolve();
+      }
+      function on() { if (!document.hidden) finish(); }
+      document.addEventListener('visibilitychange', on);
+      // Вкладка у фоні на компʼютері працює — довго не чекаємо.
+      setTimeout(finish, 30000);
+    });
+  }
+  function postCrmRetry(pairs, left) {
+    return postCrm(pairs).catch(function (err) {
+      if (left <= 0 || (err && err.status && err.status < 500)) throw err;
+      return whenVisible()
+        .then(function () { return sleep(2000 + Math.floor(Math.random() * 2000)); })
+        .then(whenVisible)
+        .then(function () { return postCrmRetry(pairs, left - 1); });
+    });
+  }
 
   /**
    * Надіслати заявку. form — елемент форми (його id стає `_form`), data —
@@ -1604,7 +1679,8 @@ select:invalid.touched {
    * { ok: false, message } — тоді людині показуємо помилку. Р-240в: невалідний
    * номер — { ok: false, code: 'bad_phone', message, shown: true } без запиту;
    * CRM відповіла 400 — { ok: false, code, message, shown: true } без резерву
-   * (shown — повідомлення вже видно у формі).
+   * (shown — повідомлення вже видно у формі). Р-306: мережа/5xx — спершу ще
+   * до 2 спроб у CRM (той самий _lid), і лише потім резерв.
    */
   window.ltexSendLead = function (form, data) {
     var fd = data || new FormData(form);
@@ -1618,24 +1694,33 @@ select:invalid.touched {
     fd.set('_title', document.title.slice(0, 200));
     if (referrer) fd.set('_referrer', referrer.slice(0, 500));
     UTM_FIELDS.forEach(function (k) { if (utm[k] && !fd.get(k)) fd.set(k, utm[k]); });
+    if (!fd.get('_lid')) fd.set('_lid', newLid());
     var pairs = toPairs(fd);
+    var lid = fd.get('_lid');
+    queue(pairs);
+    inFlight[lid] = true;
 
-    return postCrm(pairs).then(function () {
+    return postCrmRetry(pairs, 2).then(function () {
+      delete inFlight[lid];
+      unqueue(lid);
       return { ok: true, via: 'crm' };
     }, function (err) {
+      delete inFlight[lid];
       // Р-240в: 400 — CRM відмовила через дані (номер, імʼя): показуємо її
       // повідомлення людині; резерв і черга лише для 5xx/мережі/таймауту.
       if (err && err.status === 400) {
+        unqueue(lid);
         var msg = err.message || PHONE_MSG;
         return { ok: false, code: err.code || 'bad_request', message: msg,
           shown: showFormError(form, msg, err.code === 'bad_phone') };
       }
       console.warn('[forms] CRM L-TEX не прийняла заявку, запасний шлях:', err);
-      // Мережа/сервер — дошлемо в CRM пізніше; 4xx — ні (CRM вже сказала «ні»).
-      if (!err || !err.status || err.status >= 500) queue(pairs);
+      // Мережа/сервер — заявка лишається в черзі, дошлемо в CRM пізніше з тим
+      // самим _lid (CRM відкине дубль); 4xx — ні (CRM вже сказала «ні»).
+      if (err && err.status && err.status < 500) unqueue(lid);
       return (function (form, fd, err) {
         // Запасний шлях — Cloudflare Worker → Telegram-чат.
-        fd.set('subject', '⚠️ НЕ В CRM (' + (err && err.status ? 'HTTP ' + err.status : (err && err.name === 'AbortError' ? 'таймаут' : 'мережа')) + ') — ' + (fd.get('subject') || 'Заявка з сайту'));
+        fd.set('subject', '⚠️ НЕ В CRM (' + (err && err.status ? 'HTTP ' + err.status : (err && err.name === 'AbortError' ? 'таймаут' : 'мережа')) + ', ID ' + lid + ') — ' + (fd.get('subject') || 'Заявка з сайту'));
         return fetch('https://secondopt-forms.ltex-lutsk-ai.workers.dev/', { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } })
           .then(function (r) { return r.json().catch(function () { return null; }); })
           .then(function (j) { return !!(j && j.success !== false); });
